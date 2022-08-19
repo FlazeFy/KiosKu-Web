@@ -1,0 +1,243 @@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+        <a href="..." class="app-brand-link">
+            <span class="app-brand-text demo menu-text fw-bolder ms-2">KiosKu</span>
+        </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+    <ul class="menu-inner py-1">
+        <li class="menu-item active">
+            <a href="index.html" class="menu-link">
+                <i class="fa-solid fa-house mx-2"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+            </a>
+        </li>
+
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Etalase</span>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Rak</div>
+            </a>
+            <ul class="menu-sub">
+                <!--General Shelf-->
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Umum</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-chart-line me-3"></i>
+                <div data-i18n="Authentications">Statistik</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-clock-rotate-left me-3"></i>
+                <div data-i18n="Authentications">Riwayat</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-regular fa-trash-can me-3"></i>
+                <div data-i18n="Authentications">Sampah</div>
+            </a>
+        </li>
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Manajemen</span></li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Barang</div>
+            </a>
+            <ul class="menu-sub">
+                <!--General Shelf-->
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Penjualan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Distribusi</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Gudang</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-regular fa-user me-3"></i>
+                <div data-i18n="Account Settings">Karyawan</div>
+            </a>
+            <ul class="menu-sub">
+                <!--General Shelf-->
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Upah</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Tugas</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Data</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-solid fa-cash-register me-3"></i>
+                <div data-i18n="Account Settings">Kasir</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Akun</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Penjualan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Statistik</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-solid fa-rupiah-sign me-3"></i>
+                <div data-i18n="Account Settings">Keuangan</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Rincian</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Statistik</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-solid fa-diagram-project me-3"></i>
+                <div data-i18n="Account Settings">Operasional</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Sewa</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Transportasi</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Periklanan</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Pajak</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Kegiatan</span></li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-regular fa-calendar me-3"></i>
+                <div data-i18n="Authentications">Kalender</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-tags me-3"></i>
+                <div data-i18n="Authentications">Promo</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-regular fa-bell me-3"></i>
+                <div data-i18n="Authentications">Pengingat</div>
+            </a>
+        </li>
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Lainnya</span></li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-calculator me-3"></i>
+                <div data-i18n="Authentications">Kalkulator</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-book me-3"></i>
+                <div data-i18n="Authentications">Catatan</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link">
+                <i class="fa-solid fa-print me-3"></i>
+                <div data-i18n="Authentications">Cetak</div>
+            </a>
+        </li>
+
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">Bantuan</span></li>
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="fa-solid fa-info me-3"></i>
+                <div data-i18n="Account Settings">Panduan</div>
+            </a>
+            <ul class="menu-sub">
+                <!--General Shelf-->
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Etalase</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Manajemen</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Kegiatan</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</aside>
