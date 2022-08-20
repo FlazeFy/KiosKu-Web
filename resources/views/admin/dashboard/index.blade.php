@@ -24,6 +24,7 @@
         <!--Bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
+        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>  
         <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 
         <!-- Vendors CSS & JS -->
@@ -35,6 +36,97 @@
         <style>
             a{
                 text-decoration:none;
+            }
+            .dash-content #dash-content-flters {
+                list-style: none;
+                margin-bottom: 20px;
+            }
+            .dash-content #dash-content-flters li {
+                cursor: pointer;
+                display: inline-block;
+                margin: 0 10px 10px 10px;
+                font-size: 15px;
+                font-weight: 600;
+                line-height: 1;
+                padding: 7px 10px;
+                text-transform: uppercase;
+                color: #444444;
+                transition: all 0.3s ease-in-out;
+                border: 2px solid #fff;
+            }
+            .dash-content #dash-content-flters li:hover, .dash-content #dash-content-flters li.filter-active {
+                color: #f3a200;
+                border-color: #ffb727;
+            }
+            .dash-content .dash-content-item {
+                margin-bottom: 30px;
+            }
+            .dash-content .dash-content-item .dash-content-img {
+                overflow: hidden;
+            }
+            .dash-content .dash-content-item .dash-content-img img {
+                transition: all 0.8s ease-in-out;
+            }
+            .dash-content .dash-content-item .dash-content-info {
+                opacity: 0;
+                position: absolute;
+                left: 15px;
+                bottom: 0;
+                z-index: 3;
+                right: 15px;
+                transition: all ease-in-out 0.3s;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 10px 15px;
+            }
+            .dash-content .dash-content-item .dash-content-info h4 {
+                font-size: 18px;
+                color: #fff;
+                font-weight: 600;
+                color: #fff;
+                margin-bottom: 0px;
+            }
+            .dash-content .dash-content-item .dash-content-info p {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+            .dash-content .dash-content-item .dash-content-info .preview-link, .dash-content .dash-content-item .dash-content-info .details-link {
+                position: absolute;
+                right: 40px;
+                font-size: 24px;
+                top: calc(50% - 18px);
+                color: #fff;
+                transition: 0.3s;
+            }
+            .dash-content .dash-content-item .dash-content-info .preview-link:hover, .dash-content .dash-content-item .dash-content-info .details-link:hover {
+                color: #ffc041;
+            }
+            .dash-content .dash-content-item .dash-content-info .details-link {
+                right: 10px;
+            }
+            .dash-content .dash-content-item:hover .dash-content-img img {
+                transform: scale(1.2);
+            }
+            .dash-content .dash-content-item:hover .dash-content-info {
+                opacity: 1;
+            }
+
+            .container .title{
+                color:#696Cff;
+                font-weight:500;
+            }
+
+            .price{
+                color:#697A8d;
+                font-size:22px !important;
+                font-weight:bold;
+            }
+            .percentage{
+                font-weight:500;
+            }
+            .more{
+                color:#697A8d; 
+                cursor:pointer;
             }
         </style>
     </head>
@@ -55,15 +147,54 @@
                               <i class="bx bx-menu bx-sm"></i>
                             </a>
                         </div>          
-                        <a class="fw-bold  float-start">/Dashboard</a>   
+                        <a class="fw-bold float-start">/Dashboard</a>   
                         <a class="fw-bold float-end">Flazefy</a>   
                     </nav>
 
                     <!-- Content wrapper -->
-                    <div class="content-wrapper">
-                      
+                    <div class="content-wrapper p-3">
+                        <section id="dash-content" class="dash-content">
+                            <div class="container">
+                                <div class="row dash-content-container">
+                                    <div class="col-lg-2 col-md-3 dash-content-item">
+                                        @include('admin.dashboard.penjualan')
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 dash-content-item">
+                                        @include('admin.dashboard.keuntungan')
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 dash-content-item">
+                                        @include('admin.dashboard.pengunjung')
+                                    </div>
+                                    <div class="col-lg-2 col-md-3 dash-content-item">
+                                        @include('admin.dashboard.skor')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        @include('admin.dashboard.kalender')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        @include('admin.dashboard.terjual')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        @include('admin.dashboard.riwayat')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        @include('admin.dashboard.grafik.keuntungan')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        <div class="container-fluid p-3 rounded shadow h-100">
 
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        <div class="container-fluid p-3 rounded shadow h-100">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
+
                 </div>
             </div>
 
@@ -71,6 +202,7 @@
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
         <!-- / Layout wrapper -->
+        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
