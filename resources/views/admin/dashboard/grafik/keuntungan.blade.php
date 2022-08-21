@@ -1,5 +1,22 @@
 <div class="container-fluid p-3 rounded shadow h-100">
-
+    <button class="btn btn-transparent p-0 float-end" type="button" id="cardOpt-grafik-keuntungan" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fa-solid fa-ellipsis-vertical more"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt--grafik-keuntungan">
+        <a class="dropdown-item" href="">Segarkan</a>
+        <a class="dropdown-item" href="">Detail</a>
+        <a class="dropdown-item" href="">Cetak</a>
+    </div>
+    <button class="btn btn-transparent p-0 float-end mx-4" type="button" id="cardOpt-keuntungan-view" data-bs-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        <i class="fa-regular fa-calendar more"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt-keuntungan-view">
+        <a class="dropdown-item" href="">Mingguan</a>
+        <a class="dropdown-item" href="">Bulanan</a>
+    </div>
+    <a class="float-start title">Total Keuntungan</a><br>
     <div class="tab-content p-0">
         <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
             <div class="d-flex p-4 pt-3">

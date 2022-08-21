@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -13,7 +14,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view ('admin.dashboard.index');
+        $transaksi = DB::table('keranjang')
+            ->where('id_kios', '1')
+            ->orderBy('created_at', 'ASC')->get();
+
+        $barang_transaksi = DB::table('barang')
+            //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_barang', 'bara')   
+            ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
+            ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
+            ->where('keranjang.id_kios', '1')
+            ->orderBy('transaksi.id', 'ASC')->get();
+
+        return view ('admin.dashboard.index')
+            ->with('transaksi', $transaksi)
+            ->with('barang_transaksi', $barang_transaksi);
     }
 
     /**

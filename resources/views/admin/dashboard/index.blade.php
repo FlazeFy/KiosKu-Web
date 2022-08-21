@@ -148,7 +148,6 @@
                             </a>
                         </div>          
                         <a class="fw-bold float-start">/Dashboard</a>   
-                        <a class="fw-bold float-end">Flazefy</a>   
                     </nav>
 
                     <!-- Content wrapper -->
@@ -172,23 +171,22 @@
                                         @include('admin.dashboard.kalender')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
-                                        @include('admin.dashboard.terjual')
+                                        @include('admin.dashboard.grafik.terjual')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
-                                        @include('admin.dashboard.riwayat')
+                                        @include('admin.dashboard.riwayat.transaksi')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
                                         @include('admin.dashboard.grafik.keuntungan')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
-                                        <div class="container-fluid p-3 rounded shadow h-100">
-
-                                        </div>
+                                        @include('admin.dashboard.grafik.kasir')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
-                                        <div class="container-fluid p-3 rounded shadow h-100">
-
-                                        </div>
+                                        @include('admin.dashboard.riwayat.absensi')
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 dash-content-item">
+                                        @include('admin.dashboard.grafik.rak')
                                     </div>
                                 </div>
                             </div>
