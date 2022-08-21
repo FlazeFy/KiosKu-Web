@@ -14,14 +14,11 @@
         <a class="dropdown-item" href="">Detail</a>
         <a class="dropdown-item" href="">Cetak</a>
     </div>
-    <ul class="p-0 m-0">
+    <ul class="p-0 m-0 mt-3">
         @foreach($transaksi as $trs)
             @php($total = 0)
             @php($arr = [])
             <li class="d-flex mb-4 pb-1">
-                <div class="avatar flex-shrink-0 me-3">
-                    <img src=".." class="rounded" />
-                </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                     <div class="me-2">
                         <small class="text-muted d-block mb-1">

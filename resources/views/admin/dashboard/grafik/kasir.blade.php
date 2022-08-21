@@ -19,43 +19,37 @@
     <a class="float-start title">Kasir</a><br>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex flex-column align-items-center gap-1">
-        <h2 class="mb-2">2</h2>
+        <h2 class="mb-2">
+            {{count($kasir)}}
+        </h2>
         <span>Total Kasir</span>
         </div>
         <div id="kasirStatisticsChart"></div>
     </div>
     <ul class="p-0 m-0">
-        <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-                <span class="avatar-initial rounded bg-label-primary"
-                ><i class="bx bx-mobile-alt"></i
-                ></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                    <h6 class="mb-0">Kasir 1</h6>
-                    <small class="text-muted">Ahmad</small>
+        @foreach($kasir as $kr)
+            <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                    <span class="avatar-initial rounded bg-label-primary"
+                    ><i class="bx bx-mobile-alt"></i
+                    ></span>
                 </div>
-                <div class="user-progress">
-                    <small class="fw-semibold">Rp. 260K</small>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                        <h6 class="mb-0">{{$kr->nama_kasir}}</h6>
+                        <small class="text-muted">{{$kr->nama_karyawan}}</small>
+                    </div>
+                    <div class="user-progress">
+                        @php($total = 0)
+                        @foreach($barang_transaksi as $btrs)
+                            @if($btrs->id_kasir == $kr->id)
+                                @php($total += $btrs->harga_barang * $btrs->qty)
+                            @endif
+                        @endforeach
+                        <small class="fw-semibold">Rp. {{$total}}</small>
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-                <span class="avatar-initial rounded bg-label-primary"
-                ><i class="bx bx-mobile-alt"></i
-                ></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                    <h6 class="mb-0">Kasir 2</h6>
-                    <small class="text-muted">Budi</small>
-                </div>
-                <div class="user-progress">
-                    <small class="fw-semibold">Rp. 430K</small>
-                </div>
-            </div>
-        </li>
+            </li>
+        @endforeach
     </ul>                    
 </div>

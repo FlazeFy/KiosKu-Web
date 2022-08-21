@@ -27,9 +27,16 @@ class DashboardController extends Controller
             ->where('keranjang.id_kios', '1')
             ->orderBy('transaksi.id', 'ASC')->get();
 
+        $kasir =  DB::table('kasir')
+            ->select('kasir.id', 'kasir.created_at', 'kasir.nama_kasir', 'karyawan.nama_karyawan')
+            ->join('karyawan', 'karyawan.id', '=', 'kasir.id_karyawan')
+            ->where('kasir.id_kios', '1')
+            ->orderBy('kasir.created_at', 'ASC')->get();
+
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
-            ->with('barang_transaksi', $barang_transaksi);
+            ->with('barang_transaksi', $barang_transaksi)
+            ->with('kasir', $kasir);
     }
 
     /**

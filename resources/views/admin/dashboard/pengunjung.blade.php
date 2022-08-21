@@ -8,7 +8,7 @@
         <a class="dropdown-item" href="">Detail</a>
         <a class="dropdown-item" href="">Cetak</a>
     </div>
-    <a class="float-start title">Pengunjung</a><br>
+    <a class="float-start title">Pembeli</a><br>
     <h5 class="price mt-3">41 </h5>
     <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 21.20%</a>
 </div>

@@ -223,103 +223,207 @@
             //Terjual.
             'use strict';
             (function () {
-            let cardColor, headingColor, axisColor, shadeColor, borderColor;
+                let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
-            cardColor = config.colors.white;
-            headingColor = config.colors.headingColor;
-            axisColor = config.colors.axisColor;
-            borderColor = config.colors.borderColor;
+                cardColor = config.colors.white;
+                headingColor = config.colors.headingColor;
+                axisColor = config.colors.axisColor;
+                borderColor = config.colors.borderColor;
 
-            const chartterjualStatistics = document.querySelector('#terjualStatisticsChart'),
-            orderChartConfig = {
-            chart: {
-                height: 165,
-                width: 130,
-                type: 'donut'
-            },
-            labels: ['Sembako', 'Makanan', 'Peralatan Rumah Tangga'],
-            series: [
-                <?php 
-                    //Initial value.
-                    $sembako = 0; 
-                    $makanan = 0; 
-                    $peralatan = 0;
+                const chartterjualStatistics = document.querySelector('#terjualStatisticsChart'),
+                orderChartConfig = {
+                chart: {
+                    height: 165,
+                    width: 130,
+                    type: 'donut'
+                },
+                labels: ['Sembako', 'Makanan', 'Peralatan Rumah Tangga'],
+                series: [
+                    <?php 
+                        //Initial value.
+                        $sembako = 0; 
+                        $makanan = 0; 
+                        $peralatan = 0;
 
-                    //Count qty.
-                    foreach($barang_transaksi as $btrs){
-                        if($btrs->kategori_barang == "Sembako"){
-                            $sembako += $btrs->qty;
+                        //Count qty.
+                        foreach($barang_transaksi as $btrs){
+                            if($btrs->kategori_barang == "Sembako"){
+                                $sembako += $btrs->qty;
+                            }
+                            else if($btrs->kategori_barang == "Makanan"){
+                                $makanan += $btrs->qty;
+                            }
+                            else if($btrs->kategori_barang == "Peralatan Rumah Tangga"){
+                                $peralatan += $btrs->qty;
+                            }
                         }
-                        else if($btrs->kategori_barang == "Makanan"){
-                            $makanan += $btrs->qty;
-                        }
-                        else if($btrs->kategori_barang == "Peralatan Rumah Tangga"){
-                            $peralatan += $btrs->qty;
-                        }
+                        echo $sembako.", ".$makanan.", ".$peralatan;
+                    ?>
+                    
+                ],
+                colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
+                stroke: {
+                    width: 5,
+                    colors: cardColor
+                },
+                dataLabels: {
+                    enabled: false,
+                    formatter: function (val, opt) {
+                    return parseInt(val) + '%';
                     }
-                    echo $sembako.", ".$makanan.", ".$peralatan;
-                ?>
-                
-            ],
-            colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
-            stroke: {
-                width: 5,
-                colors: cardColor
-            },
-            //not finished.
-            dataLabels: {
-                enabled: false,
-                formatter: function (val, opt) {
-                return parseInt(val) + '%';
-                }
-            },
-            legend: {
-                show: false
-            },
-            grid: {
-                padding: {
-                top: 0,
-                bottom: 0,
-                right: 15
-                }
-            },
-            plotOptions: {
-                pie: {
-                donut: {
-                    size: '75%',
-                    labels: {
-                    show: true,
-                    value: {
-                        fontSize: '1.5rem',
-                        fontFamily: 'Public Sans',
-                        color: headingColor,
-                        offsetY: -15,
-                        formatter: function (val) {
-                        return parseInt(val) + '%';
-                        }
-                    },
-                    name: {
-                        offsetY: 20,
-                        fontFamily: 'Public Sans'
-                    },
-                    total: {
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    padding: {
+                    top: 0,
+                    bottom: 0,
+                    right: 15
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                    donut: {
+                        size: '75%',
+                        labels: {
                         show: true,
-                        fontSize: '0.8125rem',
-                        color: axisColor,
-                        label: 'Weekly',
-                        formatter: function (w) {
-                        return '38%';
+                        value: {
+                            fontSize: '1.5rem',
+                            fontFamily: 'Public Sans',
+                            color: headingColor,
+                            offsetY: -15,
+                            formatter: function (val) {
+                            return parseInt(val / 
+                                <?php
+                                    $count = 0;
+                                    foreach($barang_transaksi as $btrs){
+                                        $count += $btrs->qty;
+                                    }
+                                    echo $count;
+                                ?> * 100
+                            ) + '%';
+                            }
+                        },
+                        name: {
+                            offsetY: 20,
+                            fontFamily: 'Public Sans'
+                        },
+                        total: {
+                            show: true,
+                            fontSize: '0.8125rem',
+                            color: axisColor,
+                            label: 'Weekly',
+                            
+                        }
                         }
                     }
                     }
                 }
-                }
+                };
+            if (typeof chartterjualStatistics !== undefined && chartterjualStatistics !== null) {
+                const statisticsChart = new ApexCharts(chartterjualStatistics, orderChartConfig);
+                statisticsChart.render();
             }
-            };
-        if (typeof chartterjualStatistics !== undefined && chartterjualStatistics !== null) {
-            const statisticsChart = new ApexCharts(chartterjualStatistics, orderChartConfig);
-            statisticsChart.render();
-        }
+
+            // Kasir Statistics Chart
+            const kasirStatisticsChart = document.querySelector('#kasirStatisticsChart'),
+                kasirChartConfig = {
+                chart: {
+                    height: 165,
+                    width: 130,
+                    type: 'donut'
+                },
+                labels: [
+                    <?php
+                        foreach($kasir as $kr){
+                            echo "'".$kr->nama_kasir."', ";
+                        }
+                    ?>
+                ],
+                series: [
+                    <?php
+                        foreach($kasir as $kr){
+                            $total = 0;
+                            foreach($barang_transaksi as $btrs){
+                                if($btrs->id_kasir == $kr->id){
+                                    $total += $btrs->harga_barang * $btrs->qty;
+                                }
+                            }
+                            echo $total.", ";
+                        }
+                    ?>
+                ],
+                colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
+                stroke: {
+                    width: 5,
+                    colors: cardColor
+                },
+                dataLabels: {
+                    enabled: false,
+                    formatter: function (val, opt) {
+                    return parseInt(val) + '%';
+                    }
+                },
+                legend: {
+                    show: false
+                },
+                grid: {
+                    padding: {
+                    top: 0,
+                    bottom: 0,
+                    right: 15
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                    donut: {
+                        size: '75%',
+                        labels: {
+                        show: true,
+                        value: {
+                            fontSize: '1.5rem',
+                            fontFamily: 'Public Sans',
+                            color: headingColor,
+                            offsetY: -15,
+                            formatter: function (val) {
+                            return parseInt(val / 
+                                <?php
+                                    $total = 0;
+                                    foreach($kasir as $kr){
+                                        foreach($barang_transaksi as $btrs){
+                                            if($btrs->id_kasir == $kr->id){
+                                                $total += $btrs->harga_barang * $btrs->qty;
+                                            }
+                                        }
+                                    }
+                                    echo $total;
+                                ?> * 100
+                            ) + '%';
+                            }
+                        },
+                        name: {
+                            offsetY: 20,
+                            fontFamily: 'Public Sans'
+                        },
+                        total: {
+                            show: true,
+                            fontSize: '0.8125rem',
+                            color: axisColor,
+                            label: 'Weekly',
+                            formatter: function (w) {
+                            return '38%';
+                            }
+                        }
+                        }
+                    }
+                    }
+                }
+                };
+            if (typeof kasirStatisticsChart !== undefined && kasirStatisticsChart !== null) {
+                const statisticsChart = new ApexCharts(kasirStatisticsChart, kasirChartConfig);
+                statisticsChart.render();
+            }
             })();
         </script>
 
