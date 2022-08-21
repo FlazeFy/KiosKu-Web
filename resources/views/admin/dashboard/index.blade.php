@@ -219,6 +219,109 @@
 
         <!-- Page JS -->
         <script src="../assets/js/dashboards-analytics.js"></script>
+        <script type="text/javascript">
+            //Terjual.
+            'use strict';
+            (function () {
+            let cardColor, headingColor, axisColor, shadeColor, borderColor;
+
+            cardColor = config.colors.white;
+            headingColor = config.colors.headingColor;
+            axisColor = config.colors.axisColor;
+            borderColor = config.colors.borderColor;
+
+            const chartterjualStatistics = document.querySelector('#terjualStatisticsChart'),
+            orderChartConfig = {
+            chart: {
+                height: 165,
+                width: 130,
+                type: 'donut'
+            },
+            labels: ['Sembako', 'Makanan', 'Peralatan Rumah Tangga'],
+            series: [
+                <?php 
+                    //Initial value.
+                    $sembako = 0; 
+                    $makanan = 0; 
+                    $peralatan = 0;
+
+                    //Count qty.
+                    foreach($barang_transaksi as $btrs){
+                        if($btrs->kategori_barang == "Sembako"){
+                            $sembako += $btrs->qty;
+                        }
+                        else if($btrs->kategori_barang == "Makanan"){
+                            $makanan += $btrs->qty;
+                        }
+                        else if($btrs->kategori_barang == "Peralatan Rumah Tangga"){
+                            $peralatan += $btrs->qty;
+                        }
+                    }
+                    echo $sembako.", ".$makanan.", ".$peralatan;
+                ?>
+                
+            ],
+            colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
+            stroke: {
+                width: 5,
+                colors: cardColor
+            },
+            //not finished.
+            dataLabels: {
+                enabled: false,
+                formatter: function (val, opt) {
+                return parseInt(val) + '%';
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                padding: {
+                top: 0,
+                bottom: 0,
+                right: 15
+                }
+            },
+            plotOptions: {
+                pie: {
+                donut: {
+                    size: '75%',
+                    labels: {
+                    show: true,
+                    value: {
+                        fontSize: '1.5rem',
+                        fontFamily: 'Public Sans',
+                        color: headingColor,
+                        offsetY: -15,
+                        formatter: function (val) {
+                        return parseInt(val) + '%';
+                        }
+                    },
+                    name: {
+                        offsetY: 20,
+                        fontFamily: 'Public Sans'
+                    },
+                    total: {
+                        show: true,
+                        fontSize: '0.8125rem',
+                        color: axisColor,
+                        label: 'Weekly',
+                        formatter: function (w) {
+                        return '38%';
+                        }
+                    }
+                    }
+                }
+                }
+            }
+            };
+        if (typeof chartterjualStatistics !== undefined && chartterjualStatistics !== null) {
+            const statisticsChart = new ApexCharts(chartterjualStatistics, orderChartConfig);
+            statisticsChart.render();
+        }
+            })();
+        </script>
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>

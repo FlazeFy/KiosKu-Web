@@ -16,33 +16,43 @@
     </div>
     <ul class="p-0 m-0">
         @foreach($transaksi as $trs)
-        <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-                <img src=".." class="rounded" />
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                    <small class="text-muted d-block mb-1">
-                        @foreach($barang_transaksi as $btrs)
-                            @if($btrs->id_keranjang == $trs->id)
-                                {{$btrs->kategori_barang}},
-                            @endif
-                        @endforeach
-                    </small>
-                    <h6 class="mb-0">
-                        @foreach($barang_transaksi as $btrs)
-                            @if($btrs->id_keranjang == $trs->id)
-                                ({{$btrs->qty}}) {{$btrs->nama_barang}},
-                            @endif
-                        @endforeach
-                    </h6>
+            @php($total = 0)
+            @php($arr = [])
+            <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                    <img src=".." class="rounded" />
                 </div>
-                <div class="me-2">
-                    <small class="text-success d-block mb-1">Kasir 1</small>
-                    <h6 class="mb-0">Rp. 48K</h6>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                        <small class="text-muted d-block mb-1">
+                            <!--Iterate category to array-->
+                            @foreach($barang_transaksi as $btrs)
+                                @if($btrs->id_keranjang == $trs->id)
+                                    @php($arr[] = $btrs->kategori_barang)
+                                @endif
+                            @endforeach
+
+                            <!--Make array unique-->
+                            @php($arr = array_unique($arr))
+                            @foreach($arr as $ar => $val)
+                                {{$val}},
+                            @endforeach
+                        </small>
+                        <h6 class="mb-0">
+                            @foreach($barang_transaksi as $btrs)
+                                @if($btrs->id_keranjang == $trs->id)
+                                    ({{$btrs->qty}}) {{$btrs->nama_barang}},
+                                    @php($total += $btrs->qty * $btrs->harga_barang)
+                                @endif
+                            @endforeach
+                        </h6>
+                    </div>
+                    <div class="me-2">
+                        <small class="text-success d-block mb-1">{{$trs->nama_kasir}}</small>
+                        <h6 class="mb-0">Rp. {{$total}}</h6>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
         @endforeach
         
     </ul>

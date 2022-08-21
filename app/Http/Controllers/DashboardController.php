@@ -15,8 +15,10 @@ class DashboardController extends Controller
     public function index()
     {
         $transaksi = DB::table('keranjang')
-            ->where('id_kios', '1')
-            ->orderBy('created_at', 'ASC')->get();
+            ->select('keranjang.id', 'keranjang.created_at', 'kasir.nama_kasir')
+            ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
+            ->where('keranjang.id_kios', '1')
+            ->orderBy('keranjang.created_at', 'ASC')->get();
 
         $barang_transaksi = DB::table('barang')
             //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_barang', 'bara')   

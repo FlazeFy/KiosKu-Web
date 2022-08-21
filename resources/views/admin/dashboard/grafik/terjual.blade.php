@@ -19,10 +19,16 @@
     <a class="float-start title">Barang Terjual</a><br>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex flex-column align-items-center gap-1">
-        <h2 class="mb-2">8,258</h2>
+        <h2 class="mb-2">
+            @php($count = 0)
+            @foreach($barang_transaksi as $btrs)
+                @php($count += $btrs->qty)
+            @endforeach
+            {{$count}}
+        </h2>
         <span>Total Barang</span>
         </div>
-        <div id="orderStatisticsChart"></div>
+        <div id="terjualStatisticsChart"></div>
     </div>
     <ul class="p-0 m-0">
         <li class="d-flex mb-4 pb-1">
@@ -32,12 +38,31 @@
                 ></span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                @php($total_sembako = 0)
+                @php($arr = [])
                 <div class="me-2">
                     <h6 class="mb-0">Sembako</h6>
-                    <small class="text-muted">lorem, ipsum, dolor, sit</small>
+                    <!--Iterate category to array-->
+                    @foreach($barang_transaksi as $btrs)
+                        @if($btrs->kategori_barang == "Sembako")
+                            @php($arr[] = $btrs->nama_barang)
+                            @php($total_sembako += $btrs->qty)
+                        @endif
+                    @endforeach
+
+                    <!--Make array unique-->
+                    @php($arr = array_unique($arr))
+                    @foreach($arr as $ar => $val)
+                        <small class="text-muted">{{$val}}, </small>
+                    @endforeach
+
+                    <!--Empty variabel-->
+                    @if(count($arr) == 0)
+                        <small class="text-muted">-</small>
+                    @endif
                 </div>
                 <div class="user-progress">
-                    <small class="fw-semibold">680</small>
+                    <small class="fw-semibold">{{$total_sembako}}</small>
                 </div>
             </div>
         </li>
@@ -48,12 +73,31 @@
                 ></span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                @php($total_makanan = 0)
+                @php($arr = [])
                 <div class="me-2">
                     <h6 class="mb-0">Makanan</h6>
-                    <small class="text-muted">lorem, ipsum, dolor, sit</small>
+                    <!--Iterate category to array-->
+                    @foreach($barang_transaksi as $btrs)
+                        @if($btrs->kategori_barang == "Makanan")
+                            @php($arr[] = $btrs->nama_barang)
+                            @php($total_sembako += $btrs->qty)
+                        @endif
+                    @endforeach
+
+                    <!--Make array unique-->
+                    @php($arr = array_unique($arr))
+                    @foreach($arr as $ar => $val)
+                        <small class="text-muted">{{$val}}, </small>
+                    @endforeach
+
+                    <!--Empty variabel-->
+                    @if(count($arr) == 0)
+                        <small class="text-muted">-</small>
+                    @endif
                 </div>
                 <div class="user-progress">
-                    <small class="fw-semibold">320</small>
+                    <small class="fw-semibold">{{$total_makanan}}</small>
                 </div>
             </div>
         </li>
@@ -64,12 +108,31 @@
                 ></span>
             </div>
             <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                @php($total_peralatan = 0)
+                @php($arr = [])
                 <div class="me-2">
                     <h6 class="mb-0">Peralatan Rumah Tangga</h6>
-                    <small class="text-muted">lorem, ipsum, dolor, sit</small>
+                    <!--Iterate category to array-->
+                    @foreach($barang_transaksi as $btrs)
+                        @if($btrs->kategori_barang == "Peralatan Rumah Tangga")
+                            @php($arr[] = $btrs->nama_barang)
+                            @php($total_peralatan += $btrs->qty)
+                        @endif
+                    @endforeach
+
+                    <!--Make array unique-->
+                    @php($arr = array_unique($arr))
+                    @foreach($arr as $ar => $val)
+                        <small class="text-muted">{{$val}}, </small>
+                    @endforeach
+
+                    <!--Empty variabel-->
+                    @if(count($arr) == 0)
+                        <small class="text-muted">-</small>
+                    @endif
                 </div>
                 <div class="user-progress">
-                    <small class="fw-semibold">124</small>
+                    <small class="fw-semibold">{{$total_peralatan}}</small>
                 </div>
             </div>
         </li>
