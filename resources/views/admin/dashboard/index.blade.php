@@ -128,6 +128,15 @@
                 color:#697A8d; 
                 cursor:pointer;
             }
+
+            .content-list-body{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
         </style>
     </head>
 
@@ -436,7 +445,7 @@
                             $date = new DateTime(date("Y/m/d")); 
                             //Array to store month. First month is the current month.
                             $arr = [];
-                            for ($i = 0; $i < 6; $i++) {
+                            for ($i = 0; $i < 7; $i++) {
                                 $date->modify("-1 month");
                                 $count = 0;
                                 foreach($transaksi as $ts){
@@ -564,6 +573,98 @@
             if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
                 const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
                 incomeChart.render();
+            }
+
+            //Total keuntungan Mini Chart - Radial Chart
+            const weeklyExpensesEl = document.querySelector('#expensesOfWeek'),
+                weeklyExpensesConfig = {
+                series: [
+                    <?php
+                        //Initial variable.
+                        $count_before = 0;
+                        $count_after = 0;
+                        $now = new DateTime(date("Y/m/d"));
+
+                        //Count profit percentage this month and before-->
+                        foreach($transaksi as $ts){
+                            foreach($barang_transaksi as $btrs){
+                                $check = new DateTime(date($ts->created_at));
+                                if(($btrs->id_keranjang == $ts->id)&&($check->format('m') == $now->format('m')-1)){
+                                    $count_before += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                } else if(($btrs->id_keranjang == $ts->id)&&($check->format('m') ==  $now->format('m'))){
+                                    $count_after += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                }
+                            }
+                        }
+                        echo ($count_after / $count_before * 100) - 100;
+                    ?>
+                ],
+                chart: {
+                    width: 70,
+                    height: 70,
+                    type: 'radialBar'
+                },
+                plotOptions: {
+                    radialBar: {
+                    startAngle: 0,
+                    endAngle: 360,
+                    strokeWidth: '8',
+                    hollow: {
+                        margin: 2,
+                        size: '60%'
+                    },
+                    track: {
+                        strokeWidth: '50%',
+                        background: borderColor
+                    },
+                    dataLabels: {
+                        show: true,
+                        name: {
+                        show: false
+                        },
+                        value: {
+                        formatter: function (val) {
+                            return parseInt(val) + '%';
+                        },
+                        offsetY: 5,
+                        color: '#697a8d',
+                        fontSize: '13px',
+                        show: true
+                        }
+                    }
+                    }
+                },
+                fill: {
+                    type: 'solid',
+                    colors: config.colors.primary
+                },
+                stroke: {
+                    lineCap: 'round'
+                },
+                grid: {
+                    padding: {
+                    top: -10,
+                    bottom: -15,
+                    left: -10,
+                    right: -10
+                    }
+                },
+                states: {
+                    hover: {
+                    filter: {
+                        type: 'none'
+                    }
+                    },
+                    active: {
+                    filter: {
+                        type: 'none'
+                    }
+                    }
+                }
+                };
+            if (typeof weeklyExpensesEl !== undefined && weeklyExpensesEl !== null) {
+                const weeklyExpenses = new ApexCharts(weeklyExpensesEl, weeklyExpensesConfig);
+                weeklyExpenses.render();
             }
             })();
         </script>

@@ -21,7 +21,8 @@
         <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
             <div class="d-flex p-4 pt-3">
                 <div>
-                    <small class="text-muted d-block">Total Keuntungan</small>
+                    <!--Not finished-->
+                    <small class="text-muted d-block">Total Keuntungan 6 bulan terakhir</small>
                     <div class="d-flex align-items-center">
                         <h6 class="mb-0 me-1">Rp. 14.035K</h6>
                         <small class="text-success fw-semibold">
@@ -38,7 +39,27 @@
                     </div>
                     <div>
                     <p class="mb-n1 mt-1">Pendapatan Bulan Ini</p>
-                    <small class="text-muted">+ Rp.20.000 dari sebelumnya</small>
+                    <small class="text-muted">+ Rp.
+                        <?php 
+                            //Initial variable.
+                            $count_before = 0;
+                            $count_after = 0;
+                            $now = new DateTime(date("Y/m/d"));
+
+                            //Count profit this month and before-->
+                            foreach($transaksi as $ts){
+                                foreach($barang_transaksi as $btrs){
+                                    $check = new DateTime(date($ts->created_at));
+                                    if(($btrs->id_keranjang == $ts->id)&&($check->format('m') == $now->format('m')-1)){
+                                        $count_before += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                    } else if(($btrs->id_keranjang == $ts->id)&&($check->format('m') ==  $now->format('m'))){
+                                        $count_after += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                    }
+                                }
+                            }
+                            echo $count_after - $count_before;
+                        ?>    
+                    dari sebelumnya</small>
                 </div>
             </div>
         </div>

@@ -20,34 +20,44 @@
             @php($arr = [])
             <li class="d-flex mb-4 pb-1">
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                        <small class="text-muted d-block mb-1">
-                            <!--Iterate category to array-->
-                            @foreach($barang_transaksi as $btrs)
-                                @if($btrs->id_keranjang == $trs->id)
-                                    @php($arr[] = $btrs->kategori_barang)
-                                @endif
-                            @endforeach
+                    <table style="table-layout: fixed; width: 100%;">
+                        <tr>
+                            <th width="75%"></th>
+                            <th></th>
+                        </tr>
+                        <td>
+                            <div class="me-2">
+                                <small class="text-muted d-block mb-1 content-list-body">
+                                    <!--Iterate category to array-->
+                                    @foreach($barang_transaksi as $btrs)
+                                        @if($btrs->id_keranjang == $trs->id)
+                                            @php($arr[] = $btrs->kategori_barang)
+                                        @endif
+                                    @endforeach
 
-                            <!--Make array unique-->
-                            <!-- @php($arr = array_unique($arr)) -->
-                            @foreach(array_unique($arr) as $ar => $val)
-                                {{$val}},
-                            @endforeach
-                        </small>
-                        <h6 class="mb-0">
-                            @foreach($barang_transaksi as $btrs)
-                                @if($btrs->id_keranjang == $trs->id)
-                                    ({{$btrs->qty}}) {{$btrs->nama_barang}},
-                                    @php($total += $btrs->qty * $btrs->harga_stok)
-                                @endif
-                            @endforeach
-                        </h6>
-                    </div>
-                    <div class="me-2">
-                        <small class="text-success d-block mb-1">{{$trs->nama_kasir}}</small>
-                        <h6 class="mb-0">Rp. {{$total}}</h6>
-                    </div>
+                                    <!--Make array unique-->
+                                    <!-- @php($arr = array_unique($arr)) -->
+                                    @foreach(array_unique($arr) as $ar => $val)
+                                        {{$val}},
+                                    @endforeach
+                                </small>
+                                <h6 class="mb-0 content-list-body">
+                                    @foreach($barang_transaksi as $btrs)
+                                        @if($btrs->id_keranjang == $trs->id)
+                                            ({{$btrs->qty}}) {{$btrs->nama_barang}},
+                                            @php($total += $btrs->qty * $btrs->harga_stok)
+                                        @endif
+                                    @endforeach
+                                </h6>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="me-2">
+                                <small class="text-success d-block mb-1">{{$trs->nama_kasir}}</small>
+                                <h6 class="mb-0">Rp. {{$total}}</h6>
+                            </div>
+                        </td>
+                    </table>
                 </div>
             </li>
         @endforeach

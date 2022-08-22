@@ -35,19 +35,29 @@
                     ></span>
                 </div>
                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                    <div class="me-2">
-                        <h6 class="mb-0">{{$kr->nama_kasir}}</h6>
-                        <small class="text-muted">{{$kr->nama_karyawan}}</small>
-                    </div>
-                    <div class="user-progress">
-                        @php($total = 0)
-                        @foreach($barang_transaksi as $btrs)
-                            @if($btrs->id_kasir == $kr->id)
-                                @php($total += $btrs->harga_stok * $btrs->qty)
-                            @endif
-                        @endforeach
-                        <small class="fw-semibold">Rp. {{$total}}</small>
-                    </div>
+                    <table style="table-layout: fixed; width: 100%;">
+                        <tr>
+                            <th width="70%"></th>
+                            <th></th>
+                        </tr>
+                        <td>
+                            <div class="me-2">
+                                <h6 class="mb-0">{{$kr->nama_kasir}}</h6>
+                                <small class="text-muted">{{$kr->nama_karyawan}}</small>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-progress float-end">
+                                @php($total = 0)
+                                @foreach($barang_transaksi as $btrs)
+                                    @if($btrs->id_kasir == $kr->id)
+                                        @php($total += $btrs->harga_stok * $btrs->qty)
+                                    @endif
+                                @endforeach
+                                <small class="fw-semibold">Rp. {{$total}}</small>
+                            </div>
+                        </td>
+                    </table>
                 </div>
             </li>
         @endforeach
