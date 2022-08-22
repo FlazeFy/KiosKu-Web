@@ -53,6 +53,8 @@ class DashboardController extends Controller
             $request->session()->put('view_pengunjung_Key', $request->view);
         } else if ($setting == "penjualan"){
             $request->session()->put('view_penjualan_Key', $request->view);
+        } else if ($setting == "keuntungan"){
+            $request->session()->put('view_keuntungan_Key', $request->view);
         }
         return redirect()->back()->with('success_message', 'Konten berhasil disaring');
     }
