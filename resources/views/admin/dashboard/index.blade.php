@@ -425,6 +425,146 @@
                 const statisticsChart = new ApexCharts(kasirStatisticsChart, kasirChartConfig);
                 statisticsChart.render();
             }
+
+            //Total keuntungan chart
+            const incomeChartEl = document.querySelector('#incomeChart'),
+                incomeChartConfig = {
+                series: [
+                    {
+                    data: [
+                        <?php
+                            $date = new DateTime(date("Y/m/d")); 
+                            //Array to store month. First month is the current month.
+                            $arr = [];
+                            for ($i = 0; $i < 6; $i++) {
+                                $date->modify("-1 month");
+                                $count = 0;
+                                foreach($transaksi as $ts){
+                                    foreach($barang_transaksi as $btrs){
+                                        $date2 = new DateTime(date($ts->created_at));
+                                        $date2->modify("-1 month");
+                                        if(($btrs->id_keranjang == $ts->id)&&($date2->format('m') == $date->format('m'))){
+                                            $count += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                        }
+                                    }
+                                }
+                                $arr[] = $count.", ";
+                            }
+                            
+                            //Print array from backward.
+                            foreach(array_reverse($arr) as $ar => $val){
+                                echo $val;
+                            }
+
+                        ?>
+                    ]
+                    }
+                ],
+                chart: {
+                    height: 215,
+                    parentHeightOffset: 0,
+                    parentWidthOffset: 0,
+                    toolbar: {
+                    show: false
+                    },
+                    type: 'area'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    width: 2,
+                    curve: 'smooth'
+                },
+                legend: {
+                    show: false
+                },
+                markers: {
+                    size: 6,
+                    colors: 'transparent',
+                    strokeColors: 'transparent',
+                    strokeWidth: 4,
+                    discrete: [
+                    {
+                        fillColor: config.colors.white,
+                        seriesIndex: 0,
+                        dataPointIndex: 7,
+                        strokeColor: config.colors.primary,
+                        strokeWidth: 2,
+                        size: 6,
+                        radius: 8
+                    }
+                    ],
+                    hover: {
+                    size: 7
+                    }
+                },
+                colors: [config.colors.primary],
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                    shade: shadeColor,
+                    shadeIntensity: 0.6,
+                    opacityFrom: 0.5,
+                    opacityTo: 0.25,
+                    stops: [0, 95, 100]
+                    }
+                },
+                grid: {
+                    borderColor: borderColor,
+                    strokeDashArray: 3,
+                    padding: {
+                    top: -20,
+                    bottom: -8,
+                    left: -10,
+                    right: 8
+                    }
+                },
+                xaxis: {
+                    categories: ['',
+                        <?php
+                            $date = new DateTime(date("Y/m/d")); 
+                            //Array to store month. First month is the current month.
+                            $arr = ["'".$date->format('F')."', ", ];
+                            for ($i = 0; $i < 5; $i++) {
+                                $date->modify("-1 month");
+                                $arr[] = "'".substr($date->format('F'), 0, 3)."', ";
+                            }
+                            
+                            //Print array from backward.
+                            foreach(array_reverse($arr) as $ar => $val){
+                                echo $val;
+                            }
+
+                        ?>
+                    ],
+                    axisBorder: {
+                    show: false
+                    },
+                    axisTicks: {
+                    show: false
+                    },
+                    labels: {
+                    show: true,
+                    style: {
+                        fontSize: '13px',
+                        colors: axisColor
+                    }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                    show: false
+                    },
+                    min: 10,
+                    // max: 20000,
+                    tickAmount: 4
+                }
+                };
+            if (typeof incomeChartEl !== undefined && incomeChartEl !== null) {
+                const incomeChart = new ApexCharts(incomeChartEl, incomeChartConfig);
+                incomeChart.render();
+            }
             })();
         </script>
 

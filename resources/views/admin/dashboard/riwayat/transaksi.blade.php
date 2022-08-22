@@ -30,8 +30,8 @@
                             @endforeach
 
                             <!--Make array unique-->
-                            @php($arr = array_unique($arr))
-                            @foreach($arr as $ar => $val)
+                            <!-- @php($arr = array_unique($arr)) -->
+                            @foreach(array_unique($arr) as $ar => $val)
                                 {{$val}},
                             @endforeach
                         </small>
