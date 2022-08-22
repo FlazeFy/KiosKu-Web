@@ -357,7 +357,7 @@
                             $total = 0;
                             foreach($barang_transaksi as $btrs){
                                 if($btrs->id_kasir == $kr->id){
-                                    $total += $btrs->harga_stok * $btrs->qty;
+                                    $total += $btrs->harga_jual * $btrs->qty;
                                 }
                             }
                             echo $total.", ";
@@ -403,7 +403,7 @@
                                     foreach($kasir as $kr){
                                         foreach($barang_transaksi as $btrs){
                                             if($btrs->id_kasir == $kr->id){
-                                                $total += $btrs->harga_stok * $btrs->qty;
+                                                $total += $btrs->harga_jual * $btrs->qty;
                                             }
                                         }
                                     }

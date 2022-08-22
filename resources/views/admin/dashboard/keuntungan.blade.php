@@ -36,5 +36,18 @@
         @endforeach
         {{$count}}
     </h5>
-    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 21.20%</a>
+    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 
+        @php($before = 0)
+        @foreach($transaksi as $ts)
+            @foreach($barang_transaksi as $btrs)
+                @if(($btrs->id_keranjang == $ts->id)&&(session()->get('view_keuntungan_Key') == '1')&&(strtotime($ts->created_at) > strtotime('-14 day'))&&(strtotime($ts->created_at) <= strtotime('-7 day')))
+                    @php($before += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok))
+                @elseif(($btrs->id_keranjang == $ts->id)&&(session()->get('view_keuntungan_Key') == '2')&&(strtotime($ts->created_at) > strtotime('-60 day'))&&(strtotime($ts->created_at) <= strtotime('-30 day')))
+                    @php($before += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok))
+                @endif
+            @endforeach
+        @endforeach
+        
+        {{($count / $before * 100) - 100}}
+    %</a>
 </div>

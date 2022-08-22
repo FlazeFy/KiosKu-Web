@@ -28,13 +28,26 @@
         @foreach($transaksi as $ts)
             @foreach($barang_transaksi as $btrs)
                 @if(($btrs->id_keranjang == $ts->id)&&(strtotime($ts->created_at) > strtotime('-7 day'))&&(session()->get('view_penjualan_Key') == '1'))
-                    @php($count += $btrs->qty * $btrs->harga_stok)
+                    @php($count += $btrs->qty * $btrs->harga_jual)
                 @elseif (($btrs->id_keranjang == $ts->id)&&(strtotime($ts->created_at) > strtotime('-30 day'))&&(session()->get('view_penjualan_Key') == '2'))
-                    @php($count += $btrs->qty * $btrs->harga_stok)
+                    @php($count += $btrs->qty * $btrs->harga_jual)
                 @endif
             @endforeach
         @endforeach
         {{$count}}  
     </h5>
-    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 24.40%</a>
+    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 
+        @php($before = 0)
+        @foreach($transaksi as $ts)
+            @foreach($barang_transaksi as $btrs)
+                @if(($btrs->id_keranjang == $ts->id)&&(session()->get('view_penjualan_Key') == '1')&&(strtotime($ts->created_at) > strtotime('-14 day'))&&(strtotime($ts->created_at) <= strtotime('-7 day')))
+                    @php($before += $btrs->qty * $btrs->harga_jual)
+                @elseif(($btrs->id_keranjang == $ts->id)&&(session()->get('view_penjualan_Key') == '2')&&(strtotime($ts->created_at) > strtotime('-60 day'))&&(strtotime($ts->created_at) <= strtotime('-30 day')))
+                    @php($before += $btrs->qty * $btrs->harga_jual)
+                @endif
+            @endforeach
+        @endforeach
+        
+        {{($count / $before * 100) - 100}}
+    %</a>
 </div>
