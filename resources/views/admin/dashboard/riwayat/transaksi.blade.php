@@ -39,7 +39,7 @@
                             @foreach($barang_transaksi as $btrs)
                                 @if($btrs->id_keranjang == $trs->id)
                                     ({{$btrs->qty}}) {{$btrs->nama_barang}},
-                                    @php($total += $btrs->qty * $btrs->harga_barang)
+                                    @php($total += $btrs->qty * $btrs->harga_stok)
                                 @endif
                             @endforeach
                         </h6>

@@ -168,7 +168,8 @@
                                         @include('admin.dashboard.skor')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
-                                        @include('admin.dashboard.kalender')
+                                        <!-- @include('admin.dashboard.kalender') -->
+                                        @include('admin.dashboard.gudang')
                                     </div>
                                     <div class="col-lg-4 col-md-6 dash-content-item">
                                         @include('admin.dashboard.grafik.terjual')
@@ -347,7 +348,7 @@
                             $total = 0;
                             foreach($barang_transaksi as $btrs){
                                 if($btrs->id_kasir == $kr->id){
-                                    $total += $btrs->harga_barang * $btrs->qty;
+                                    $total += $btrs->harga_stok * $btrs->qty;
                                 }
                             }
                             echo $total.", ";
@@ -393,7 +394,7 @@
                                     foreach($kasir as $kr){
                                         foreach($barang_transaksi as $btrs){
                                             if($btrs->id_kasir == $kr->id){
-                                                $total += $btrs->harga_barang * $btrs->qty;
+                                                $total += $btrs->harga_stok * $btrs->qty;
                                             }
                                         }
                                     }

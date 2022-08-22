@@ -19,20 +19,20 @@ class DashboardController extends Controller
             ->select('keranjang.id', 'keranjang.created_at', 'kasir.nama_kasir')
             ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
             ->where('keranjang.id_kios', '1')
-            ->orderBy('keranjang.created_at', 'ASC')->get();
+            ->orderBy('keranjang.created_at', 'DESC')->get();
 
         $barang_transaksi = DB::table('barang')
-            //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_barang', 'bara')   
+            //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'bara')   
             ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
             ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
             ->where('keranjang.id_kios', '1')
-            ->orderBy('transaksi.id', 'ASC')->get();
+            ->orderBy('transaksi.id', 'DESC')->get();
 
         $kasir =  DB::table('kasir')
             ->select('kasir.id', 'kasir.created_at', 'kasir.nama_kasir', 'karyawan.nama_karyawan')
             ->join('karyawan', 'karyawan.id', '=', 'kasir.id_karyawan')
             ->where('kasir.id_kios', '1')
-            ->orderBy('kasir.created_at', 'ASC')->get();
+            ->orderBy('kasir.created_at', 'DESC')->get();
 
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
@@ -51,6 +51,8 @@ class DashboardController extends Controller
         //2 = Monthly
         if($setting == "pembeli"){
             $request->session()->put('view_pengunjung_Key', $request->view);
+        } else if ($setting == "penjualan"){
+            $request->session()->put('view_penjualan_Key', $request->view);
         }
         return redirect()->back()->with('success_message', 'Konten berhasil disaring');
     }

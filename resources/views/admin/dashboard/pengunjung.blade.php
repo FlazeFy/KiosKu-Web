@@ -15,11 +15,11 @@
     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt-pembeli-view">
         <form action="/dashboard/filter/pembeli" method="POST">
             @csrf
-            <button type="submit" class="dropdown-item" name="view" value="1">Mingguan</button>
+            <button type="submit" class="dropdown-item <?php if(session()->get('view_pengunjung_Key') == 1){echo "active";} ?>" name="view" value="1">Mingguan</button>
         </form>
         <form action="/dashboard/filter/pembeli" method="POST">
             @csrf
-            <button type="submit" class="dropdown-item" name="view" value="2">Bulanan</button>
+            <button type="submit" class="dropdown-item <?php if(session()->get('view_pengunjung_Key') == 2){echo "active";} ?>" name="view" value="2">Bulanan</button>
         </form>
     </div>
     <a class="float-start title">Pembeli</a><br>
