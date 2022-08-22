@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class DashboardController extends Controller
 {
@@ -44,9 +45,14 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function filter(Request $request, $setting)
     {
-        //
+        //1 = Week
+        //2 = Monthly
+        if($setting == "pembeli"){
+            $request->session()->put('view_pengunjung_Key', $request->view);
+        }
+        return redirect()->back()->with('success_message', 'Konten berhasil disaring');
     }
 
     /**

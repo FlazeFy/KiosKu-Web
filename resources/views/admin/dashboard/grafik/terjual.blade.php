@@ -81,7 +81,7 @@
                     @foreach($barang_transaksi as $btrs)
                         @if($btrs->kategori_barang == "Makanan")
                             @php($arr[] = $btrs->nama_barang)
-                            @php($total_sembako += $btrs->qty)
+                            @php($total_makanan += $btrs->qty)
                         @endif
                     @endforeach
 

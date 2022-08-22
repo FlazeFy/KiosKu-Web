@@ -20,9 +20,6 @@
     <div class="tab-content p-0">
         <div class="tab-pane fade show active" id="navs-tabs-line-card-income" role="tabpanel">
             <div class="d-flex p-4 pt-3">
-                <div class="avatar flex-shrink-0 me-3">
-                <img src="..." alt="User" />
-                </div>
                 <div>
                     <small class="text-muted d-block">Total Keuntungan</small>
                     <div class="d-flex align-items-center">

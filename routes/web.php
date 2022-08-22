@@ -15,4 +15,7 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/dashboard', [DashboardController::class, 'index']);
+
+//Dashboard setting.
+Route::POST('/dashboard/filter/{setting}', [DashboardController::class, 'filter']);
