@@ -687,6 +687,115 @@
                 const weeklyExpenses = new ApexCharts(weeklyExpensesEl, weeklyExpensesConfig);
                 weeklyExpenses.render();
             }
+
+            //Rak
+            const rakStatisticsChart = document.querySelector('#rakStatisticsChart'),
+            rakChartConfig = {
+                chart: {
+                height: 165,
+                width: 130,
+                type: 'donut'
+                },
+                labels: [
+                    <?php
+                        foreach($rak as $rk){
+                            echo "'".$rk->nama_rak."', ";
+                        }
+                    ?>
+                ],
+                series: [
+                    <?php
+                        $count = 0;
+                        foreach($rak as $rk){
+                            foreach($barang_rak as $brk){
+                                if($brk->id_rak == $rk->id){
+                                    foreach($barang_transaksi as $btrs){
+                                        if($btrs->id_barang == $brk->id_barang){
+                                            $count += $btrs->qty;
+                                        }
+                                    }
+                                }
+                            }
+                            echo $count.", ";
+                        }
+                    ?>
+                ],
+                colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
+                stroke: {
+                width: 5,
+                colors: cardColor
+                },
+                dataLabels: {
+                enabled: false,
+                formatter: function (val, opt) {
+                    return parseInt(val) + '%';
+                }
+                },
+                legend: {
+                show: false
+                },
+                grid: {
+                padding: {
+                    top: 0,
+                    bottom: 0,
+                    right: 15
+                }
+                },
+                plotOptions: {
+                pie: {
+                    donut: {
+                    size: '75%',
+                    labels: {
+                        show: true,
+                        value: {
+                        fontSize: '1.5rem',
+                        fontFamily: 'Public Sans',
+                        color: headingColor,
+                        offsetY: -15,
+                        formatter: function (val) {
+                            return parseInt(val/ 
+                                <?php
+                                    $total = 0;
+                                    $count = 0;
+                                    foreach($rak as $rk){
+                                        foreach($barang_rak as $brk){
+                                            if($brk->id_rak == $rk->id){
+                                                foreach($barang_transaksi as $btrs){
+                                                    if($btrs->id_barang == $brk->id_barang){
+                                                        $total += $btrs->qty;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        $count += $total;
+                                    }
+                                    echo $count;
+                                ?> * 100
+                            ) + '%';
+                        }
+                        },
+                        name: {
+                        offsetY: 20,
+                        fontFamily: 'Public Sans'
+                        },
+                        total: {
+                        show: true,
+                        fontSize: '0.8125rem',
+                        color: axisColor,
+                        label: 'Weekly',
+                        formatter: function (w) {
+                            return '38%';
+                        }
+                        }
+                    }
+                    }
+                }
+                }
+            };
+            if (typeof rakStatisticsChart !== undefined && rakStatisticsChart !== null) {
+            const statisticsChart = new ApexCharts(rakStatisticsChart, rakChartConfig);
+            statisticsChart.render();
+            }
             })();
         </script>
 

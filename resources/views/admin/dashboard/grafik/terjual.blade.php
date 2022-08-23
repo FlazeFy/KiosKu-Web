@@ -30,7 +30,7 @@
         </div>
         <div id="terjualStatisticsChart"></div>
     </div>
-    <ul class="p-0 m-0">
+    <ul class="custom-scroll scrollbar p-0 pe-1 m-0 mt-3" style="max-height: calc(50vh - 120px); max-width:auto; overflow-x: auto;">
         <li class="d-flex mb-4 pb-1">
             <div class="avatar flex-shrink-0 me-3">
                 <span class="avatar-initial rounded bg-label-primary"
