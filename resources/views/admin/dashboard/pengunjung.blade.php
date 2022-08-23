@@ -1,3 +1,7 @@
+@if(session()->get('view_pengunjung_Key') == null)
+    @php(session()->put('view_pengunjung_Key', '1'))
+@endif
+
 <div class="container-fluid p-3 rounded shadow h-100">
     <button class="btn btn-transparent p-0 float-end" type="button" id="cardOpt-pembeli" data-bs-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">

@@ -14,7 +14,11 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        $gudang = DB::table('barang')
+            ->where('id_kios', '1')
+            ->orderBy('created_at', 'DESC')->get();
+
         $transaksi = DB::table('keranjang')
             ->select('keranjang.id', 'keranjang.created_at', 'kasir.nama_kasir')
             ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
@@ -36,6 +40,7 @@ class DashboardController extends Controller
 
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
+            ->with('gudang', $gudang)
             ->with('barang_transaksi', $barang_transaksi)
             ->with('kasir', $kasir);
     }
