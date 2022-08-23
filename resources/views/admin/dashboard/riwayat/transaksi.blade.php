@@ -14,7 +14,7 @@
         <a class="dropdown-item" href="">Detail</a>
         <a class="dropdown-item" href="">Cetak</a>
     </div>
-    <ul class="p-0 m-0 mt-3">
+    <ul class="custom-scroll scrollbar p-0 m-0 mt-3" style="max-height: calc(65vh - 90px); max-width:auto; overflow-x: auto;">
         @foreach($transaksi as $trs)
             @php($total = 0)
             @php($arr = [])

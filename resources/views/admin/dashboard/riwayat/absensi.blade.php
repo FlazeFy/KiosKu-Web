@@ -14,7 +14,7 @@
         <a class="dropdown-item" href="">Detail</a>
         <a class="dropdown-item" href="">Cetak</a>
     </div>
-    <ul class="p-0 m-0">
+    <ul class="custom-scroll scrollbar p-0 m-0 mt-3" style="max-height: calc(65vh - 90px); max-width:auto; overflow-x: auto;">
         <li class="d-flex mb-4 pb-1">
             <div class="avatar flex-shrink-0 me-3">
                 <img src=".." alt="User" class="rounded" />

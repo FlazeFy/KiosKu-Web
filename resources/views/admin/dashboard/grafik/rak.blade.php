@@ -11,43 +11,37 @@
     <a class="float-start title">Rak</a><br>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div class="d-flex flex-column align-items-center gap-1">
-        <h2 class="mb-2">2</h2>
+        <h2 class="mb-2">{{count($rak)}}</h2>
         <span>Total Rak</span>
         </div>
         <div id="rakStatisticsChart"></div>
     </div>
     <ul class="p-0 m-0">
-        <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-                <span class="avatar-initial rounded bg-label-primary"
-                ><i class="bx bx-mobile-alt"></i
-                ></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                    <h6 class="mb-0">Rak Kasir</h6>
-                    <small class="text-muted">Obat-obatan, snack</small>
+        @foreach($rak as $rk)
+            <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                    <span class="avatar-initial rounded bg-label-primary"
+                    ><i class="bx bx-mobile-alt"></i
+                    ></span>
                 </div>
-                <div class="user-progress">
-                    <small class="fw-semibold">40</small>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="me-2">
+                        <h6 class="mb-0">{{$rk->nama_rak}}</h6>
+                        <small class="text-muted">
+                            @php($count = 0)
+                            @foreach($barang_rak as $brk)
+                                @if($brk->id_rak == $rk->id)
+                                    {{$brk->nama_barang}},
+                                    @php($count += $brk->stok_barang)
+                                @endif
+                            @endforeach
+                        </small>
+                    </div>
+                    <div class="user-progress">
+                        <small class="fw-semibold">{{$count}}</small>
+                    </div>
                 </div>
-            </div>
-        </li>
-        <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-                <span class="avatar-initial rounded bg-label-primary"
-                ><i class="bx bx-mobile-alt"></i
-                ></span>
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                <div class="me-2">
-                    <h6 class="mb-0">Sembako</h6>
-                    <small class="text-muted">Minyak Goreng, Gula, Garam, ...</small>
-                </div>
-                <div class="user-progress">
-                    <small class="fw-semibold">40</small>
-                </div>
-            </div>
-        </li>
+            </li>
+        @endforeach
     </ul>                    
 </div>

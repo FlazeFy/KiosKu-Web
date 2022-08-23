@@ -40,7 +40,7 @@
         @endforeach
         {{$count}}
     </h5>
-    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 
+    <a class="percentage text-success">
         @php($before = 0)
         @foreach($transaksi as $ts)
             @foreach($barang_transaksi as $btrs)
@@ -52,6 +52,10 @@
             @endforeach
         @endforeach
         
-        {{($count / $before * 100) - 100}}
-    %</a>
+        @if($before != 0)
+            <i class="fa-solid fa-arrow-up"></i> {{($count / $before * 100) - 100}} %
+        @else
+            no data before
+        @endif
+    </a>
 </div>

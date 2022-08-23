@@ -38,7 +38,7 @@
         @endforeach
         {{$count}}
     </h5>
-    <a class="percentage text-success"><i class="fa-solid fa-arrow-up"></i> 
+    <a class="percentage text-success">
         @php($before = 0)
         @foreach($transaksi as $ts)
             @if((session()->get('view_pengunjung_Key') == '1')&&(strtotime($ts->created_at) > strtotime('-14 day'))&&(strtotime($ts->created_at) <= strtotime('-7 day')))
@@ -48,6 +48,10 @@
             @endif
         @endforeach
         
-        {{($count / $before * 100) - 100}}
-    %</a>
+        @if($before != 0)
+            <i class="fa-solid fa-arrow-up"></i> {{($count / $before * 100) - 100}} %
+        @else
+            no data before
+        @endif
+    </a>
 </div>

@@ -19,6 +19,16 @@ class DashboardController extends Controller
             ->where('id_kios', '1')
             ->orderBy('created_at', 'DESC')->get();
 
+        $rak = DB::table('rak')
+            ->where('id_kios', '1')
+            ->orderBy('created_at', 'DESC')->get();
+        
+        $barang_rak = DB::table('barang')
+            ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
+            ->join('rak', 'rak.id', '=', 'relasi_rak.id_rak')
+            ->where('rak.id_kios', '1')
+            ->orderBy('relasi_rak.created_at', 'DESC')->get();
+
         $transaksi = DB::table('keranjang')
             ->select('keranjang.id', 'keranjang.created_at', 'kasir.nama_kasir')
             ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
@@ -41,6 +51,8 @@ class DashboardController extends Controller
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
             ->with('gudang', $gudang)
+            ->with('barang_rak', $barang_rak)
+            ->with('rak', $rak)
             ->with('barang_transaksi', $barang_transaksi)
             ->with('kasir', $kasir);
     }
