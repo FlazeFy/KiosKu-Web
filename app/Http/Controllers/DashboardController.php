@@ -27,7 +27,7 @@ class DashboardController extends Controller
             ->join('karyawan', 'karyawan.id', '=', 'absensi.id_karyawan')
             ->join('shift', 'shift.id', '=', 'absensi.id_shift')
             ->where('absensi.id_kios', '1')
-            ->orderBy('absensi.waktu_masuk')->get();
+            ->orderBy('absensi.waktu_masuk', 'DESC')->get();
         
         $barang_rak = DB::table('barang')
             ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')

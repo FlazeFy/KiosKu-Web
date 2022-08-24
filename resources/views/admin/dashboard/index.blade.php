@@ -138,6 +138,15 @@
                 -webkit-box-orient: vertical;
             }
 
+            .absen-list-body{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+
             /*Scrollbar*/
             .custom-scroll::-webkit-scrollbar-track
             {
