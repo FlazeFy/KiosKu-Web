@@ -22,6 +22,12 @@ class DashboardController extends Controller
         $rak = DB::table('rak')
             ->where('id_kios', '1')
             ->orderBy('created_at', 'DESC')->get();
+
+        $absen = DB::table('absensi')
+            ->join('karyawan', 'karyawan.id', '=', 'absensi.id_karyawan')
+            ->join('shift', 'shift.id', '=', 'absensi.id_shift')
+            ->where('absensi.id_kios', '1')
+            ->orderBy('absensi.waktu_masuk')->get();
         
         $barang_rak = DB::table('barang')
             ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
@@ -51,6 +57,7 @@ class DashboardController extends Controller
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
             ->with('gudang', $gudang)
+            ->with('absen', $absen)
             ->with('barang_rak', $barang_rak)
             ->with('rak', $rak)
             ->with('barang_transaksi', $barang_transaksi)

@@ -53,7 +53,7 @@
         @endforeach
         
         @if($before != 0)
-            <i class="fa-solid fa-arrow-up"></i> {{($count / $before * 100) - 100}} %
+            <i class="fa-solid fa-arrow-up"></i> {{number_format((float)($count / $before * 100) - 100, 2, '.', '')}} %
         @else
             no data before
         @endif
