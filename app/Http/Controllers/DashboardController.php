@@ -16,42 +16,42 @@ class DashboardController extends Controller
     public function index()
     {   
         $gudang = DB::table('barang')
-            ->where('id_kios', '1')
+            ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
         $rak = DB::table('rak')
-            ->where('id_kios', '1')
+            ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
         $absen = DB::table('absensi')
             ->join('karyawan', 'karyawan.id', '=', 'absensi.id_karyawan')
             ->join('shift', 'shift.id', '=', 'absensi.id_shift')
-            ->where('absensi.id_kios', '1')
+            ->where('absensi.id_kios', session()->get('idKey'))
             ->orderBy('absensi.waktu_masuk', 'DESC')->get();
         
         $barang_rak = DB::table('barang')
             ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
             ->join('rak', 'rak.id', '=', 'relasi_rak.id_rak')
-            ->where('rak.id_kios', '1')
+            ->where('rak.id_kios', session()->get('idKey'))
             ->orderBy('relasi_rak.created_at', 'DESC')->get();
 
         $transaksi = DB::table('keranjang')
             ->select('keranjang.id', 'keranjang.created_at', 'kasir.nama_kasir')
             ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
-            ->where('keranjang.id_kios', '1')
+            ->where('keranjang.id_kios', session()->get('idKey'))
             ->orderBy('keranjang.created_at', 'DESC')->get();
 
         $barang_transaksi = DB::table('barang')
             //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'bara')   
             ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
             ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
-            ->where('keranjang.id_kios', '1')
+            ->where('keranjang.id_kios', session()->get('idKey'))
             ->orderBy('transaksi.id', 'DESC')->get();
 
         $kasir =  DB::table('kasir')
             ->select('kasir.id', 'kasir.created_at', 'kasir.nama_kasir', 'karyawan.nama_karyawan')
             ->join('karyawan', 'karyawan.id', '=', 'kasir.id_karyawan')
-            ->where('kasir.id_kios', '1')
+            ->where('kasir.id_kios', session()->get('idKey'))
             ->orderBy('kasir.created_at', 'DESC')->get();
 
         return view ('admin.dashboard.index')

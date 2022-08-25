@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,10 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-Route::get('/dashboard', [DashboardController::class, 'index']);
+//Landing.
+Route::get('/', [LandingController::class, 'index']);
+Route::post('/login/{role}', [LandingController::class, 'login']);
 
-//Dashboard setting.
-Route::POST('/dashboard/filter/{setting}', [DashboardController::class, 'filter']);
+//Dashboard.
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::post('/dashboard/filter/{setting}', [DashboardController::class, 'filter']);
