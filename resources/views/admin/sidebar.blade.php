@@ -12,7 +12,7 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <li class="menu-item active">
-            <a href="index.html" class="menu-link">
+            <a href="/dashboard" class="menu-link">
                 <i class="fa-solid fa-house mx-2"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -28,11 +28,13 @@
             </a>
             <ul class="menu-sub">
                 <!--General Shelf-->
+                @foreach($rak as $rk)
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Umum</div>
+                    <a href="http://127.0.0.1:8000/rak/{{$rk->id}}" class="menu-link btn btn-transparent">
+                        <div data-i18n="Account">{{$rk->nama_rak}}</div>
                     </a>
                 </li>
+                @endforeach
             </ul>
         </li>
         

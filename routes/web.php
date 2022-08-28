@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 
 /*
@@ -23,3 +24,6 @@ Route::post('/login/{role}', [LandingController::class, 'login']);
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::post('/dashboard/filter/{setting}', [DashboardController::class, 'filter']);
+
+//Rak
+Route::get('/rak/{id}', [RakController::class, 'index']);
