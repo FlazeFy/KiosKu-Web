@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Relasi_Rak;
+use App\Models\Barang;
+
 class RakController extends Controller
 {
     /**
@@ -26,6 +29,7 @@ class RakController extends Controller
             ->orderBy('created_at', 'DESC')->get();
 
         $barang_rak = DB::table('barang')
+            ->select('relasi_rak.id', 'barang.id as id_barang', 'barang.kategori_barang', 'barang.nama_barang', 'barang.deskripsi_barang', 'barang.harga_jual', 'barang.harga_stok', 'barang.stok_barang', 'barang.expired_at')
             ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
             ->join('rak', 'rak.id', '=', 'relasi_rak.id_rak')
             ->where('rak.id', $id)
@@ -87,9 +91,17 @@ class RakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function edit_barang(Request $request, $id)
     {
-        //
+        Barang::where('id', $id)->update([
+            'harga_jual' => $request-> harga_jual,
+            'harga_stok' => $request-> harga_stok,
+            'stok_barang' => $request-> stok_barang,
+            'updated_at' => date("Y-m-d h:m:i"),
+            'expired_at' => $request-> expired_at,
+        ]);
+
+        return redirect()->back()->with('success_message', 'Barang berhasil diubah');
     }
 
     /**
@@ -98,8 +110,9 @@ class RakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete_barang($id)
     {
-        //
+        Relasi_Rak::destroy($id);
+        return redirect()->back()->with('success_message', 'Barang berhasil dihapus dari rak');
     }
 }

@@ -30,7 +30,7 @@
                 <!--General Shelf-->
                 @foreach($rak as $rk)
                 <li class="menu-item">
-                    <a href="http://127.0.0.1:8000/rak/{{$rk->id}}" class="menu-link btn btn-transparent">
+                    <a href="http://127.0.0.1:8000/rak/{{$rk->id}}" class="menu-link btn btn-transparent w-75 text-start">
                         <div data-i18n="Account">{{$rk->nama_rak}}</div>
                     </a>
                 </li>
