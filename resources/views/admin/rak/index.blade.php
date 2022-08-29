@@ -102,7 +102,21 @@
                         <div class="content-wrapper p-3">
                             <section class="container-xxl flex-grow-1 container-p-y">
                                 <div class="container rounded shadow p-3">
+                                    <!--Semua barang di rak-->
                                     @include('admin.rak.all_barang')
+                                </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-5">
+                                        <div class="container rounded shadow p-3">
+                                            @include('admin.rak.all_rak')
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="container rounded shadow p-3">
+                                            <!--Semua barang di gudang-->
+                                            @include('admin.barang.gudang.all_barang')
+                                        </div>
+                                    </div>
                                 </div>
                             </section>
                         </div>

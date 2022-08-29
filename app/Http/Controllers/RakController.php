@@ -35,9 +35,14 @@ class RakController extends Controller
             ->where('rak.id', $id)
             ->orderBy('relasi_rak.created_at', 'DESC')->get();
 
+        $gudang = DB::table('barang')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
+
         return view ('admin.rak.index')
             ->with('rak', $rak)
             ->with('open_rak', $open_rak)
+            ->with('gudang', $gudang)
             ->with('barang_rak', $barang_rak);
     }
 
