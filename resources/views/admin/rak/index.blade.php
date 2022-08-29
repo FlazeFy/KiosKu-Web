@@ -75,6 +75,15 @@
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
                 background-color: #696CFF;
             }
+
+            .btn-primary{
+                background: #676AFA;
+                border: none;
+            }
+            .btn-primary:hover{
+                background: #4144f0;
+                border: none;
+            }
         </style>
     </head>
 
@@ -128,6 +137,9 @@
             <div class="layout-overlay layout-menu-toggle"></div>
         </div>
         <!-- / Layout wrapper -->
+
+        <!--Modal-->
+        @include('admin.rak.form.create')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 

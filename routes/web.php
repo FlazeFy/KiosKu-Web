@@ -29,3 +29,4 @@ Route::post('/dashboard/filter/{setting}', [DashboardController::class, 'filter'
 Route::get('/rak/{id}', [RakController::class, 'index']);
 Route::post('/rak/delete_barang/{id}', [RakController::class, 'delete_barang']);
 Route::post('/rak/edit_barang/{id}', [RakController::class, 'edit_barang']);
+Route::post('/rak/tambah_rak', [RakController::class, 'tambah_rak']);

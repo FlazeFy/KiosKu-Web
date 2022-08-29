@@ -45,8 +45,8 @@
                         </div>
                     </td>
                 </tr>
-                @include('admin.rak.form.hapus')
-                @include('admin.rak.form.edit')
+                @include('admin.rak.form.hapus_barang')
+                @include('admin.rak.form.edit_barang')
             @endforeach
         </tbody>
     </table>

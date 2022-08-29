@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Relasi_Rak;
 use App\Models\Barang;
+use App\Models\Rak;
 
 class RakController extends Controller
 {
@@ -62,9 +64,27 @@ class RakController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function tambah_rak(Request $request)
     {
-        //
+        //Create Account validator
+        $validator = Validator::make($request->all(), [
+            'nama_rak' => 'required|max:20',
+            'deskripsi_rak' => 'required|max:100',
+        ]);
+
+        if (!$validator->fails()) {
+            Rak::create([
+                'id_kios' => session()->get('idKey'),
+                'nama_rak' => $request->nama_rak,
+                'deskripsi_rak' => $request->deskripsi_rak,
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('success_message', 'Rak berhasil dibuat');
+        } else {
+            return redirect()->back()->with('failed_message', 'Gagal menambahkan rak, periksa kembali data Anda');
+        }
     }
 
     /**
