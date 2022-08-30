@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\RiwayatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,6 @@ Route::post('/rak/delete_barang/{id}', [RakController::class, 'delete_barang']);
 Route::post('/rak/edit_barang/{id}', [RakController::class, 'edit_barang']);
 Route::post('/rak/tambah_rak', [RakController::class, 'tambah_rak']);
 Route::post('/rak/tambah_barang_rak/{id}', [RakController::class, 'tambah_barang_rak']);
+
+//Riwayat
+Route::get('/riwayat', [RiwayatController::class, 'index']);
