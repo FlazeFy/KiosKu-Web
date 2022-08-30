@@ -11,5 +11,5 @@ class Relasi_Rak extends Model
 
     protected $table = 'relasi_rak';
     protected $primaryKey = 'id';
-    protected $fillable = ['id_barang', 'id_rak', 'created_at'];
+    protected $fillable = ['id_barang', 'id_rak', 'created_at', 'updated_at'];
 }

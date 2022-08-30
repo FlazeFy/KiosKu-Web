@@ -35,7 +35,11 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"><i class="fa-solid fa-thumbtack"></i> Tandai</a>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#tambah-barang-Modal"><i class="fa-solid fa-plus"></i> Tambahkan</a>
+                                <form action="/rak/tambah_barang_rak/{{$op->id}}" method="POST">
+                                    @csrf
+                                    <input type="hidden" value="{{$brg->id}}" name="id_barang">
+                                    <button class="dropdown-item" type="submit"><i class="fa-solid fa-plus"></i> Tambahkan</button>
+                                </form>
                             </div>
                         </div>
                     </td>

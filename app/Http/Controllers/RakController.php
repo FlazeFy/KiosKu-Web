@@ -93,9 +93,16 @@ class RakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function tambah_barang_rak(Request $request, $id)
     {
-        //
+        Relasi_Rak::create([
+            'id_barang' => $request->id_barang,
+            'id_rak' => $id,
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i")
+        ]);
+
+        return redirect()->back()->with('success_message', 'Rak berhasil dibuat');
     }
 
     /**

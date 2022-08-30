@@ -123,7 +123,7 @@
                                     <div class="col-md-7">
                                         <div class="container rounded shadow p-3">
                                             <!--Semua barang di gudang-->
-                                            @include('admin.barang.gudang.all_barang')
+                                            @include('admin.rak.all_gudang')
                                         </div>
                                     </div>
                                 </div>
@@ -140,6 +140,7 @@
 
         <!--Modal-->
         @include('admin.rak.form.create')
+        @include('popup.success')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
