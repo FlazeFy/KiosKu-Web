@@ -27,7 +27,7 @@ class RiwayatController extends Controller
             ->orderBy('keranjang.created_at', 'DESC')->get();
 
         $barang_transaksi = DB::table('barang')
-            ->select('barang.id', 'transaksi.id_keranjang', 'barang.nama_barang', 'barang.kategori_barang', 'barang.harga_jual', 'transaksi.qty', 'keranjang.bayar')   
+            ->select('barang.id', 'transaksi.id_keranjang', 'barang.nama_barang', 'barang.kategori_barang', 'barang.harga_jual', 'barang.harga_stok', 'transaksi.qty', 'keranjang.bayar')   
             ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
             ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
             ->where('keranjang.id_kios', session()->get('idKey'))

@@ -24,7 +24,6 @@
         <!--Bootstrap-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
-        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>  
         <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 
         <!-- Vendors CSS & JS -->
@@ -81,6 +80,7 @@
             .text-primary{
                 color:#676aFA !important;
             }
+            
         </style>
     </head>
 
@@ -105,11 +105,33 @@
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
+                            @php($date_before = "")
+                            @php($date_now = "")
+                            @php($clps = 0)
+                            @php($collapse_close = false)
+                            @php($total_day = 0)
+                            @php($item = 0)
+                            
                             @foreach($transaksi as $trs)
+                                <!--Initial variable-->
                                 @php($total = 0)
                                 @php($bayar = 0)
                                 @php($arr = [])
+
+                                <!--Date diff-->
+                                @php($date_now = date('Y-m-d', strtotime($trs->created_at)))
+                                @if(($date_before == "") || ($date_before != $date_now))
+                                    @php($date_before = date('Y-m-d', strtotime($trs->created_at)))
+                                    @if($collapse_close == true)
+                                        </div>
+                                    @endif
+                                    @include('admin.riwayat.datediff')
+                                    <div class="collapse show" id="collapse-{{$clps}}">
+                                    @php($collapse_close = true)
+                                @endif
+
                                 @include('admin.riwayat.transaksi')
+                                @php($clps++)
                             @endforeach
                         </section>
                     </div>
@@ -122,6 +144,7 @@
 
         <!--Modal-->
         
+        
 
         <!-- / Layout wrapper -->
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
@@ -130,7 +153,6 @@
         <!-- build:js assets/vendor/js/core.js -->
         <script src="../assets/vendor/libs/jquery/jquery.js"></script>
         <script src="../assets/vendor/libs/popper/popper.js"></script>
-        <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
         <script src="../assets/vendor/js/menu.js"></script>
