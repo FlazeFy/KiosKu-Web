@@ -99,12 +99,14 @@
                             <i class="bx bx-menu bx-sm"></i>
                             </a>
                         </div>          
-                        <a class="fw-bold float-start">/Riwayat</a>   
+                        <a class="fw-bold float-start">/Riwayat</a> 
+                        <!-- Search -->
+                        @include('others.search')
                     </nav>
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section class="container-xxl flex-grow-1 container-p-y">
+                        <ul class="container-xxl flex-grow-1 container-p-y" id="myUL">
                             @php($date_before = "")
                             @php($date_now = "")
                             @php($clps = 0)
@@ -133,7 +135,7 @@
                                 @include('admin.riwayat.transaksi')
                                 @php($clps++)
                             @endforeach
-                        </section>
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 <h5>Gudang</h5>
 <div class="text-nowrap">
     @if(count($gudang) > 0)
-    <table class="table">
+    <table class="table table-paginate" id="gudangTable" cellspacing="0">
         <thead>
         <tr>
             <th>Kategori</th>

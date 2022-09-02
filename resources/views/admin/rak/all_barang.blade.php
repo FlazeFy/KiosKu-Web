@@ -1,7 +1,7 @@
 <h5>Semua Barang</h5>
 <div class="text-nowrap">
     @if(count($barang_rak) > 0)
-    <table class="table">
+    <table class="table table-paginate" id="barangTable" cellspacing="0" width="100%">
         <thead>
         <tr>
             <th>Kategori</th>

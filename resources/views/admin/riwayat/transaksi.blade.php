@@ -1,4 +1,4 @@
-<div class="row">
+<li class="row">
     <div class="col-md-10">
         <div class="container my-3 float-start rounded shadow p-3">
             <div class="position-relative">
@@ -55,4 +55,4 @@
             </div>
         </div>
     </div>
-</div>
+</li>
