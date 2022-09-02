@@ -131,16 +131,19 @@
                                     <!--Semua barang di rak-->
                                     @include('admin.rak.all_barang')
                                 </div>
+                                <div class="container rounded shadow p-3 mt-4">
+                                    <!--Semua barang di rak-->
+                                    @include('admin.rak.all_gudang')
+                                </div>
                                 <div class="row mt-4">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="container rounded shadow p-3">
                                             @include('admin.rak.all_rak')
                                         </div>
                                     </div>
-                                    <div class="col-md-7">
+                                    <div class="col-md-5">
                                         <div class="container rounded shadow p-3">
-                                            <!--Semua barang di gudang-->
-                                            @include('admin.rak.all_gudang')
+                                            
                                         </div>
                                     </div>
                                 </div>

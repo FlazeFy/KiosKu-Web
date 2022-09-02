@@ -29,7 +29,9 @@ Route::post('/dashboard/filter/{setting}', [DashboardController::class, 'filter'
 //Rak
 Route::get('/rak/{id}', [RakController::class, 'index']);
 Route::post('/rak/delete_barang/{id}', [RakController::class, 'delete_barang']);
+Route::post('/rak/delete_rak/{id}', [RakController::class, 'delete_rak']);
 Route::post('/rak/edit_barang/{id}', [RakController::class, 'edit_barang']);
+Route::post('/rak/edit_rak/{id}', [RakController::class, 'edit_rak']);
 Route::post('/rak/tambah_rak', [RakController::class, 'tambah_rak']);
 Route::post('/rak/tambah_barang_rak/{id}', [RakController::class, 'tambah_barang_rak']);
 

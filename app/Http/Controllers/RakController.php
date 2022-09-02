@@ -136,6 +136,17 @@ class RakController extends Controller
         return redirect()->back()->with('success_message', 'Barang berhasil diubah');
     }
 
+    public function edit_rak(Request $request, $id)
+    {
+        Rak::where('id', $id)->update([
+            'nama_rak' => $request->nama_rak,
+            'deskripsi_rak' => $request->deskripsi_rak,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Rak berhasil diubah');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -146,5 +157,11 @@ class RakController extends Controller
     {
         Relasi_Rak::destroy($id);
         return redirect()->back()->with('success_message', 'Barang berhasil dihapus dari rak');
+    }
+
+    public function delete_rak($id)
+    {
+        Rak::destroy($id);
+        return redirect()->back()->with('success_message', 'Rak berhasil dihapus');
     }
 }

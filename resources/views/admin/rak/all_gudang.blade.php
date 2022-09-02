@@ -10,6 +10,7 @@
             <th>Harga Jual</th>
             <th>Stok</th>
             <th>Expired</th>
+            <th>Diedit Pada</th>
             <th>Aksi</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
                             {{date('Y-m-d', strtotime($brg->expired_at))}}
                         @endif
                     </td>
+                    <td>{{date('Y-m-d', strtotime($brg->updated_at))}}</td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

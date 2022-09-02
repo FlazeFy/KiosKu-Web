@@ -26,12 +26,14 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"><i class="fa-solid fa-thumbtack"></i> Tandai</a>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-rak-Modal"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#hapus-rak-Modal"><i class="fa-solid fa-trash"></i> Hapus</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-rak-Modal-{{$rk->id}}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#hapus-rak-Modal-{{$rk->id}}"><i class="fa-solid fa-trash"></i> Hapus</a>
                             </div>
                         </div>
                     </td>
                 </tr>
+                @include('admin.rak.form.edit_rak')
+                @include('admin.rak.form.hapus_rak')
             @endforeach
         </tbody>
     </table>
