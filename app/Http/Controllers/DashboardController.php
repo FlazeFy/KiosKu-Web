@@ -49,16 +49,23 @@ class DashboardController extends Controller
             ->orderBy('transaksi.id', 'DESC')->get();
 
         $kasir =  DB::table('kasir')
-            ->select('kasir.id', 'kasir.created_at', 'kasir.nama_kasir', 'karyawan.nama_karyawan')
-            ->join('karyawan', 'karyawan.id', '=', 'kasir.id_karyawan')
+            ->select('kasir.id', 'kasir.created_at', 'kasir.nama_kasir')
             ->where('kasir.id_kios', session()->get('idKey'))
             ->orderBy('kasir.created_at', 'DESC')->get();
+        
+        $karyawan_kasir = DB::table('relasi_kasir')
+            ->select('relasi_kasir.id_kasir', 'karyawan.nama_karyawan', 'relasi_kasir.created_at')
+            ->join('kasir', 'relasi_kasir.id_kasir', '=', 'kasir.id')
+            ->join('karyawan', 'karyawan.id', '=', 'relasi_kasir.id_karyawan')
+            ->where('kasir.id_kios', session()->get('idKey'))
+            ->orderBy('relasi_kasir.created_at', 'ASC')->get();
 
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
             ->with('gudang', $gudang)
             ->with('absen', $absen)
             ->with('barang_rak', $barang_rak)
+            ->with('karyawan_kasir', $karyawan_kasir)
             ->with('rak', $rak)
             ->with('barang_transaksi', $barang_transaksi)
             ->with('kasir', $kasir);

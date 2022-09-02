@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Karyawan\DataController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
@@ -37,3 +38,6 @@ Route::post('/rak/tambah_barang_rak/{id}', [RakController::class, 'tambah_barang
 
 //Riwayat
 Route::get('/riwayat', [RiwayatController::class, 'index']);
+
+//Karyawan
+Route::get('/karyawan/data', [DataController::class, 'index']);

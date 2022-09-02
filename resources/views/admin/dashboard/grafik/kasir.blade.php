@@ -43,7 +43,13 @@
                         <td>
                             <div class="me-2">
                                 <h6 class="mb-0">{{$kr->nama_kasir}}</h6>
-                                <small class="text-muted">{{$kr->nama_karyawan}}</small>
+                                <small class="text-muted">
+                                    @foreach($karyawan_kasir as $kk)
+                                        @if($kk->id_kasir == $kr->id)
+                                            {{$kk->nama_karyawan}},
+                                        @endif
+                                    @endforeach
+                                </small>
                             </div>
                         </td>
                         <td>
