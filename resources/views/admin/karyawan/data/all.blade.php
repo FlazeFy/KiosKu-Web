@@ -21,7 +21,8 @@
     </div>
     <hr class="my-0" />
     <div class="card-body p-4">
-        <form id="formAccountSettings" method="POST" onsubmit="return false">
+        <form method="POST" action="/karyawan/data/edit_karyawan/{{$kr->id}}">
+        @csrf
         <div class="row">
             <div class="mb-3 col-md-6">
                 <div class="form-floating mb-2">
@@ -31,7 +32,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" name="nama_langkap_karyawan" value="{{$kr->nama_lengkap_karyawan}}" required>
+                    <input type="text" class="form-control" name="nama_lengkap_karyawan" value="{{$kr->nama_lengkap_karyawan}}" required>
                     <label for="floatingInput">Nama Lengkap</label>
                 </div>
             </div>
@@ -58,7 +59,7 @@
             </div>
         </div>
         <div class="mt-2">
-            <a class="btn btn-danger border-0 text-white float-end"><i class="fa-solid fa-trash"></i> Hapus</a>
+            <a class="btn btn-danger border-0 text-white float-end" data-bs-target="#hapus-karyawan-Modal-{{$kr->id}}" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Hapus</a>
             <button type="submit" class="btn btn-success border-0"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
             </form>
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>

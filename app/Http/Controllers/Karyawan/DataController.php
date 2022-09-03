@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Karyawan;
+
 class DataController extends Controller
 {
     /**
@@ -68,9 +70,18 @@ class DataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit_karyawan(Request $request, $id)
     {
-        //
+        Karyawan::where('id', $id)->update([
+            'nama_karyawan' => $request->nama_karyawan,
+            'nama_lengkap_karyawan' => $request->nama_lengkap_karyawan,
+            'gaji_karyawan' => $request->gaji_karyawan,
+            'jabatan_karyawan' => $request->jabatan_karyawan,
+            'status_karyawan' => $request->status_karyawan,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Data karyawan berhasil diubah');
     }
 
     /**
@@ -91,8 +102,14 @@ class DataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete_karyawan($id)
     {
-        //
+        Karyawan::destroy($id);
+
+        //Delete others karyawan relation
+        DB::table('absensi')->where('id_karyawan', '=', $id)->delete();
+        DB::table('relasi_kasir')->where('id_karyawan', '=', $id)->delete();
+
+        return redirect()->back()->with('success_message', 'Karyawan berhasil dihapus');
     }
 }
