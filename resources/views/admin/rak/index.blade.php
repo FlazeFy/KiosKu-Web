@@ -101,6 +101,13 @@
                 background: #4144f0;
                 border: none;
             }
+
+            .modal-title{
+                color:whitesmoke;
+            }
+            .modal-header{
+                background:#676AFB;
+            }
         </style>
     </head>
 

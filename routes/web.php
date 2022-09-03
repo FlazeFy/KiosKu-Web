@@ -43,3 +43,4 @@ Route::get('/riwayat', [RiwayatController::class, 'index']);
 Route::get('/karyawan/data', [DataController::class, 'index']);
 Route::post('/karyawan/data/delete_karyawan/{id}', [DataController::class, 'delete_karyawan']);
 Route::post('/karyawan/data/edit_karyawan/{id}', [DataController::class, 'edit_karyawan']);
+Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);

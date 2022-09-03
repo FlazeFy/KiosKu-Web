@@ -1,9 +1,19 @@
-<div class="card mb-4">
-    <h5 class="card-header">ID : {{$kr->id}}</h5>
+<style>
+    #uploadedAvatar{
+        border-radius:100px !important;
+    }
+</style>
+
+<div class="card shadow mb-4">
+    <h5 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}}</h5>
     <!-- Account -->
     <div class="card-body p-4">
         <div class="d-flex align-items-start align-items-sm-center gap-4">
-            <img src="../assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+            @if($kr->karyawan_image_url == "null")
+                <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+            @else
+                <img src="{{url('storage/'.$kr->karyawan_image_url)}}" alt="{{$kr->karyawan_image_url}}.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+            @endif
             <div class="button-wrapper">
                 <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                     <span class="d-none d-sm-block">Ganti Foto</span>
@@ -15,11 +25,11 @@
                     <span class="d-none d-sm-block">Reset</span>
                 </button>
 
-                <p class="text-muted mb-0">Format gambar JPG, GIF or PNG. Ukuran maksimal 5 mb</p>
+                <p class="text-muted mb-0">Format gambar <b>JPG, GIF</b> or <b>PNG</b>. Ukuran maksimal <b>5 mb</b></p>
             </div>
         </div>
     </div>
-    <hr class="my-0" />
+    <hr class="my-0" style="background:#212121;"/>
     <div class="card-body p-4">
         <form method="POST" action="/karyawan/data/edit_karyawan/{{$kr->id}}">
         @csrf
@@ -34,6 +44,18 @@
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" name="nama_lengkap_karyawan" value="{{$kr->nama_lengkap_karyawan}}" required>
                     <label for="floatingInput">Nama Lengkap</label>
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" name="email_karyawan" value="{{$kr->email_karyawan}}" required>
+                    <label for="floatingInput">Email</label>
+                </div>
+            </div>
+            <div class="mb-3 col-md-6">
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" name="ponsel_karyawan" value="{{$kr->ponsel_karyawan}}" required>
+                    <label for="floatingInput">Ponsel</label>
                 </div>
             </div>
             <div class="mb-3 col-md-6">

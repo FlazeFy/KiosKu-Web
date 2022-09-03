@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Karyawan;
 
@@ -37,9 +38,60 @@ class DataController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function tambah_karyawan(Request $request)
     {
-        //
+        //Create Account validator
+        $validator = Validator::make($request->all(), [
+            'nama_karyawan' => 'required|max:15|min:4',
+            'nama_lengkap_karyawan' => 'required|max:35',
+            'email_karyawan' => 'required|max:50|email|min:11|unique:karyawan',
+            'ponsel_karyawan' => 'required|max:16',
+            'jabatan_karyawan' => 'required',
+            'status_karyawan' => 'required',
+            'gaji_karyawan' => 'required',
+            'image_url' => 'required',
+        ]);
+        
+        if (!$validator->fails()) {
+            //Check username avaiability
+            $check = DB::table('karyawan')
+                ->select()
+                ->where('nama_karyawan', $request->nama_karyawan)
+                ->get();
+
+            //Validate image
+            $this->validate($request, [
+                'image_url'     => 'required|image|mimes:jpeg,png,jpg|max:5000',
+            ]);
+
+            //Upload image
+            $image = $request->file('image_url');
+            $image->storeAs('public', $image->hashName());
+            $imageURL = $image->hashName();
+
+            if(count($check) == 0){
+                //Karyawan data.
+                Karyawan::create([
+                    'id_kios' => session()->get('idKey'),
+                    'nama_karyawan' => $request->nama_karyawan,
+                    'nama_lengkap_karyawan' => $request->nama_lengkap_karyawan,
+                    'email_karyawan' => $request->email_karyawan,
+                    'ponsel_karyawan' => $request->ponsel_karyawan,
+                    'jabatan_karyawan' => $request->jabatan_karyawan,
+                    'status_karyawan' => $request->status_karyawan,
+                    'gaji_karyawan' => $request->gaji_karyawan,
+                    'karyawan_image_url' => $imageURL,
+                    'created_at' => date("Y-m-d h:m:i"),
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
+
+                return redirect()->back()->with('success_message', 'Berhasil menambahkan karyawan baru');
+            } else {
+                return redirect()->back()->with('failed_message', 'Validasi gagal!, periksa kembali data Anda');
+            }
+        } else {
+            return redirect()->back()->with('failed_message', 'Validasi gagal!, periksa kembali data Anda');
+        }        
     }
 
     /**
@@ -75,6 +127,8 @@ class DataController extends Controller
         Karyawan::where('id', $id)->update([
             'nama_karyawan' => $request->nama_karyawan,
             'nama_lengkap_karyawan' => $request->nama_lengkap_karyawan,
+            'email_karyawan' => $request->email_karyawan,
+            'ponsel_karyawan' => $request->ponsel_karyawan,
             'gaji_karyawan' => $request->gaji_karyawan,
             'jabatan_karyawan' => $request->jabatan_karyawan,
             'status_karyawan' => $request->status_karyawan,

@@ -80,6 +80,12 @@
             .text-primary{
                 color:#676aFA !important;
             }
+            .modal-title{
+                color:whitesmoke;
+            }
+            .modal-header{
+                background:#676AFB;
+            }
             
         </style>
     </head>

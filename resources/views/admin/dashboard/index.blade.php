@@ -167,6 +167,13 @@
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
                 background-color: #696CFF;
             }
+
+            .modal-title{
+                color:whitesmoke;
+            }
+            .modal-header{
+                background:#676AFB;
+            }
         </style>
     </head>
 

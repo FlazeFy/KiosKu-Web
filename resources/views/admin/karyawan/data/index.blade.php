@@ -43,6 +43,13 @@
                 font-weight:500;
             }
 
+            .modal-title{
+                color:whitesmoke;
+            }
+            .modal-header{
+                background:#676AFB;
+            }
+
             .price{
                 color:#697A8d;
                 font-size:22px !important;
@@ -113,6 +120,10 @@
                                 <div class="col-md-12">
                                     <ul class="nav nav-pills flex-column flex-md-row mb-3">
                                         <li class="nav-item">
+                                            <button class="btn btn-success h-100 mx-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
+                                                <i class="fa-solid fa-plus"></i> Tambah</button>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link active" href="javascript:void(0);"> Semua</a>
                                         </li>
                                         <li class="nav-item">
@@ -140,6 +151,8 @@
 
         <!--Modal-->
         @include('popup.success')
+        @include('popup.failed')
+        @include('admin.karyawan.data.form.tambah_karyawan')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
