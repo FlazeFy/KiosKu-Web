@@ -44,7 +44,11 @@
                     </tr>
                     <td>
                         <div class="avatar flex-shrink-0 me-3">
-                            <img src=".." alt="User" class="rounded" />
+                            @if($abs->karyawan_image_url == "null")
+                                <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+                            @else
+                                <img src="{{url('storage/'.$abs->karyawan_image_url)}}" alt="{{$abs->karyawan_image_url}}.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+                            @endif
                         </div>
                     </td>
                     <td>

@@ -92,6 +92,11 @@
                 background: #4144f0;
                 border: none;
             }
+
+            .btn-outlined, .btn-outlined:hover{
+                color: #676AFA;
+                border: 2px solid #676AFA;
+            }
         </style>
     </head>
 
@@ -111,6 +116,8 @@
                             </a>
                         </div>          
                         <a class="fw-bold float-start">/Karyawan/Data</a>   
+                        <!-- Search -->
+                        @include('others.search')
                     </nav>
 
                     <!-- Content wrapper -->
@@ -118,24 +125,40 @@
                         <div class="container-xxl flex-grow-1 container-p-y">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                    <ul id="data-flters" class="nav nav-pills flex-column flex-md-row mb-3">
                                         <li class="nav-item">
-                                            <button class="btn btn-success h-100 mx-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
+                                            <button class="btn btn-success h-100 me-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
                                                 <i class="fa-solid fa-plus"></i> Tambah</button>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="javascript:void(0);"> Semua</a>
+                                            <button class="btn btn-primary h-100 me-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
+                                                <i class="fa-solid fa-print"></i> Cetak Semua</button>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href=""><i class="bx bx-user me-1"></i> Kasir</a>
+                                        <li class="nav-item filter-active" data-filter="*">
+                                            <a class="btn btn-outlined h-100 me-2"> Semua</a>
                                         </li>
-                                    </ul>
-                                    @foreach($karyawan as $kr)
-                                        @include('admin.karyawan.data.all')
+                                        <!--Iterate category to array-->
+                                        @php($arr = [])
+                                        @foreach($karyawan as $kr)
+                                            @php($arr[] = $kr->jabatan_karyawan)
+                                        @endforeach
 
-                                        <!--Modal-->
-                                        @include('admin.karyawan.data.form.hapus_karyawan')
-                                    @endforeach
+                                        <!--Make array unique-->
+                                        <!-- @php($arr = array_unique($arr)) -->
+                                        @foreach(array_unique($arr) as $ar => $val)
+                                            <li class="nav-item"  data-filter=".filter-{{str_replace(' ', '', $val)}}">
+                                                <button class="btn btn-outlined h-100 me-2">{{$val}}</button>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    <ul id="myUL" class="p-0 data-container">
+                                        @foreach($karyawan as $kr)
+                                            @include('admin.karyawan.data.all')
+
+                                            <!--Modal-->
+                                            @include('admin.karyawan.data.form.hapus_karyawan')
+                                        @endforeach
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -156,9 +179,63 @@
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
+        <script>
+            //Isotope and data-filter
+            (function() {
+                "use strict";
+                const select = (el, all = false) => {
+                    el = el.trim()
+                    if (all) {
+                    return [...document.querySelectorAll(el)]
+                    } else {
+                    return document.querySelector(el)
+                    }
+                }
+
+                const on = (type, el, listener, all = false) => {
+                    let selectEl = select(el, all)
+                    if (selectEl) {
+                    if (all) {
+                        selectEl.forEach(e => e.addEventListener(type, listener))
+                    } else {
+                        selectEl.addEventListener(type, listener)
+                    }
+                    }
+                }
+                
+                window.addEventListener('load', () => {
+                    let portfolioContainer = select('.data-container');
+                    if (portfolioContainer) {
+                    let portfolioIsotope = new Isotope(portfolioContainer, {
+                        itemSelector: '.data-item'
+                    });
+
+                    let portfolioFilters = select('#data-flters li', true);
+
+                    on('click', '#data-flters li', function(e) {
+                        e.preventDefault();
+                        portfolioFilters.forEach(function(el) {
+                        el.classList.remove('filter-active');
+                        });
+                        this.classList.add('filter-active');
+
+                        portfolioIsotope.arrange({
+                        filter: this.getAttribute('data-filter')
+                        });
+
+                    }, true);
+                    }
+
+                });
+            })()
+        </script>
+
         <!-- Core JS -->
         <!-- build:js assets/vendor/js/core.js -->
         <script src="../assets/vendor/libs/popper/popper.js"></script>
+        <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
         <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 

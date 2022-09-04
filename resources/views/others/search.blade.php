@@ -1,7 +1,7 @@
 <div class="navbar-nav align-items-center position-fixed" style="right:0px;">
     <div class="nav-item d-flex align-items-center"><i class="fa-solid fa-magnifying-glass fa-lg"></i>
         <input type="text" class="form-control border-0 shadow-none" id="searchInput" onkeyup="myFunction()" 
-            placeholder="Cari ID..." aria-label="Cari ID..."/>
+            placeholder="Cari ID / Nama..." aria-label="Cari ID..."/>
     </div>
 </div>
 

@@ -4,8 +4,8 @@
     }
 </style>
 
-<div class="card shadow mb-4">
-    <h5 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}}</h5>
+<li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}">
+    <h6 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}} <span class="float-end"> Nama Lengkap: {{$kr->nama_lengkap_karyawan}}</span></h6>
     <!-- Account -->
     <div class="card-body p-4">
         <div class="d-flex align-items-start align-items-sm-center gap-4">
@@ -85,6 +85,7 @@
             <button type="submit" class="btn btn-success border-0"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
             </form>
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-print"></i> Cetak</button>
         </div>
     </div>
-</div>
+</li>
