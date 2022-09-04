@@ -108,6 +108,10 @@
             .modal-header{
                 background:#676AFB;
             }
+
+            .text-primary{
+                color:#676AFB !important;
+            }
         </style>
     </head>
 
@@ -198,7 +202,95 @@
         <!-- Page JS -->
         <script src="../assets/js/dashboards-analytics.js"></script>
         <script type="text/javascript">
+            'use strict';
+            (function () {
+                let cardColor, headingColor, axisColor, shadeColor, borderColor;
+
+                cardColor = config.colors.white;
+                headingColor = config.colors.headingColor;
+                axisColor = config.colors.axisColor;
+                borderColor = config.colors.borderColor;
+
+                //Keuntungan.
+                const profileReportChartEl = document.querySelector('#keuntunganChart'),
+                profileReportChartConfig = {
+                chart: {
+                    height: 100,
+                    //width: 250,
+                    type: 'line',
+                    toolbar: {
+                        show: false
+                    },
+                    dropShadow: {
+                        enabled: true,
+                        top: 10,
+                        left: 5,
+                        blur: 3,
+                        color: config.colors.primary,
+                        opacity: 0.15
+                    },
+                    sparkline: {
+                        enabled: true
+                    }
+                },
+                grid: {
+                    show: false,
+                    padding: {
+                        right: 8
+                    }
+                },
+                colors: [config.colors.primary],
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    width: 6.5,
+                    curve: 'smooth'
+                },
+                series: [
+                    {
+                        name: "Total",
+                        data:[
+                        <?php 
+                            //Inital variable.
+                            $day1 = 62; //CHECK THIS AGAIN!!!!!!!!!!!!!!!
+                            $day2 = 70;
+                            $max = 10; //Show last 10 week value.
+
+                            for($i = 1; $i <= $max; $i++){
+                                $total = 0;
+                                foreach($transaksi as $ts){
+                                    foreach($barang_transaksi as $btrs){
+                                        if(($btrs->id_keranjang == $ts->id)&&(strtotime($ts->created_at) > strtotime('-'.$day2.' day'))&&(strtotime($ts->created_at) <= strtotime('-'.$day1.' day'))){
+                                            $total += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
+                                        }
+                                    }
             
+                                }
+                                echo $total.",";
+
+                                //Iterate to next week.
+                                $day1 = $day1 - 7;
+                                $day2 = $day2 - 7;
+                            }
+                        ?>
+                        ]
+                    }
+                ],
+                xaxis: {
+                    show: true,
+                    categories: ["9 Minggu Lalu", "8 Minggu Lalu", "7 Minggu Lalu", "6 Minggu Lalu", "5 Minggu Lalu", "4 Minggu Lalu", "3 Minggu Lalu", "2 Minggu Lalu", "Seminggu Lalu", "Minggu Ini"]
+                },
+                yaxis: {
+                    show: false
+                }
+                };
+            if (typeof profileReportChartEl !== undefined && profileReportChartEl !== null) {
+                const profileReportChart = new ApexCharts(profileReportChartEl, profileReportChartConfig);
+                profileReportChart.render();
+            }
+
+            })();
         </script>
 
         <!-- Place this tag in your head or just before your close body tag. -->

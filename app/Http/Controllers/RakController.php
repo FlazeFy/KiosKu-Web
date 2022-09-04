@@ -31,6 +31,22 @@ class RakController extends Controller
             ->where('id', $id)
             ->orderBy('created_at', 'DESC')->get();
 
+        //Count total profit
+        $barang_transaksi = DB::table('barang')
+            //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'bara')   
+            ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
+            ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
+            ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
+            ->where('keranjang.id_kios', session()->get('idKey'))
+            ->where('relasi_rak.id_rak', $id)
+            ->orderBy('transaksi.id', 'DESC')->get();
+
+        $transaksi = DB::table('keranjang')
+            ->select('keranjang.id', 'keranjang.created_at')
+            ->where('keranjang.id_kios', session()->get('idKey'))
+            ->orderBy('keranjang.created_at', 'DESC')->get();
+
+        //All item in current rak
         $barang_rak = DB::table('barang')
             ->select('relasi_rak.id', 'barang.id as id_barang', 'barang.kategori_barang', 'barang.nama_barang', 'barang.deskripsi_barang', 'barang.harga_jual', 'barang.harga_stok', 'barang.stok_barang', 'barang.expired_at')
             ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
@@ -38,6 +54,7 @@ class RakController extends Controller
             ->where('rak.id', $id)
             ->orderBy('relasi_rak.created_at', 'DESC')->get();
 
+        //All item in shop
         $gudang = DB::table('barang')
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
@@ -46,7 +63,9 @@ class RakController extends Controller
             ->with('rak', $rak)
             ->with('open_rak', $open_rak)
             ->with('gudang', $gudang)
-            ->with('barang_rak', $barang_rak);
+            ->with('barang_rak', $barang_rak)
+            ->with('barang_transaksi', $barang_transaksi)
+            ->with('transaksi', $transaksi);
     }
 
     /**
