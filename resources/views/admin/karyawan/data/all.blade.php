@@ -2,31 +2,32 @@
     #uploadedAvatar{
         border-radius:100px !important;
     }
+    .image-upload>input {
+        display: none;
+    }
 </style>
 
 <li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}">
     <h6 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}} <span class="float-end"> Nama Lengkap: {{$kr->nama_lengkap_karyawan}}</span></h6>
     <!-- Account -->
     <div class="card-body p-4">
-        <div class="d-flex align-items-start align-items-sm-center gap-4">
-            @if($kr->karyawan_image_url == "null")
-                <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
-            @else
-                <img src="{{url('storage/'.$kr->karyawan_image_url)}}" alt="{{$kr->karyawan_image_url}}.png" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
-            @endif
-            <div class="button-wrapper">
-                <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                    <span class="d-none d-sm-block">Ganti Foto</span>
-                    <i class="bx bx-upload d-block d-sm-none"></i>
-                    <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg"/>
-                </label>
-                <button type="button" class="btn btn-danger account-image-reset mb-4">
-                    <i class="bx bx-reset d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Reset</span>
-                </button>
-
-                <p class="text-muted mb-0">Format gambar <b>JPG, GIF</b> or <b>PNG</b>. Ukuran maksimal <b>5 mb</b></p>
-            </div>
+        <form method="POST" action="/karyawan/data/edit_foto/{{$kr->id}}"  id="formImage{{$kr->id}}" enctype="multipart/form-data">
+        @csrf
+            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                @if($kr->karyawan_image_url == "null")
+                    <img id="frame{{$kr->id}}" src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
+                @else
+                    <img id="frame{{$kr->id}}" src="{{url('storage/'.$kr->karyawan_image_url)}}" alt="{{$kr->karyawan_image_url}}.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
+                @endif
+                <div class="image-upload" id="formFileEditAcc{{$kr->id}}" onchange="previewEditAcc<?php echo $kr->id; ?>()">
+                    <label for="file-input{{$kr->id}}">
+                        <a class="btn btn-primary text-white">Ganti Foto</a>
+                    </label>
+                    <input id="file-input{{$kr->id}}" type="file" name="image_url"/>
+                </div>
+            </form>
+            <button class="btn btn-danger"><i class="bx bx-reset d-block d-sm-none"></i> Reset</button>
+            <p class="text-muted mb-0">Format gambar <b>JPG, GIF</b> or <b>PNG</b>. Ukuran maksimal <b>5 mb</b></p>
         </div>
     </div>
     <hr class="my-0" style="background:#212121;"/>

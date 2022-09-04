@@ -135,7 +135,7 @@
                                                 <i class="fa-solid fa-print"></i> Cetak Semua</button>
                                         </li>
                                         <li class="nav-item filter-active" data-filter="*">
-                                            <a class="btn btn-outlined h-100 me-2"> Semua</a>
+                                            <button class="btn btn-outlined h-100 me-2"> Semua</button>
                                         </li>
                                         <!--Iterate category to array-->
                                         @php($arr = [])
@@ -180,6 +180,19 @@
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
         <script>
+            //Image upload preview.
+            <?php
+                foreach($karyawan as $kr){
+                    echo "
+                    function previewEditAcc".$kr->id."() {
+                        frame".$kr->id.".src = URL.createObjectURL(event.target.files[0]);
+                    }
+                    document.getElementById('formFileEditAcc".$kr->id."').onchange = function() {
+                        document.getElementById('formImage".$kr->id."').submit();
+                    };";
+                }
+            ?>
+            
             //Isotope and data-filter
             (function() {
                 "use strict";
