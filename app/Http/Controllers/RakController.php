@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Relasi_Rak;
 use App\Models\Barang;
@@ -105,15 +106,35 @@ class RakController extends Controller
         return redirect()->back()->with('success_message', 'Rak berhasil dibuat');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit_foto(Request $request, $id)
     {
-        //
+        $rak_id = DB::table('rak')->where('id', $id)->get();
+        //Get old image url.
+        foreach($rak_id as $r){
+            $old_image = $r->rak_image_url;
+        }
+
+        //Validate image.
+        $this->validate($request, [
+            'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
+        ]);
+
+        //Upload image.
+        $new_image = $request->file('image_url');
+        $new_image->storeAs('public', $new_image->hashName());
+        $imageURL = $new_image->hashName();
+
+        //Delete old image if new image is uploaded.
+        if(($request->file('image_url')->isValid())&&($old_image != "null")){
+            Storage::delete('public/'.$old_image);
+        }
+
+        Rak::where('id', $id)->update([
+            'rak_image_url' => $imageURL,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Foto profil berhasil diperbarui');
     }
 
     /**

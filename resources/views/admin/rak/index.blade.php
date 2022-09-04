@@ -134,7 +134,7 @@
                         <!-- Content wrapper -->
                         <div class="content-wrapper p-3">
                             <section class="container-xxl flex-grow-1 container-p-y">
-                                <div class="container rounded shadow p-3">
+                                <div class="card rounded shadow p-0">
                                     <!--Semua barang di rak-->
                                     @include('admin.rak.all_barang')
                                 </div>
@@ -168,6 +168,16 @@
         <!--Modal-->
         @include('admin.rak.form.create')
         @include('popup.success')
+
+        <script>
+            //Image upload preview.
+            function previewEdit() {
+                frame.src = URL.createObjectURL(event.target.files[0]);
+            }
+            document.getElementById('formFileEdit').onchange = function() {
+                document.getElementById('formImage').submit();
+            }
+        </script>
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 

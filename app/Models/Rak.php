@@ -11,5 +11,5 @@ class Rak extends Model
 
     protected $table = 'rak';
     protected $primaryKey = 'id';
-    protected $fillable = ['id_kios', 'nama_rak', 'deskripsi_rak', 'created_at', 'updated_at'];
+    protected $fillable = ['id_kios', 'nama_rak', 'deskripsi_rak', 'rak_image_url', 'created_at', 'updated_at'];
 }
