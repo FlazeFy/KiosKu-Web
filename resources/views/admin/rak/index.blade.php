@@ -25,7 +25,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>  
-        <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> -->
         <script href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></script>
 
         <!-- Vendors CSS & JS -->
@@ -261,6 +261,7 @@
                                 $total = 0;
                                 foreach($transaksi as $ts){
                                     foreach($barang_transaksi as $btrs){
+                                        //CHECK THIS AGAIN!!!!!!!!!!!!!!!
                                         if(($btrs->id_keranjang == $ts->id)&&(strtotime($ts->created_at) > strtotime('-'.$day2.' day'))&&(strtotime($ts->created_at) <= strtotime('-'.$day1.' day'))){
                                             $total += $btrs->qty * ($btrs->harga_jual - $btrs->harga_stok);
                                         }

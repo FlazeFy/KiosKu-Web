@@ -73,9 +73,14 @@ class RakController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getGudang()
     {
-        //
+        $gudangData = DB::table('barang')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
+
+        echo json_encode($gudangData);
+        //exit;
     }
 
     /**
@@ -113,11 +118,11 @@ class RakController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function tambah_barang_rak(Request $request, $id)
+    public function tambah_barang_rak(Request $request)
     {
         Relasi_Rak::create([
             'id_barang' => $request->id_barang,
-            'id_rak' => $id,
+            'id_rak' => $request->id_rak,
             'created_at' => date("Y-m-d h:m:i"),
             'updated_at' => date("Y-m-d h:m:i")
         ]);

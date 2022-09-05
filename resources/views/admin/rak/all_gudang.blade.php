@@ -37,8 +37,9 @@
                             </button>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item"><i class="fa-solid fa-thumbtack"></i> Tandai</a>
-                                <form action="/rak/tambah_barang_rak/{{$op->id}}" method="POST">
+                                <form id="add_barang_rak_{{$brg->id}}_form">
                                     @csrf
+                                    <input type="hidden" value="{{$op->id}}" name="id_rak">
                                     <input type="hidden" value="{{$brg->id}}" name="id_barang">
                                     <button class="dropdown-item" type="submit"><i class="fa-solid fa-plus"></i> Tambahkan</button>
                                 </form>
@@ -56,3 +57,78 @@
         </div>
     @endif
 </div>
+
+<script type="text/javascript">
+    //Post ajax
+    <?php
+        foreach($gudang as $brg){
+            echo"
+            $('#add_barang_rak_".$brg->id."_form').submit(function( event ) {
+                event.preventDefault();
+                $.ajax({
+                    url: '/rak/tambah_barang_rak',
+                    type: 'post',
+                    data: $('#add_barang_rak_".$brg->id."_form').serialize(),
+                    dataType: 'json',
+                    success: function( _response ){
+                        // Handle your response..
+                    },
+                    error: function( _response ){
+                        // Handle error
+                    }
+                });
+            });";
+        }
+    ?>
+    $(document).ready(function() {
+        selesai();
+    });
+    
+    function selesai() {
+        setTimeout(function() {
+            update();
+            selesai();
+        }, 200);
+    }
+    
+    function update() {
+        $.ajax({
+         url: '/rak/getGudang',
+         type: 'get',
+         dataType: 'json',
+         success: function(response){
+
+           var len = 0;
+           $('#gudangTable tbody').empty(); // Empty <tbody>
+           if(response['data'] != null){
+              len = response['data'].length;
+           }
+
+           if(len > 0){
+              for(var i=0; i<len; i++){
+                 var id = response['data'][i].id;
+                 var username = response['data'][i].username;
+                 var name = response['data'][i].name;
+                 var email = response['data'][i].email;
+
+                 var tr_str = "<tr>" +
+                   "<td align='center'>" + (i+1) + "</td>" +
+                   "<td align='center'>" + username + "</td>" +
+                   "<td align='center'>" + name + "</td>" +
+                   "<td align='center'>" + email + "</td>" +
+                 "</tr>";
+
+                 $("#userTable tbody").append(tr_str);
+              }
+           }else{
+              var tr_str = "<tr>" +
+                  "<td align='center' colspan='4'>No record found.</td>" +
+              "</tr>";
+
+              $("#userTable tbody").append(tr_str);
+           }
+
+         }
+       });
+    }
+</script>
