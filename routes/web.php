@@ -29,7 +29,7 @@ Route::post('/dashboard/filter/{setting}', [DashboardController::class, 'filter'
 
 //Rak
 Route::get('/rak/{id}', [RakController::class, 'index']);
-Route::get('/rak/getGudang', [RakController::class, 'getGudang']);
+Route::get('/getBarangRak/{id}', [RakController::class, 'getBarangRak']);
 Route::post('/rak/delete_barang/{id}', [RakController::class, 'delete_barang']);
 Route::post('/rak/delete_rak/{id}', [RakController::class, 'delete_rak']);
 Route::post('/rak/edit_barang/{id}', [RakController::class, 'edit_barang']);

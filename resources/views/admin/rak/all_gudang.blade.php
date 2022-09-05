@@ -15,7 +15,7 @@
         </tr>
         </thead>
         <tbody class="table-border-bottom-0">
-            @foreach($gudang as $brg)
+        @foreach($gudang as $brg)
                 <tr>
                     <td>{{$brg->kategori_barang}}</td>
                     <td>{{$brg->nama_barang}}</td>
@@ -80,55 +80,4 @@
             });";
         }
     ?>
-    $(document).ready(function() {
-        selesai();
-    });
-    
-    function selesai() {
-        setTimeout(function() {
-            update();
-            selesai();
-        }, 200);
-    }
-    
-    function update() {
-        $.ajax({
-         url: '/rak/getGudang',
-         type: 'get',
-         dataType: 'json',
-         success: function(response){
-
-           var len = 0;
-           $('#gudangTable tbody').empty(); // Empty <tbody>
-           if(response['data'] != null){
-              len = response['data'].length;
-           }
-
-           if(len > 0){
-              for(var i=0; i<len; i++){
-                 var id = response['data'][i].id;
-                 var username = response['data'][i].username;
-                 var name = response['data'][i].name;
-                 var email = response['data'][i].email;
-
-                 var tr_str = "<tr>" +
-                   "<td align='center'>" + (i+1) + "</td>" +
-                   "<td align='center'>" + username + "</td>" +
-                   "<td align='center'>" + name + "</td>" +
-                   "<td align='center'>" + email + "</td>" +
-                 "</tr>";
-
-                 $("#userTable tbody").append(tr_str);
-              }
-           }else{
-              var tr_str = "<tr>" +
-                  "<td align='center' colspan='4'>No record found.</td>" +
-              "</tr>";
-
-              $("#userTable tbody").append(tr_str);
-           }
-
-         }
-       });
-    }
 </script>

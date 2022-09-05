@@ -78,40 +78,7 @@
                 <th>Aksi</th>
             </tr>
             </thead>
-            <tbody class="table-border-bottom-0">
-                @foreach($barang_rak as $bk)
-                    <tr>
-                        <td>{{$bk->kategori_barang}}</td>
-                        <td>{{$bk->nama_barang}}</td>
-                        <td>{{$bk->deskripsi_barang}}</td>
-                        <td>Rp. {{$bk->harga_jual}}</td>
-                        <td>Rp. {{$bk->harga_stok}}</td>
-                        <td>Rp. {{$bk->harga_jual - $bk->harga_stok}}</td>
-                        <td>{{$bk->stok_barang}}</td>
-                        <td>
-                            @if(strtotime($bk->expired_at) == strtotime('0000-00-00 00:00:00'))
-                                -
-                            @else
-                                {{date('Y-m-d', strtotime($bk->expired_at))}}
-                            @endif
-                        </td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item"><i class="fa-solid fa-thumbtack"></i> Tandai</a>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-barang-Modal"><i class="fa-solid fa-pen-to-square"></i> Ubah</a>
-                                    <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#hapus-barang-Modal"><i class="fa-solid fa-trash"></i> Hapus</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @include('admin.rak.form.hapus_barang')
-                    @include('admin.rak.form.edit_barang')
-                @endforeach
-            </tbody>
+            <tbody class="table-border-bottom-0" id="body_barangTable"></tbody>
         </table>
         @else
             <div class="container text-center d-block mx-auto">
@@ -121,3 +88,88 @@
         @endif
     </div>
 </div>
+
+<script type="text/javascript">
+    //Get data ajax
+    $(document).ready(function() {
+        clear();
+    });
+    
+    function clear() {
+        setTimeout(function() {
+            update();
+            clear();
+        }, 2000); //Every 200 milliseconds
+    }
+    
+    function update() {
+        $.ajax({
+            url: '/getBarangRak/{{$op->id}}',
+            type: 'get',
+            dataType: 'json',
+            success: function(response){
+                var len = 0;
+                $('#body_barangTable').empty(); 
+                if(response != null){
+                    len = response.length;
+                }
+
+                //Date converter.
+                function convertDate(datetime){
+                    if(datetime == "0000-00-00 00:00:00"){
+                        return "-";
+                    } else {
+                        const result = new Date(datetime);
+                        return result.getFullYear() + "-" + (result.getMonth() + 1) + "-" + result.getDate();
+                    }
+                }
+                
+                if(len > 0){
+                    for(var i=0; i<len; i++){
+                        //Attribute
+                        var kategori_barang = response[i].kategori_barang;
+                        var nama_barang = response[i].nama_barang;
+                        var deskripsi_barang = response[i].deskripsi_barang;
+                        var harga_jual = response[i].harga_jual;
+                        var harga_stok = response[i].harga_stok;
+                        var stok_barang = response[i].stok_barang;
+                        var expired_at = response[i].expired_at;
+
+                        var tr_str = 
+                            "<tr>" +
+                                "<td>" + kategori_barang + "</td>" +
+                                "<td>" + nama_barang + "</td>" +
+                                "<td>" + deskripsi_barang + "</td>" +
+                                "<td>Rp. " + harga_jual + "</td>" +
+                                "<td>Rp. " + harga_stok + "</td>" +
+                                "<td>Rp. " + (Number(harga_jual) - Number(harga_stok)) + "</td>" +
+                                "<td>" + stok_barang + "</td>" +
+                                "<td>" + convertDate(expired_at) + "</td>" +
+                                "<td>" +
+                                    "<div class='dropdown'>" +
+                                        "<button type='button' class='btn p-0 dropdown-toggle hide-arrow' data-bs-toggle='dropdown'>" +
+                                            "<i class='bx bx-dots-vertical-rounded'></i>" +
+                                        "</button>" +
+                                        "<div class='dropdown-menu'>" +
+                                            "<a class='dropdown-item'><i class='fa-solid fa-thumbtack'></i> Tandai</a>" +
+                                            "<a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#edit-barang-Modal'><i class='fa-solid fa-pen-to-square'></i> Ubah</a>" +
+                                            "<a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#hapus-barang-Modal'><i class='fa-solid fa-trash'></i> Hapus</a>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</td>" +
+                            "</tr>" ;
+
+                        $("#body_barangTable").append(tr_str);
+                    }
+                }else{
+                    var tr_str = 
+                        "<tr>" +
+                            "<td align='center' colspan='4'>Data Kosong</td>" +
+                        "</tr>";
+
+                    $("#body_barangTable").append(tr_str);
+                }
+            }
+       });
+    }
+</script>

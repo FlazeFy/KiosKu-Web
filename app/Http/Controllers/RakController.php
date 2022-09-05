@@ -73,14 +73,17 @@ class RakController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getGudang()
+    public function getBarangRak($id)
     {
-        $gudangData = DB::table('barang')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        $barang_rak = DB::table('barang')
+            ->select('relasi_rak.id', 'barang.id as id_barang', 'barang.kategori_barang', 'barang.nama_barang', 'barang.deskripsi_barang', 'barang.harga_jual', 'barang.harga_stok', 'barang.stok_barang', 'barang.expired_at')
+            ->join('relasi_rak', 'relasi_rak.id_barang', '=', 'barang.id')
+            ->join('rak', 'rak.id', '=', 'relasi_rak.id_rak')
+            ->where('rak.id', $id)
+            ->orderBy('relasi_rak.created_at', 'DESC')->get();
 
-        echo json_encode($gudangData);
-        //exit;
+        echo json_encode($barang_rak);
+        exit;
     }
 
     /**
