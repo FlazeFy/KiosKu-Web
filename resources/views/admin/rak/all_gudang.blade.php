@@ -23,7 +23,7 @@
                     <td>Rp. {{$brg->harga_jual}}</td>
                     <td>{{$brg->stok_barang}}</td>
                     <td>
-                        @if(strtotime($brg->expired_at) == strtotime('0000-00-00 00:00:00'))
+                        @if($brg->expired_at == null)
                             -
                         @else
                             {{date('Y-m-d', strtotime($brg->expired_at))}}

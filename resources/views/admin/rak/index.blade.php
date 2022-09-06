@@ -171,6 +171,10 @@
 
         <!--Modal-->
         @include('admin.rak.form.create')
+        @foreach($barang_rak as $bk)
+            @include('admin.rak.form.edit_barang')
+            @include('admin.rak.form.hapus_barang')
+        @endforeach
         @include('popup.success')
 
         <script>

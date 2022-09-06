@@ -59,6 +59,9 @@ class RakController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
+        //Set active nav
+        session()->put('active_nav', 'rak');
+
         return view ('admin.rak.index')
             ->with('rak', $rak)
             ->with('open_rak', $open_rak)
@@ -105,6 +108,7 @@ class RakController extends Controller
                 'id_kios' => session()->get('idKey'),
                 'nama_rak' => $request->nama_rak,
                 'deskripsi_rak' => $request->deskripsi_rak,
+                'rak_image_url' => 'null',
                 'created_at' => date("Y-m-d h:m:i"),
                 'updated_at' => date("Y-m-d h:m:i"),
             ]);
@@ -173,12 +177,18 @@ class RakController extends Controller
      */
     public function edit_barang(Request $request, $id)
     {
+        $exp = "";
+        if(($request->expired_at == "0000-00-00 00:00:00")||($request->expired_at == null)){
+            $exp = null;
+        } else {
+            $exp = $request->expired_at;
+        }
         Barang::where('id', $id)->update([
             'harga_jual' => $request-> harga_jual,
             'harga_stok' => $request-> harga_stok,
             'stok_barang' => $request-> stok_barang,
             'updated_at' => date("Y-m-d h:m:i"),
-            'expired_at' => $request-> expired_at,
+            'expired_at' => $exp,
         ]);
 
         return redirect()->back()->with('success_message', 'Barang berhasil diubah');

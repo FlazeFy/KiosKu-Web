@@ -71,11 +71,11 @@
                 <th>Nama</th>
                 <th>Deskripsi</th>
                 <th>Harga Jual</th>
-                <th>Harga Stok</th>
                 <th>Keuntungan</th>
                 <th>Stok</th>
                 <th>Expired</th>
-                <th>Aksi</th>
+                <th>Ubah</th>
+                <th>Hapus</th>
             </tr>
             </thead>
             <tbody class="table-border-bottom-0" id="body_barangTable"></tbody>
@@ -99,7 +99,7 @@
         setTimeout(function() {
             update();
             clear();
-        }, 2000); //Every 200 milliseconds
+        }, 2000); //Every 2000 milliseconds
     }
     
     function update() {
@@ -116,7 +116,7 @@
 
                 //Date converter.
                 function convertDate(datetime){
-                    if(datetime == "0000-00-00 00:00:00"){
+                    if(datetime == null){
                         return "-";
                     } else {
                         const result = new Date(datetime);
@@ -127,6 +127,8 @@
                 if(len > 0){
                     for(var i=0; i<len; i++){
                         //Attribute
+                        var id = response[i].id;
+                        var id_barang = response[i].id_barang;
                         var kategori_barang = response[i].kategori_barang;
                         var nama_barang = response[i].nama_barang;
                         var deskripsi_barang = response[i].deskripsi_barang;
@@ -141,21 +143,14 @@
                                 "<td>" + nama_barang + "</td>" +
                                 "<td>" + deskripsi_barang + "</td>" +
                                 "<td>Rp. " + harga_jual + "</td>" +
-                                "<td>Rp. " + harga_stok + "</td>" +
                                 "<td>Rp. " + (Number(harga_jual) - Number(harga_stok)) + "</td>" +
                                 "<td>" + stok_barang + "</td>" +
                                 "<td>" + convertDate(expired_at) + "</td>" +
                                 "<td>" +
-                                    "<div class='dropdown'>" +
-                                        "<button type='button' class='btn p-0 dropdown-toggle hide-arrow' data-bs-toggle='dropdown'>" +
-                                            "<i class='bx bx-dots-vertical-rounded'></i>" +
-                                        "</button>" +
-                                        "<div class='dropdown-menu'>" +
-                                            "<a class='dropdown-item'><i class='fa-solid fa-thumbtack'></i> Tandai</a>" +
-                                            "<a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#edit-barang-Modal'><i class='fa-solid fa-pen-to-square'></i> Ubah</a>" +
-                                            "<a class='dropdown-item' data-bs-toggle='modal' data-bs-target='#hapus-barang-Modal'><i class='fa-solid fa-trash'></i> Hapus</a>" +
-                                        "</div>" +
-                                    "</div>" +
+                                    "<button class='btn btn-warning text-white py-1' title='Ubah' data-bs-toggle='modal' data-bs-target='#edit-barang-Modal-" + id_barang + "'><i class='fa-solid fa-pen-to-square'></i></button>" +
+                                "</td>" +
+                                "<td>" +
+                                    "<button class='btn btn-danger text-white py-1' title='Hapus' data-bs-toggle='modal' data-bs-target='#hapus-barang-Modal-" + id + "'><i class='fa-solid fa-trash'></i></button>" +
                                 "</td>" +
                             "</tr>" ;
 

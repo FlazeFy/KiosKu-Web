@@ -60,6 +60,9 @@ class DashboardController extends Controller
             ->where('kasir.id_kios', session()->get('idKey'))
             ->orderBy('relasi_kasir.created_at', 'ASC')->get();
 
+        //Set active nav
+        session()->put('active_nav', 'dashboard');
+
         return view ('admin.dashboard.index')
             ->with('transaksi', $transaksi)
             ->with('gudang', $gudang)

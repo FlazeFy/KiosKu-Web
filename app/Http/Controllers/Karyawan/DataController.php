@@ -29,6 +29,9 @@ class DataController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
+        //Set active nav
+        session()->put('active_nav', 'karyawan');
+
         return view ('admin.karyawan.data.index')
             ->with('rak', $rak)
             ->with('karyawan', $karyawan);

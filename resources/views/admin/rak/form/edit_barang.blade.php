@@ -1,4 +1,4 @@
-<div class="modal fade" id="edit-barang-Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-barang-Modal-{{$bk->id_barang}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/rak/edit_barang/{{$bk->id_barang}}" method="POST">
@@ -25,7 +25,7 @@
                                 <label for="floatingInput">Harga Stok (Rp.)</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input type="date" class="form-control" name="expired_at" value="{{date('Y-m-d',strtotime($bk->expired_at))}}" required>
+                                <input type="date" class="form-control" name="expired_at" value="{{date('Y-m-d',strtotime($bk->expired_at))}}">
                                 <label for="floatingInput">Tanggal Expired</label>
                             </div>
                         </div>

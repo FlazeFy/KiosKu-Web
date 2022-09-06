@@ -32,6 +32,9 @@ class RiwayatController extends Controller
             ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
             ->where('keranjang.id_kios', session()->get('idKey'))
             ->orderBy('transaksi.id', 'DESC')->get();
+        
+        //Set active nav
+        session()->put('active_nav', 'riwayat');
 
         return view ('admin.riwayat.index')
             ->with('rak', $rak)

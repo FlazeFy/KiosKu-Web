@@ -11,7 +11,7 @@
 
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
-        <li class="menu-item active">
+        <li class="menu-item<?php if(session()->get('active_nav') == "dashboard"){ echo " active"; }?>">
             <a href="/dashboard" class="menu-link">
                 <i class="fa-solid fa-house mx-2"></i>
                 <div data-i18n="Analytics">Dashboard</div>
@@ -21,7 +21,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Etalase</span>
         </li>
-        <li class="menu-item">
+        <li class="menu-item<?php if(session()->get('active_nav') == "rak"){ echo " active"; }?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Rak</div>
@@ -44,7 +44,7 @@
                 <div data-i18n="Authentications">Statistik</div>
             </a>
         </li>
-        <li class="menu-item">
+        <li class="menu-item<?php if(session()->get('active_nav') == "riwayat"){ echo " active"; }?>">
             <a href="/riwayat" class="menu-link">
                 <i class="fa-solid fa-clock-rotate-left me-3"></i>
                 <div data-i18n="Authentications">Riwayat</div>
@@ -82,7 +82,7 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        <li class="menu-item<?php if(session()->get('active_nav') == "karyawan"){ echo " active"; }?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="fa-regular fa-user me-3"></i>
                 <div data-i18n="Account Settings">Karyawan</div>
@@ -243,3 +243,18 @@
         </li>
     </ul>
 </aside>
+
+<script type="text/javascript">
+    const links = document.querySelectorAll('.menu-item');
+    
+    if (links.length) {
+        links.forEach((link) => {
+            link.addEventListener('click', (e) => {
+            links.forEach((link) => {
+                link.classList.remove('active');
+            });
+            link.classList.add('active');
+            });
+        });
+    }
+</script> 
