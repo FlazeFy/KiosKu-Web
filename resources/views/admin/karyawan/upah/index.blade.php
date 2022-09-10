@@ -152,6 +152,10 @@
                                     @include('admin.karyawan.upah.total')
                                 </div>
                                 <div class="container-fluid p-3 mt-3 position-relative rounded shadow" style="height:200px;">
+                                    <!--Jabatan-->
+                                    @include('admin.karyawan.upah.jabatan')
+                                </div>
+                                <div class="container-fluid p-3 mt-3 position-relative rounded shadow" style="height:200px;">
                                     <!--Perbandingan Upah-->
                                     @include('admin.karyawan.upah.perbandingan')
                                 </div>
@@ -191,8 +195,16 @@
                     width: 260,
                     type: 'donut'
                 },
-                labels: ['Electronic', 'Sports', 'Decor', 'Fashion'],
-                series: [85, 15, 50, 50],
+                labels: [<?php 
+                    foreach($jabatan as $jbt){
+                        echo "'".$jbt->jabatan_karyawan."', ";
+                    }
+                    ?>],
+                series: [<?php 
+                    foreach($jabatan as $jbt){
+                        echo $jbt->total.", ";
+                    }
+                    ?>],
                 colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
                 stroke: {
                     width: 5,
@@ -224,12 +236,21 @@
                             labels: {
                             show: true,
                             value: {
-                                fontSize: '1.5rem',
+                                fontSize: '1.2rem',
                                 fontFamily: 'Public Sans',
                                 color: headingColor,
                                 offsetY: -15,
                                 formatter: function (val) {
-                                return parseInt(val) + '%';
+                                    val = val / 
+                                        <?php
+                                            $total = 0;
+                                            foreach($jabatan as $jbt){
+                                                $total += $jbt->total;
+                                            }
+                                            echo $total;
+                                        ?> * 100;
+                                    var final = (Math.round(val * 100) / 100);
+                                    return final + ' %';
                                 }
                             },
                             name: {
@@ -240,11 +261,11 @@
                                 show: true,
                                 fontSize: '0.8125rem',
                                 color: axisColor,
-                                label: 'Weekly',
-                                formatter: function (w) {
-                                return '38%';
+                                label: 'Bulanan',
+                                    formatter: function (w) {
+                                        return '%';
+                                    }
                                 }
-                            }
                             }
                         }
                     }

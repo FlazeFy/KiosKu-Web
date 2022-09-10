@@ -155,6 +155,11 @@
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
+                        <div data-i18n="Account">Organisasi</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="pages-account-settings-account.html" class="menu-link">
                         <div data-i18n="Account">Sewa</div>
                     </a>
                 </li>

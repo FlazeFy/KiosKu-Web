@@ -30,9 +30,15 @@ class UpahController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy($filter, 'DESC')->get();
 
+        $jabatan = DB::table('karyawan')
+            ->select(DB::raw('jabatan_karyawan, sum(gaji_karyawan) as total, count(id) as karyawan_jml'))
+            ->where('id_kios', session()->get('idKey'))
+            ->groupBy('jabatan_karyawan')->get();
+
         return view ('admin.karyawan.upah.index')
             ->with('rak', $rak)
-            ->with('karyawan', $karyawan);
+            ->with('karyawan', $karyawan)
+            ->with('jabatan', $jabatan);
     }
 
     /**

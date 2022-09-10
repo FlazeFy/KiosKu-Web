@@ -10,4 +10,11 @@
 <a class="title">Total Upah</a><br>
 <div id="gajiStatisticsChart"></div>
 <h3 class="position-absolute" style="right:15%; top:40%;"><b>Total</b></h3>
-<h5 class="position-absolute" style="right:15%; top:60%;">Rp. 1.000.000</h5>
+<h5 class="position-absolute" style="right:15%; top:60%;">
+    Rp. 
+    @php($total = 0)
+    @foreach($jabatan as $jbt)
+        @php($total += $jbt->total)
+    @endforeach
+    {{$total}}
+</h5>
