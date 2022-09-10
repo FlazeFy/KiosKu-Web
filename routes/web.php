@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Karyawan\DataController;
+use App\Http\Controllers\Karyawan\UpahController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
@@ -47,3 +48,5 @@ Route::post('/karyawan/data/delete_karyawan/{id}', [DataController::class, 'dele
 Route::post('/karyawan/data/edit_karyawan/{id}', [DataController::class, 'edit_karyawan']);
 Route::post('/karyawan/data/edit_foto/{id}', [DataController::class, 'edit_foto']);
 Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);
+
+Route::get('/karyawan/upah', [UpahController::class, 'index']);

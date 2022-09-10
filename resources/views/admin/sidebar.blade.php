@@ -90,7 +90,7 @@
             <ul class="menu-sub">
                 <!--General Shelf-->
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                    <a href="/karyawan/upah" class="menu-link">
                         <div data-i18n="Account">Upah</div>
                     </a>
                 </li>

@@ -1,5 +1,5 @@
 <h5>Gudang</h5>
-<div class="text-nowrap">
+<div class="text-nowrap  table-responsive">
     @if(count($gudang) > 0)
     <table class="table table-paginate" id="gudangTable" cellspacing="0">
         <thead>

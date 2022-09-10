@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="card-body p-3">
+    <div class="card-body p-3  table-responsive">
     @if(count($barang_rak) > 0)
         <table class="table table-paginate" id="barangTable" cellspacing="0" width="100%">
             <thead>

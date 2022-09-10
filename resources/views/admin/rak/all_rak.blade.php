@@ -1,6 +1,6 @@
 <h5>Semua Rak</h5>
 <button class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#tambah-rak-Modal"><i class="fa-solid fa-plus"></i> Tambah Rak</button>
-<div class="text-nowrap">
+<div class="text-nowrap  table-responsive">
     @if(count($rak) > 0)
     <table class="table table-paginate" id="rakTable" cellspacing="0">
         <thead>
