@@ -50,3 +50,5 @@ Route::post('/karyawan/data/edit_foto/{id}', [DataController::class, 'edit_foto'
 Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);
 
 Route::get('/karyawan/upah', [UpahController::class, 'index']);
+Route::post('/karyawan/upah/unpin/{id}', [UpahController::class, 'unpin']);
+Route::post('/karyawan/upah/pin/{id}', [UpahController::class, 'pin']);

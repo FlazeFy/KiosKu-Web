@@ -17,8 +17,10 @@
             @foreach($karyawan as $kr)
                 <!--Status karyawan-->
                 @php($status_bg = "")
-                @if($kr->status_karyawan != "aktif")
+                @if(($kr->status_karyawan != "aktif")&&($kr->id_context == null))
                     @php($status_bg = "background:rgba(255, 0, 0, 0.15);")
+                @elseif(($kr->id_context != null)&&($kr->status_karyawan == "aktif")&&($kr->type_context == "table_upah"))
+                    @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
                 @endif
                 <tr style="{{$status_bg}}">
                     <td>{{$kr->nama_lengkap_karyawan}}</td>
@@ -36,7 +38,17 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item"><i class="fa-solid fa-thumbtack"></i> Tandai</a>
+                                @if($kr->id_context != null)
+                                    <form action="/karyawan/upah/unpin/{{$kr->id_tandai}}" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item text-danger" type="submit"><i class="fa-solid fa-thumbtack"></i> Lepas</button>
+                                    </form>
+                                @else
+                                    <form action="/karyawan/upah/pin/{{$kr->id_karyawan}}" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item" type="submit"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                                    </form>
+                                @endif
                                 <a class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                             </div>
                         </div>

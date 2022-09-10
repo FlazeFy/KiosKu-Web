@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Karyawan;
+use App\Models\Tandai;
 
 class UpahController extends Controller
 {
@@ -26,14 +27,25 @@ class UpahController extends Controller
         //All karyawan
         $filter = "created_at";
         
-        $karyawan = DB::table('karyawan')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy($filter, 'DESC')->get();
+        // $karyawan = DB::table('karyawan')
+        //     ->where('id_kios', session()->get('idKey'))
+        //     ->orderBy($filter, 'DESC')->get();
+
+        $karyawan = Karyawan::leftJoin("tandai", function ($join) {
+            $join->on("karyawan.id", "=", "tandai.id_context");
+            })
+            ->select('karyawan.id as id_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->where('karyawan.id_kios', session()->get('idKey'))
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai') //BUG!!! cannot order by id_tandai. But work perfectly in phpmyadmin
+            ->get();
 
         $jabatan = DB::table('karyawan')
-            ->select(DB::raw('jabatan_karyawan, sum(gaji_karyawan) as total, count(id) as karyawan_jml'))
+            ->selectRaw('jabatan_karyawan, sum(gaji_karyawan) as total, count(id) as karyawan_jml')
             ->where('id_kios', session()->get('idKey'))
             ->groupBy('jabatan_karyawan')->get();
+
+        //Set active nav
+        session()->put('active_nav', 'karyawan');
 
         return view ('admin.karyawan.upah.index')
             ->with('rak', $rak)
@@ -57,9 +69,23 @@ class UpahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function unpin($id)
     {
-        //
+        Tandai::destroy($id);
+        return redirect()->back()->with('success_message', 'Pin dilepaskan');
+    }
+
+    public function pin($id)
+    {
+        Tandai::create([
+            'id_kios' => session()->get('idKey'),
+            'id_context' => $id,
+            'type_context' => 'table_upah',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Item ditandai');
     }
 
     /**
