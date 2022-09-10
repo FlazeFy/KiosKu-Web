@@ -48,6 +48,8 @@ Route::post('/karyawan/data/delete_karyawan/{id}', [DataController::class, 'dele
 Route::post('/karyawan/data/edit_karyawan/{id}', [DataController::class, 'edit_karyawan']);
 Route::post('/karyawan/data/edit_foto/{id}', [DataController::class, 'edit_foto']);
 Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);
+Route::post('/karyawan/data/unpin/{id}', [DataController::class, 'unpin']);
+Route::post('/karyawan/data/pin/{id}', [DataController::class, 'pin']);
 
 Route::get('/karyawan/upah', [UpahController::class, 'index']);
 Route::post('/karyawan/upah/unpin/{id}', [UpahController::class, 'unpin']);

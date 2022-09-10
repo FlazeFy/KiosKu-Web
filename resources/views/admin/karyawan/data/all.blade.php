@@ -7,7 +7,11 @@
     }
 </style>
 
-<li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}">
+@php($status_bg = "")
+@if(($kr->id_context != null)&&($kr->status_karyawan == "aktif")&&($kr->type_context == "karyawan"))
+    @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
+@endif
+<li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}" style="{{$status_bg}}">
     <h6 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}} <span class="float-end"> Nama Lengkap: {{$kr->nama_lengkap_karyawan}}</span></h6>
     <!-- Account -->
     <div class="card-body p-4">
@@ -82,10 +86,22 @@
             </div>
         </div>
         <div class="mt-2">
-            <a class="btn btn-danger border-0 text-white float-end" data-bs-target="#hapus-karyawan-Modal-{{$kr->id}}" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Hapus</a>
+            <a class="btn btn-danger border-0 text-white float-end mt-2" data-bs-target="#hapus-karyawan-Modal-{{$kr->id}}" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Hapus</a>
             <button type="submit" class="btn btn-success border-0"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
             </form>
-            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+            <div class="btn">
+            @if($kr->id_context != null)
+                <form action="/karyawan/data/unpin/{{$kr->id_tandai}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary py-1 bg-white" style="color:#676AFA; border:2px solid #676AFA;"><i class="fa-solid fa-thumbtack"></i> Lepaskan</button>
+                </form>
+            @else
+                <form action="/karyawan/data/pin/{{$kr->id}}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                </form>
+            @endif
+            </div>
             <button type="submit" class="btn btn-primary"><i class="fa-solid fa-print"></i> Cetak</button>
         </div>
     </div>

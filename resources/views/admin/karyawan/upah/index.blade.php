@@ -133,8 +133,6 @@
                             </a>
                         </div>          
                         <a class="fw-bold float-start">/Karyawan/Upah</a>   
-                        <!-- Search -->
-                        @include('others.search')
                     </nav>
 
                     <!-- Content wrapper -->

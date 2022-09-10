@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Karyawan;
+use App\Models\Tandai;
 
 class DataController extends Controller
 {
@@ -25,9 +26,13 @@ class DataController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
-        $karyawan = DB::table('karyawan')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        $karyawan = Karyawan::leftJoin("tandai", function ($join) {
+            $join->on("karyawan.id", "=", "tandai.id_context");
+            })
+            ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->where('karyawan.id_kios', session()->get('idKey'))
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+            ->get();
 
         //Set active nav
         session()->put('active_nav', 'karyawan');
@@ -104,9 +109,23 @@ class DataController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function unpin($id)
     {
-        //
+        Tandai::destroy($id);
+        return redirect()->back()->with('success_message', 'Pin dilepaskan');
+    }
+
+    public function pin($id)
+    {
+        Tandai::create([
+            'id_kios' => session()->get('idKey'),
+            'id_context' => $id,
+            'type_context' => 'karyawan',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Item ditandai');
     }
 
     public function edit_foto(Request $request, $id)

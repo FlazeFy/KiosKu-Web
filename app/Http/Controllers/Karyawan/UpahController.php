@@ -36,7 +36,7 @@ class UpahController extends Controller
             })
             ->select('karyawan.id as id_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
             ->where('karyawan.id_kios', session()->get('idKey'))
-            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai') //BUG!!! cannot order by id_tandai. But work perfectly in phpmyadmin
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai') //BUG!!! cannot order by id_tandai, if this var used in a table. But work perfectly in phpmyadmin
             ->get();
 
         $jabatan = DB::table('karyawan')
@@ -80,7 +80,7 @@ class UpahController extends Controller
         Tandai::create([
             'id_kios' => session()->get('idKey'),
             'id_context' => $id,
-            'type_context' => 'table_upah',
+            'type_context' => 'karyawan',
             'created_at' => date("Y-m-d h:m:i"),
             'updated_at' => date("Y-m-d h:m:i"),
         ]);

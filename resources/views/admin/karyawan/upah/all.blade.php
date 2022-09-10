@@ -19,7 +19,7 @@
                 @php($status_bg = "")
                 @if(($kr->status_karyawan != "aktif")&&($kr->id_context == null))
                     @php($status_bg = "background:rgba(255, 0, 0, 0.15);")
-                @elseif(($kr->id_context != null)&&($kr->status_karyawan == "aktif")&&($kr->type_context == "table_upah"))
+                @elseif(($kr->id_context != null)&&($kr->status_karyawan == "aktif")&&($kr->type_context == "karyawan"))
                     @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
                 @endif
                 <tr style="{{$status_bg}}">
