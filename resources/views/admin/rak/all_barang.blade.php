@@ -80,6 +80,7 @@
             </thead>
             <tbody class="table-border-bottom-0" id="body_barangTable"></tbody>
         </table>
+        <div id="modal_holder"></div>
         @else
             <div class="container text-center d-block mx-auto">
                 <img class="mx-2" src="{{asset('assets/img/storyset/Empty_1.png')}}" alt='Empty.png' style="width:250px;">
@@ -99,7 +100,7 @@
         setTimeout(function() {
             update();
             clear();
-        }, 2000); //Every 2000 milliseconds
+        }, 1500); //Every 1500 milliseconds
     }
     
     function update() {
@@ -153,7 +154,70 @@
                                     "<button class='btn btn-danger text-white py-1' title='Hapus' data-bs-toggle='modal' data-bs-target='#hapus-barang-Modal-" + id + "'><i class='fa-solid fa-trash'></i></button>" +
                                 "</td>" +
                             "</tr>" ;
+                            
+                        var modal_str =
+                            "<div class='modal fade' id='edit-barang-Modal-" + id_barang + "' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'> " +
+                                "<div class='modal-dialog'> " +
+                                    "<div class='modal-content'> " +
+                                        "<form action='/rak/edit_barang/" + id_barang + "' method='POST'> " +
+                                            '@csrf ' +
+                                            "<div class='modal-header'> " +
+                                                "<h5 class='modal-title' id='exampleModalLabel'>Edit Barang</h5> " +
+                                                "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button> " +
+                                            "</div> " +
+                                            "<div class='modal-body'> " +
+                                                "<div class='row'> " +
+                                                    "<div class='col-md'> " +
+                                                        "<div class='form-floating mb-2'> " +
+                                                            "<input type='number' class='form-control' name='harga_jual' value='" + harga_jual + "' required> " +
+                                                            "<label for='floatingInput'>Harga Jual (Rp.)</label> " +
+                                                        "</div> " +
+                                                        "<div class='form-floating mb-2'> " +
+                                                            "<input type='number' class='form-control' name='stok_barang' value='" + stok_barang + "' required> " +
+                                                            "<label for='floatingInput'>Stok</label> " +
+                                                        "</div> " +
+                                                    "</div> " +
+                                                    "<div class='col-md'> " +
+                                                        "<div class='form-floating mb-2'> " +
+                                                            "<input type='number' class='form-control' name='harga_stok' value='" + harga_stok + "' required> " +
+                                                            "<label for='floatingInput'>Harga Stok (Rp.)</label> " +
+                                                        "</div> " +
+                                                        "<div class='form-floating mb-2'> " +
+                                                            "<input type='date' class='form-control' name='expired_at' value='" + convertDate(expired_at) + "'> " +
+                                                            "<label for='floatingInput'>Tanggal Expired</label> " +
+                                                        "</div> " +
+                                                    "</div> " +
+                                                "</div> " +
+                                                "<a class='text-secondary fst-italic'><i class='fa-solid fa-circle-info'></i> Untuk mengubah secara lengkap, buka menu 'Barang'</a> " +
+                                            "</div> " +
+                                            "<div class='modal-footer'> " +
+                                                "<button type='submit' class='btn btn-success'><i class='fa-solid fa-floppy-disk'></i> Simpan</button> " +
+                                            "</div> " +
+                                        "</form> " +
+                                    "</div> " +
+                                "</div> " +
+                            "</div> " +
+                            "<div class='modal fade' id='hapus-barang-Modal-" + id + "' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'> " +
+                                "<div class='modal-dialog'> " +
+                                    "<div class='modal-content'> " +
+                                        "<div class='modal-header'> " +
+                                            "<h5 class='modal-title' id='exampleModalLabel'>Hapus Barang</h5> " +
+                                            "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button> " +
+                                        "</div> " +
+                                        "<div class='modal-body'>" +
+                                            "<p>Apakah Anda yakin untuk menghapus " + nama_barang + " dari rak?</p> " +
+                                        "</div>" +
+                                        "<div class='modal-footer'>" +
+                                            "<form action='/rak/delete_barang/" + id + "' method='POST'> " +
+                                                '@csrf ' +
+                                                "<button type='submit' class='btn btn-danger'><i class='fa-solid fa-trash'></i> Hapus</button> " +
+                                            "</form> " +
+                                        "</div> " +
+                                    "</div> " +
+                                "</div> " +
+                            "</div> " ;
 
+                        $("#modal_holder").append(modal_str);
                         $("#body_barangTable").append(tr_str);
                     }
                 }else{
