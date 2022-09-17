@@ -8,6 +8,7 @@ use App\Http\Controllers\Karyawan\UpahController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\KalenderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,3 +55,6 @@ Route::post('/karyawan/data/pin/{id}', [DataController::class, 'pin']);
 Route::get('/karyawan/upah', [UpahController::class, 'index']);
 Route::post('/karyawan/upah/unpin/{id}', [UpahController::class, 'unpin']);
 Route::post('/karyawan/upah/pin/{id}', [UpahController::class, 'pin']);
+
+//Kalender
+Route::get('/kalender', [KalenderController::class, 'index']);

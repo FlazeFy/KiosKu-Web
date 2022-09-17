@@ -182,8 +182,8 @@
         </li>
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Kegiatan</span></li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item<?php if(session()->get('active_nav') == "kalender"){ echo " active"; }?>">
+            <a href="/kalender" class="menu-link">
                 <i class="fa-regular fa-calendar me-3"></i>
                 <div data-i18n="Authentications">Kalender</div>
             </a>
