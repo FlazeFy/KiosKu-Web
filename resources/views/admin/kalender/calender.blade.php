@@ -21,12 +21,20 @@
     .fc-event-time{
         display:none;
     }
-    .fc-day-today .fc-event-title{
-        color: #414141 !important;
+    .fc-event-title{
+        color: whitesmoke !important;
+        white-space: normal !important;
+        font-weight: 500;
     }
 </style>
 
 <div id="calendar"></div>
+<div class="container-fluid p-2">
+    <h6>Keterangan :</h6>
+    <a class="ms-2"><b>H</b>: Hadir</a>
+    <a class="ms-2"><b>SI</b>: Sakit (Sakit/Izin)</a>
+    <a class="ms-2"><b>A</b>: Alpa</a>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -41,17 +49,23 @@
         },
         selectable: true,
         events: [
-            // {
-            //     groupId: '992',
-            //     title: 'All Day Test',
-            //     start: '2022-07-09'
-            // },
-            // {
-            //     groupId: '992',
-            //     title: 'Long Event',
-            //     start: '2022-07-09T16:00:00'
-            // },
+            <?php
+                //Initial value
+                $i = 0;
+
+                foreach($c_absensi as $ca){
+                    echo "
+                        {
+                            groupId: '".$i."',
+                            title: 'H: ".$ca->Hadir.", SI: ".$ca->SI.", A: ".$ca->Alpa."',
+                            start: '".$ca->date_c."'
+                        },
+                    ";
+                    $i++;
+                }
+            ?>
         ],
+
         //Show calender detail
         eventClick:  function(info, jsEvent, view) {
             //

@@ -19,10 +19,23 @@ class KalenderController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
+        //Calendar absensi
+        $calender_absensi = DB::table('absensi')
+            ->selectRaw(
+                "DATE(waktu_masuk) AS date_c, 
+                COUNT(case when status_absen = 'Hadir' then 1 else null end) AS Hadir,
+                COUNT(case when status_absen = 'Sakit' or status_absen = 'Izin' then 1 else null end) AS SI,
+                COUNT(case when status_absen = 'Alpa' then 1 else null end) AS Alpa"
+                )
+            ->where('id_kios', session()->get('idKey'))
+            ->groupBy('date_c')
+            ->orderBy('date_c', 'DESC')->get();
+
         //Set active nav
         session()->put('active_nav', 'kalender');
 
         return view ('admin.kalender.index')
+            ->with('c_absensi', $calender_absensi)
             ->with('rak', $rak);
     }
 

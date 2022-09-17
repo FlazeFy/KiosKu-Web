@@ -136,7 +136,19 @@
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
                             <div class="card rounded shadow p-3">
-                                @include('admin.kalender.calender')
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 col-sm-12 pt-5">
+                                        <div class="mb-2">
+                                            @include('admin.kalender.control')
+                                        </div>
+                                        <div class="mb-2">
+                                            @include('admin.kalender.detail')
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-8 col-sm-12">
+                                        @include('admin.kalender.calender')
+                                    </div>
+                                </div>
                             </div>
                         </section>
                     </div>
