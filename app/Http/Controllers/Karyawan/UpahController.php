@@ -44,12 +44,19 @@ class UpahController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->groupBy('jabatan_karyawan')->get();
 
+        $absen = DB::table('absensi')
+            ->join('karyawan', 'karyawan.id', '=', 'absensi.id_karyawan')
+            ->join('shift', 'shift.id', '=', 'absensi.id_shift')
+            ->where('absensi.id_kios', session()->get('idKey'))
+            ->orderBy('absensi.waktu_masuk', 'DESC')->get();
+
         //Set active nav
         session()->put('active_nav', 'karyawan');
 
         return view ('admin.karyawan.upah.index')
             ->with('rak', $rak)
             ->with('karyawan', $karyawan)
+            ->with('absen', $absen)
             ->with('jabatan', $jabatan);
     }
 

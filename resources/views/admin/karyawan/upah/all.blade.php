@@ -1,3 +1,29 @@
+<style>
+    .dot{
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        display: inline-block;
+        background-color:#d2d2d2;
+    }
+    .dot.hadir{
+        background-color:#198754 !important;
+    }
+    .dot.alpa{
+        background-color:#dc3545 !important;
+    }
+    .dot.sakit{
+        background-color:#ffc107 !important;
+    }
+    .dot.izin{
+        background-color:#696cff !important;
+    }
+
+    .btn-link{
+        color:#696cff !important;
+    }
+</style>
+
 <h5>Karyawan</h5>
 <div class="text-nowrap  table-responsive">
     @if(count($karyawan) > 0)
@@ -29,7 +55,33 @@
                         <a>{{$kr->email_karyawan}}</a>
                     </td>
                     <td>{{$kr->jabatan_karyawan}}</td>
-                    <td>------</td>
+                    <td>
+                        @php($dates = array())
+                        @for ($i = 0; $i < 5; $i++)
+                            @php($check = false)
+                            @foreach($absen as $as)
+                                @if($kr->id_karyawan == $as->id_karyawan)
+                                    @if(date('Y-m-d', strtotime($as->waktu_masuk)) == date('Y-m-d', strtotime("-$i days")))
+                                        @php($check = true)
+                                        <div class="dot {{strtolower($as->status_absen)}}" title="{{$as->status_absen}}" data-bs-toggle="popover"
+                                            data-bs-content="
+                                            <?php
+                                                if($as->status_absen == "Hadir"){
+                                                    echo "Masuk : ".date('H:i', strtotime($as->waktu_masuk))." || ";
+                                                    echo "Pulang : ".date('H:i', strtotime($as->waktu_pulang));
+                                                } else {
+                                                    echo "Verifikasi : ".date('H:i', strtotime($as->waktu_masuk));
+                                                }
+                                            ?>"></div>
+                                    @endif
+                                @endif
+                            @endforeach
+                            @if($check == false)
+                                <div class="dot" title="Kosong"></div>
+                            @endif
+                        @endfor
+                        <br><a class="btn btn-link p-1"><i class="fa-solid fa-angle-right"></i> Lihat lainnya</a>
+                    </td>
                     <td>Rp. {{$kr->gaji_karyawan}}</td>
                     <td>{{date('Y-m-d', strtotime($kr->updated_at))}}</td>
                     <td>
@@ -63,4 +115,12 @@
             <h5>Anda belum memiliki karyawan...</h5>
         </div>
     @endif
+</div>
+<div class="container-fluid p-2">
+    <h6>Keterangan :</h6>
+    <div class="dot ms-2"></div><a> Data Kosong</a>
+    <div class="dot hadir ms-2"></div><a> Hadir</a>
+    <div class="dot izin ms-2"></div><a> Izin</a>
+    <div class="dot sakit ms-2"></div><a> Sakit</a>
+    <div class="dot alpa ms-2"></div><a> Alpa</a>
 </div>
