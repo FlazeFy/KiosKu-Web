@@ -31,9 +31,6 @@
 <div id="calendar"></div>
 <div class="container-fluid p-2">
     <h6>Keterangan :</h6>
-    <a class="ms-2"><b>H</b>: Hadir</a>
-    <a class="ms-2"><b>SI</b>: Sakit (Sakit/Izin)</a>
-    <a class="ms-2"><b>A</b>: Alpa</a>
 </div>
 
 <script>
@@ -75,9 +72,49 @@
                         $i++;
                     }
                 } else if(session()->get('filter_calendar_key') == "Total Keuntungan"){
-                    //
+                    foreach($c_keuntungan as $ck){
+                        echo "
+                            {
+                                groupId: '".$i."',
+                                title: 'Total: Rp. ".$ck->keuntungan."',
+                                start: '".$ck->date_c."'
+                            },
+                            {
+                                groupId: '".$i."',
+                                title: 'Item: ".$ck->item."',
+                                start: '".$ck->date_c."'
+                            },
+                        ";
+                        $i++;
+                    }
                 } else if(session()->get('filter_calendar_key') == "Barang Terjual"){
-                    //
+                    foreach($c_b_terjual as $cbj){
+                        echo "
+                            {
+                                groupId: '".$i."',
+                                title: 'Makanan: ";
+                                    if($cbj->Makanan == null){
+                                        echo 0;
+                                    } else {
+                                        echo $cbj->Makanan;
+                                    }
+                                echo "',
+                                start: '".$cbj->date_c."'
+                            },
+                            {
+                                groupId: '".$i."',
+                                title: 'Sembako: ";
+                                    if($cbj->Sembako == null){
+                                        echo 0;
+                                    } else {
+                                        echo $cbj->Sembako;
+                                    }
+                                echo "',
+                                start: '".$cbj->date_c."'
+                            },
+                        ";
+                        $i++;
+                    }
                 } else if(session()->get('filter_calendar_key') == "Kegiatan"){
                     //
                 }

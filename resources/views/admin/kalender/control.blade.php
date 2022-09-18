@@ -3,11 +3,11 @@
         @csrf
     <div class="form-floating mt-3">
             <select class="form-select" id="filter_calender" name="filtercalender" aria-label="Floating label select example" onchange="filter_calendar()">
-                <option selected>...</option>
-                <option value="Absensi">Absensi</option>
-                <option value="Total Keuntungan">Total Keuntungan</option>
-                <option value="Barang Terjual">Barang Terjual</option>
-                <option value="Kegiatan">Kegiatan</option>
+                <option <?php if(session()->get('filter_calendar_key') == null){ echo "selected"; }?>>...</option>
+                <option value="Absensi" <?php if(session()->get('filter_calendar_key') == "Absensi"){ echo "selected"; }?>>Absensi</option>
+                <option value="Total Keuntungan" <?php if(session()->get('filter_calendar_key') == "Total Keuntungan"){ echo "selected"; }?>>Total Keuntungan</option>
+                <option value="Barang Terjual" <?php if(session()->get('filter_calendar_key') == "Barang Terjual"){ echo "selected"; }?>>Barang Terjual</option>
+                <option value="Kegiatan" <?php if(session()->get('filter_calendar_key') == "Kegiatan"){ echo "selected"; }?>>Kegiatan</option>
             </select>
         <label for="floatingSelect">Saring Tampilan</label>
     </div>
