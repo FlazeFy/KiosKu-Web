@@ -58,3 +58,4 @@ Route::post('/karyawan/upah/pin/{id}', [UpahController::class, 'pin']);
 
 //Kalender
 Route::get('/kalender', [KalenderController::class, 'index']);
+Route::post('/kalender/filter', [KalenderController::class, 'filter']);

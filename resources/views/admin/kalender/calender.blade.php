@@ -53,15 +53,33 @@
                 //Initial value
                 $i = 0;
 
-                foreach($c_absensi as $ca){
-                    echo "
-                        {
-                            groupId: '".$i."',
-                            title: 'H: ".$ca->Hadir.", SI: ".$ca->SI.", A: ".$ca->Alpa."',
-                            start: '".$ca->date_c."'
-                        },
-                    ";
-                    $i++;
+                if(session()->get('filter_calendar_key') == "Absensi"){
+                    foreach($c_absensi as $ca){
+                        echo "
+                            {
+                                groupId: '".$i."',
+                                title: 'Hadir: ".$ca->Hadir."',
+                                start: '".$ca->date_c."'
+                            },
+                            {
+                                groupId: '".$i."',
+                                title: 'Sakit/Izin: ".$ca->SI."',
+                                start: '".$ca->date_c."'
+                            },
+                            {
+                                groupId: '".$i."',
+                                title: 'Alpa: ".$ca->Alpa."',
+                                start: '".$ca->date_c."'
+                            },
+                        ";
+                        $i++;
+                    }
+                } else if(session()->get('filter_calendar_key') == "Total Keuntungan"){
+                    //
+                } else if(session()->get('filter_calendar_key') == "Barang Terjual"){
+                    //
+                } else if(session()->get('filter_calendar_key') == "Kegiatan"){
+                    //
                 }
             ?>
         ],

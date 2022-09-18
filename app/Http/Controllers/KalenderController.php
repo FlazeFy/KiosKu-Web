@@ -44,9 +44,11 @@ class KalenderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function filter(Request $request)
     {
-        //
+        $request->session()->put('filter_calendar_key', $request->filtercalender);
+
+        return redirect()->back()->with('success_message', 'Kalender berhasil disaring');
     }
 
     /**
