@@ -135,9 +135,17 @@
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
+                            @include('admin.pengingat.control')
                             @include('admin.pengingat.day')
+                            <div class="row mt-1">
+                                <div class="col-lg-2">
+                                    @include('admin.pengingat.hour')
+                                </div>
+                                <div class="col-lg-10">
+
+                                </div>
+                            </div>
                         </section>
-                        
                     </div>
                 </div>
                

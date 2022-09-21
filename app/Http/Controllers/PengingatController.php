@@ -35,7 +35,8 @@ class PengingatController extends Controller
      */
     public function get_days_around()
     {
-        $val = "";
+        $val = session()->get('filter_day_key');
+
         $day = [];
         
         for($i = -1; $i < 7; $i++){
