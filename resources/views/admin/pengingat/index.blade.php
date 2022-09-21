@@ -110,6 +110,13 @@
             .text-primary{
                 color:#676AFB !important;
             }
+
+            /* .hour-item-holder{
+                display: flex;
+                flex-direction: column;
+                height: 575px;
+                overflow-y: scroll;
+            } */
         </style>
     </head>
 
@@ -137,7 +144,7 @@
                         <section class="container-xxl flex-grow-1 container-p-y">
                             @include('admin.pengingat.control')
                             @include('admin.pengingat.day')
-                            <div class="row mt-1">
+                            <div class="row mt-1 hour-item-holder">
                                 <div class="col-lg-2">
                                     @include('admin.pengingat.hour')
                                 </div>

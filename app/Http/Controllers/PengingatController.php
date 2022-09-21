@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Kegiatan;
+
 class PengingatController extends Controller
 {
     /**
@@ -79,9 +81,22 @@ class PengingatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function tambah_kegiatan(Request $request)
     {
-        //
+        Kegiatan::create([
+            'id_kios' => session()->get('idKey'),
+            'assignee' => null,
+            'kegiatan_title' => $request->kegiatan_title,
+            'kegiatan_desc' => $request->kegiatan_desc,
+            'kegiatan_type' => $request->kegiatan_type,
+            'kegiatan_url' => null,
+            'waktu_mulai' => date("Y-m-d h:m:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
+            'waktu_selesai' => date("Y-m-d h:m:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Pengingat berhasil ditambahkan');
     }
 
     /**
