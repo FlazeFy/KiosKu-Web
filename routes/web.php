@@ -9,6 +9,7 @@ use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KalenderController;
+use App\Http\Controllers\PengingatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,8 @@ Route::post('/karyawan/upah/pin/{id}', [UpahController::class, 'pin']);
 //Kalender
 Route::get('/kalender', [KalenderController::class, 'index']);
 Route::post('/kalender/filter', [KalenderController::class, 'filter']);
+
+//Pengingat
+Route::get('/pengingat', [PengingatController::class, 'index']);
+Route::get('/pengingat/get_days_around', [PengingatController::class, 'get_days_around']);
+Route::post('/pengingat/filterday', [PengingatController::class, 'set_day_filter']);

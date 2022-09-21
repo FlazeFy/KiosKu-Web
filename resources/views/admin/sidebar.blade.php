@@ -194,8 +194,8 @@
                 <div data-i18n="Authentications">Promo</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link">
+        <li class="menu-item<?php if(session()->get('active_nav') == "pengingat"){ echo " active"; }?>">
+            <a href="/pengingat" class="menu-link">
                 <i class="fa-regular fa-bell me-3"></i>
                 <div data-i18n="Authentications">Pengingat</div>
             </a>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
         <meta name="description" content="" />
 
-        <title>Admin | Kalender</title>
+        <title>Admin | Pengingat</title>
         
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -129,28 +129,15 @@
                             <i class="bx bx-menu bx-sm"></i>
                             </a>
                         </div>          
-                        <a class="fw-bold float-start">/Kalender</a>   
+                        <a class="fw-bold float-start">/Pengingat</a>   
                     </nav>
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
-                            <div class="card rounded shadow p-3">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4 col-sm-12 pt-5">
-                                        <div class="mb-2">
-                                            @include('admin.kalender.control')
-                                        </div>
-                                        <div class="mb-2">
-                                            @include('admin.kalender.detail')
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-9 col-md-8 col-sm-12">
-                                        @include('admin.kalender.calender')
-                                    </div>
-                                </div>
-                            </div>
+                            @include('admin.pengingat.day')
                         </section>
+                        
                     </div>
                 </div>
                
