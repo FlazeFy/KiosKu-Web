@@ -17,14 +17,27 @@ class PengingatController extends Controller
     {
         //All rak.
         $rak = DB::table('rak')
-        ->where('id_kios', session()->get('idKey'))
-        ->orderBy('created_at', 'DESC')->get();    
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();   
+        
+        //Kegiatan hari ini
+        if(session()->get('filter_day_key') == null){
+            $date = date("Y-m-d");
+        } else {
+            $date = date("Y-m-d", strtotime(session()->get('filter_day_key')));
+        }
+
+        $kegiatan = DB::table('kegiatan')
+            ->where('id_kios', session()->get('idKey'))
+            ->whereRaw("DATE(waktu_mulai) = '".$date."'")
+            ->orderBy('waktu_mulai', 'DESC')->get();   
     
         //Set active nav
         session()->put('active_nav', 'pengingat');
 
         return view ('admin.pengingat.index')
             ->with('day_around', $this->get_days_around())
+            ->with('kegiatan', $kegiatan)
             ->with('rak', $rak);
     }
 

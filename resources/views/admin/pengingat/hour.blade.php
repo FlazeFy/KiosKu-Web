@@ -1,7 +1,7 @@
 <style>
     .hour-box{
         width:100%;
-        height: 100px;
+        height: 120px;
         padding: 10px;
         margin-bottom:10px;
         background:rgba(105, 122, 255, 0.15);

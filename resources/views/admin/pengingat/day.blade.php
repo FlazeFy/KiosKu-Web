@@ -1,7 +1,7 @@
 <style>
     /*Day view*/
     .day-box{
-        display:inline;
+        display:inline-block;
         margin:10px 15px;
         padding:0px;
         max-width:90px;

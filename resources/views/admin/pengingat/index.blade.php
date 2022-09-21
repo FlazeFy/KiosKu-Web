@@ -142,7 +142,7 @@
                                     @include('admin.pengingat.hour')
                                 </div>
                                 <div class="col-lg-10">
-
+                                    @include('admin.pengingat.kegiatan')
                                 </div>
                             </div>
                         </section>
