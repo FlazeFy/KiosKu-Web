@@ -25,9 +25,11 @@
             - {{$i}}:59
         </h6>
         <button class="btn btn-warning py-0 px-2 text-white"><i class="fa-solid fa-gear"></i></button>
-        <button class="btn btn-danger py-0 px-2"><i class="fa-solid fa-trash"></i></button>
+        <button class="btn btn-danger py-0 px-2" data-bs-toggle="modal" data-bs-target="#delete_hour_kegiatan_{{$i}}"><i class="fa-solid fa-trash"></i></button>
         <button class="btn btn-success py-0 px-2 ms-2" data-bs-toggle="modal" data-bs-target="#add_kegiatan_{{$i}}">Tambah</button>
     </div>
+
+    <!--BUG!!!! when pengingat's hours more than 12:00 -->
     <div class="modal fade" id="add_kegiatan_{{$i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -81,6 +83,25 @@
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete_hour_kegiatan_{{$i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Kegiatan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda ingin menghapus seluruh pengingat pada tanggal {{date("d-M-Y", strtotime(session()->get('filter_day_key')))}} jam {{$i}}:00</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="/pengingat/hapus_hour_kegiatan/{{$i}}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Hapus</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

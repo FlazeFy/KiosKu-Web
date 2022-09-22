@@ -50,8 +50,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success"><i class="fa-solid fa-floppy-disk"></i> Simpan</button>
-                    </div>
-                </form>
+                        </form>
+                        <form action="/pengingat/hapus_kegiatan/{{$kg->id}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Hapus</button>
+                        </form>
+                    </div>                
             </div>
         </div>
     </div>

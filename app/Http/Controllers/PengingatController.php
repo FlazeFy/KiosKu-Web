@@ -137,8 +137,20 @@ class PengingatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function hapus_hour_kegiatan($id)
     {
-        //
+        $result = DB::table('kegiatan')
+            ->whereRaw("DATE(waktu_mulai) = '". date("Y-m-d", strtotime(session()->get('filter_day_key')))."'")
+            ->whereRaw("time(waktu_mulai) LIKE '".sprintf('%02d', $id)."%'")
+            ->delete();
+
+        return redirect()->back()->with('success_message', $result.' Pengingat berhasil dihapus');
+    }
+
+    public function hapus_kegiatan($id)
+    {
+        Kegiatan::destroy($id);
+
+        return redirect()->back()->with('success_message', 'Pengingat berhasil dihapus');
     }
 }

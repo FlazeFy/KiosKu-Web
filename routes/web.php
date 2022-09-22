@@ -67,3 +67,5 @@ Route::get('/pengingat/get_days_around', [PengingatController::class, 'get_days_
 Route::post('/pengingat/filterday', [PengingatController::class, 'set_day_filter']);
 Route::post('/pengingat/tambah_kegiatan', [PengingatController::class, 'tambah_kegiatan']);
 Route::post('/pengingat/edit_kegiatan/{id}', [PengingatController::class, 'edit_kegiatan']);
+Route::post('/pengingat/hapus_hour_kegiatan/{id}', [PengingatController::class, 'hapus_hour_kegiatan']);
+Route::post('/pengingat/hapus_kegiatan/{id}', [PengingatController::class, 'hapus_kegiatan']);
