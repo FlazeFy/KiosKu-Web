@@ -6,9 +6,9 @@
         margin-bottom:10px;
         background:rgba(105, 122, 255, 0.15);
     }
-    .hour-box.active, .hour-box.active h6{
+    .hour-box.active{
         color:white;
-        background:#676AFB;
+        background:rgba(105, 122, 255, 0.55);
     }
     .hour-box h6{
         text-align:right;

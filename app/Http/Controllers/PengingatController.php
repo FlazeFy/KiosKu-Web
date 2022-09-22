@@ -105,9 +105,18 @@ class PengingatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit_kegiatan(Request $request, $id)
     {
-        //
+        Kegiatan::where('id', $id)->update([
+            'kegiatan_title' => $request->kegiatan_title,
+            'kegiatan_desc' => $request->kegiatan_desc,
+            'kegiatan_type' => $request->kegiatan_type,
+            'waktu_mulai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
+            'waktu_selesai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Pengingat berhasil diedit');
     }
 
     /**

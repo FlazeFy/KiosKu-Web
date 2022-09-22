@@ -72,7 +72,7 @@
             
             <!--Start of activity-->
             @if(date("H", strtotime($kg->waktu_mulai)) == $i)
-                <button class="kegiatan-box shadow">
+                <button class="kegiatan-box shadow" data-bs-toggle="modal" data-bs-target="#edit-kegiatan-{{$kg->id}}">
                     <div style="position:relative; top:-10px !important;">
                         <a class="title">{{$kg->kegiatan_title}}</a>
                         <a class="time"><i class="fa-regular fa-clock"></i> {{date("H:i", strtotime($kg->waktu_mulai))}}-{{date("H:i", strtotime($kg->waktu_selesai))}}</a>
@@ -84,15 +84,17 @@
                     <button class="btn-resume-next" title="Lihat waktu selesai"><i class="fa-solid fa-arrow-turn-down fa-2xl"></i></button>
                 @endif
             @endif
+
             <!--In progress of activity-->
             @if((date("H", strtotime($kg->waktu_selesai)) > $i)&&(date("H", strtotime($kg->waktu_mulai)) < $i))
                 @php($j++)
             @endif
+            
             <!--End of activity-->
             @if((date("H", strtotime($kg->waktu_selesai)) == $i)&&(date("H", strtotime($kg->waktu_mulai)) != $i))
                 <button class="btn-resume-prev" title="Lihat waktu mulai"><i class="fa-solid fa-arrow-turn-down fa-2xl" style="-webkit-transform: scaleX(-1);
                     transform: scaleX(-1);"></i></button>
-                <button class="kegiatan-box shadow">
+                <button class="kegiatan-box shadow" data-bs-toggle="modal" data-bs-target="#edit-kegiatan-{{$kg->id}}">
                     <div style="position:relative; top:-10px !important;">
                         <a class="title">{{$kg->kegiatan_title}}</a>
                         <a class="time"><i class="fa-regular fa-clock"></i> {{date("H:i", strtotime($kg->waktu_mulai))}}-{{date("H:i", strtotime($kg->waktu_selesai))}}</a>

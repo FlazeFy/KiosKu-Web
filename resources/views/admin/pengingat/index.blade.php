@@ -165,6 +165,7 @@
 
         <!--Modal-->
         @include('popup.success')
+        @include('admin.pengingat.form.edit')
 
         <script>
             
