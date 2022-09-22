@@ -61,7 +61,7 @@
                                     <label for="floatingInput">Tanggal Mulai</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="time" class="form-control" name="kegiatan_hour_selesai" value="{{sprintf('%02d', $i)}}:00">
+                                    <input type="time" class="form-control" name="kegiatan_hour_mulai" value="{{sprintf('%02d', $i)}}:00">
                                     <label for="floatingInput">Waktu Mulai</label>
                                 </div>
                             </div>
