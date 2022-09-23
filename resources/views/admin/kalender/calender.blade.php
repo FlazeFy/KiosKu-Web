@@ -26,6 +26,12 @@
         white-space: normal !important;
         font-weight: 500;
     }
+    /* .fc-daygrid-day-events{
+        display: flex;
+        flex-direction: column;
+        height: 80px;
+        overflow-y: scroll;
+    } */
 </style>
 
 <div id="calendar"></div>
@@ -33,11 +39,12 @@
     <h6>Keterangan :</h6>
 </div>
 
-<script>
+<script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
+        locale: 'es',
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
@@ -45,6 +52,14 @@
             //right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         selectable: true,
+        navLinks: true, 
+        <?php 
+            if(session()->get('filter_calendar_key') == "Pengingat"){
+                echo "editable: true,";
+            }
+        ?>
+        //eventLimit: true,
+        //eventLimit: 4,
         events: [
             <?php
                 //Initial value
@@ -115,8 +130,17 @@
                         ";
                         $i++;
                     }
-                } else if(session()->get('filter_calendar_key') == "Kegiatan"){
-                    //
+                } else if(session()->get('filter_calendar_key') == "Pengingat"){
+                    foreach($c_pengingat as $cp){
+                        echo "
+                            {
+                                groupId: '".$i."',
+                                title: '".$cp->kegiatan_title."',
+                                start: '".$cp->date_c."'
+                            },
+                        ";
+                        $i++;
+                    }
                 }
             ?>
         ],

@@ -142,8 +142,14 @@
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
-                            @include('admin.pengingat.control')
-                            @include('admin.pengingat.day')
+                            <div class="row">
+                                <div class="col-lg-9 col-md-9 col-sm-8">
+                                    @include('admin.pengingat.day')
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4 pt-4">
+                                    @include('admin.pengingat.control')
+                                </div>
+                            </div>
                             <div class="row mt-1 hour-item-holder">
                                 <div class="col-lg-2 col-md-2 col-sm-4">
                                     @include('admin.pengingat.hour')

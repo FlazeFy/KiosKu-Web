@@ -90,8 +90,8 @@ class PengingatController extends Controller
             'kegiatan_desc' => $request->kegiatan_desc,
             'kegiatan_type' => $request->kegiatan_type,
             'kegiatan_url' => null,
-            'waktu_mulai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
-            'waktu_selesai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
+            'waktu_mulai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
+            'waktu_selesai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
             'created_at' => date("Y-m-d h:m:i"),
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
@@ -111,8 +111,8 @@ class PengingatController extends Controller
             'kegiatan_title' => $request->kegiatan_title,
             'kegiatan_desc' => $request->kegiatan_desc,
             'kegiatan_type' => $request->kegiatan_type,
-            'waktu_mulai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
-            'waktu_selesai' => date("Y-m-d h:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
+            'waktu_mulai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
+            'waktu_selesai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
 

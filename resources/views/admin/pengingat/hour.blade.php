@@ -59,7 +59,12 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" name="kegiatan_date_mulai" value="{{date('Y-m-d', strtotime(session()->get('filter_day_key')))}}">
+                                    <input type="date" class="form-control" name="kegiatan_date_mulai" value="<?php 
+                                        if(strtotime(session()->get('filter_day_key')) != null){
+                                            echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
+                                        } else {
+                                            echo date('Y-m-d');
+                                        }?>">
                                     <label for="floatingInput">Tanggal Mulai</label>
                                 </div>
                                 <div class="form-floating mb-2">
@@ -69,7 +74,12 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" name="kegiatan_date_selesai" value="{{date('Y-m-d', strtotime(session()->get('filter_day_key')))}}">
+                                    <input type="date" class="form-control" name="kegiatan_date_selesai" value="<?php 
+                                        if(strtotime(session()->get('filter_day_key')) != null){
+                                            echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
+                                        } else {
+                                            echo date('Y-m-d');
+                                        }?>">
                                     <label for="floatingInput">Tanggal Selesai</label>
                                 </div>
                                 <div class="form-floating mb-2">

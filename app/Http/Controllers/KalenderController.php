@@ -62,6 +62,12 @@ class KalenderController extends Controller
             ) 
         );
 
+        //Calendar absensi
+        $calender_pengingat = DB::table('kegiatan')
+            ->selectRaw(
+                "DATE(waktu_mulai) AS date_c, assignee, kegiatan_title, kegiatan_desc, kegiatan_type, kegiatan_url, waktu_selesai")
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('date_c', 'DESC')->get();
 
         //Set active nav
         session()->put('active_nav', 'kalender');
@@ -70,6 +76,7 @@ class KalenderController extends Controller
             ->with('c_absensi', $calender_absensi)
             ->with('c_keuntungan', $calender_keuntungan)
             ->with('c_b_terjual', $calender_b_terjual)
+            ->with('c_pengingat', $calender_pengingat)
             ->with('rak', $rak);
     }
 
