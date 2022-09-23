@@ -117,6 +117,14 @@
                 height: 575px;
                 overflow-y: scroll;
             } */
+
+            .btn-success-secondary{
+                background:white;
+                color: #198754 !important;
+                border:2px solid #198754;
+                border-radius:6px;
+                height:36px;
+            }
         </style>
     </head>
 
@@ -151,12 +159,21 @@
                                 </div>
                             </div>
                             <div class="row mt-1 hour-item-holder">
-                                <div class="col-lg-2 col-md-2 col-sm-4">
-                                    @include('admin.pengingat.hour')
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-8">
-                                    @include('admin.pengingat.kegiatan')
-                                </div>
+                                @if(session()->get('view_pengingat') == "Detail")
+                                    <div class="col-lg-2 col-md-2 col-sm-4">
+                                        @include('admin.pengingat.hour')
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-8">
+                                        @include('admin.pengingat.kegiatan')
+                                    </div>
+                                @else
+                                    <div class="col-lg-9 col-md-9 col-sm-7">
+                                        @include('admin.pengingat.detail.kegiatan')
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-5">
+
+                                    </div>
+                                @endif
                             </div>
                         </section>
                     </div>

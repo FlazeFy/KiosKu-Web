@@ -32,7 +32,7 @@ class PengingatController extends Controller
         $kegiatan = DB::table('kegiatan')
             ->where('id_kios', session()->get('idKey'))
             ->whereRaw("DATE(waktu_mulai) = '".$date."'")
-            ->orderBy('waktu_mulai', 'DESC')->get();   
+            ->orderBy('waktu_mulai', 'ASC')->get();   
     
         //Set active nav
         session()->put('active_nav', 'pengingat');
@@ -126,9 +126,15 @@ class PengingatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function view_pengingat(Request $request)
     {
-        //
+        if($request->toggle_view ==  true){
+            $request->session()->put('view_pengingat', 'Detail');
+        } else {
+            $request->session()->put('view_pengingat', '');
+        }
+
+        return redirect()->back()->with('success_message', 'Tampilan Pengingat berhasil diubah');
     }
 
     /**

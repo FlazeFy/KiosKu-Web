@@ -15,4 +15,11 @@
             <label for='floatingInput'>Tanggal</label>
         </div>
     </form>
+    <form method="POST" action="/pengingat/view_pengingat" class="float-start m-2">
+        @csrf
+        <div class="form-check form-switch">
+            <input class="form-check-input fs-5" type="checkbox" role="switch" name="toggle_view" onchange="this.form.submit()" <?php if(session()->get('view_pengingat') == "Detail"){ echo " checked "; } ?>>
+            <label class="form-check-label" for="flexSwitchCheckDefault">Tampilan Detail</label>
+        </div>
+    </form>
 </div>
