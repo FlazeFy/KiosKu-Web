@@ -74,4 +74,5 @@ Route::post('/pengingat/hapus_kegiatan/{id}', [PengingatController::class, 'hapu
 
 //Arsip
 Route::get('/arsip', [ArsipController::class, 'index']);
+Route::get('/getRelasiArsip', [ArsipController::class, 'getRelasiArsip']);
 Route::post('/arsip/view/{id}', [ArsipController::class, 'view']);

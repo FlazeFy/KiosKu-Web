@@ -152,14 +152,14 @@
                         <section class="container-xxl flex-grow-1 container-p-y">
                             <table class="w-100">
                                 <tr>
-                                    <th style="width:10%; min-width:80px;"></th>
-                                    <th style="width:90%;"></th>
+                                    <th style="width:13%; min-width:80px;"></th>
+                                    <th style="width:87%;"></th>
                                 </tr>
                                 <tr>
-                                    <td>
+                                    <td class="float-start">
                                         @include('admin.arsip.list')
                                     </td>
-                                    <td class="float-start w-100">
+                                    <td class="w-100">
                                         @include('admin.arsip.content')
                                     </td>
                                 </tr>

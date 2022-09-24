@@ -39,14 +39,12 @@ class ArsipController extends Controller
      */
     public function view(Request $request, $id)
     {
-        $arsip = [];
-       
-        $arsip[] = [
+        $arsip = array(
             'id' => $id,
-            'nama_arsip' => $request->nama_arsip
-        ];
+            'nama_arsip' => $request->nama_arsip,
+        );
             
-        $request->session()->put('view_archieve', );
+        $request->session()->put('view_archieve', json_encode($arsip));
 
         return redirect()->back();
     }
@@ -57,9 +55,21 @@ class ArsipController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function getRelasiArsip(Request $request)
     {
-        //
+        $val = json_decode(session()->get('view_archieve'), true);
+
+        $relasi = DB::select( 
+            DB::raw("
+                SELECT * FROM `relasi_arsip` 
+                JOIN kegiatan on kegiatan.id = JSON_EXTRACT(type_context, '$.id')
+                WHERE relasi_arsip.id_kios = ".session()->get('idKey')." and
+                relasi_arsip.id_arsip = ".$val['id']."
+            ") 
+        );
+
+        echo json_encode($relasi);
+        exit;
     }
 
     /**
