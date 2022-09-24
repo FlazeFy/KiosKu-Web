@@ -200,6 +200,12 @@
                 <div data-i18n="Authentications">Pengingat</div>
             </a>
         </li>
+        <li class="menu-item<?php if(session()->get('active_nav') == "arsip"){ echo " active"; }?>">
+            <a href="/arsip" class="menu-link">
+                <i class="fa-regular fa-folder-open me-3"></i>
+                <div data-i18n="Authentications">Arsip</div>
+            </a>
+        </li>
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Lainnya</span></li>
         <li class="menu-item">

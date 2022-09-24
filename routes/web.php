@@ -10,6 +10,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PengingatController;
+use App\Http\Controllers\ArsipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,7 @@ Route::post('/pengingat/tambah_kegiatan', [PengingatController::class, 'tambah_k
 Route::post('/pengingat/edit_kegiatan/{id}', [PengingatController::class, 'edit_kegiatan']);
 Route::post('/pengingat/hapus_hour_kegiatan/{id}', [PengingatController::class, 'hapus_hour_kegiatan']);
 Route::post('/pengingat/hapus_kegiatan/{id}', [PengingatController::class, 'hapus_kegiatan']);
+
+//Arsip
+Route::get('/arsip', [ArsipController::class, 'index']);
+Route::post('/arsip/view/{id}', [ArsipController::class, 'view']);
