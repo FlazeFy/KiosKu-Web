@@ -76,6 +76,18 @@
                     <h6 class="text-primary">Tempat :</h6>
                     <h6 class="text-primary">Keterangan :</h6>
 
+                    <div class="file-holder">
+                        <h6 for="formFile" class="text-primary">File Terlampir :</h6>
+                        @if($kg->kegiatan_url != null)
+                            @php($url = json_decode($kg->kegiatan_url, true))
+
+                            @foreach($url as $u)
+                                @if($u['type'] == "image")
+                                    <img class="img img-fluid d-block mx-auto" src="{{url('storage/'.$u['url'])}}" style="max-width:600px;"/>
+                                @endif
+                            @endforeach
+                        @endif
+                    </div>
 
                     <hr><div class="kegiatan-manage-box">
                         <a class="last-updated">Terakhir diubah : {{date("Y-m-d H:i", strtotime($kg->updated_at))}}</a>

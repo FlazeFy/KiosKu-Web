@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Karyawan\DataController;
 use App\Http\Controllers\Karyawan\UpahController;
+use App\Http\Controllers\Kasir\PenjualanController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
@@ -76,3 +77,6 @@ Route::post('/pengingat/hapus_kegiatan/{id}', [PengingatController::class, 'hapu
 Route::get('/arsip', [ArsipController::class, 'index']);
 Route::get('/getRelasiArsip', [ArsipController::class, 'getRelasiArsip']);
 Route::post('/arsip/view/{id}', [ArsipController::class, 'view']);
+
+//Kasir
+Route::get('/kasir/penjualan', [PenjualanController::class, 'index']);

@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="file-holder">
-                                    <label for="formFile" class="form-label">Attached File</label>
+                                    <h6 for="formFile" class="text-primary">File Terlampir</h6>
                                     @if($kg->kegiatan_url != null)
                                         @php($url = json_decode($kg->kegiatan_url, true))
 

@@ -94,11 +94,11 @@
                             </div>
                             <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="mb-3">
-                                    <label for="formFile" class="form-label">Add File <span class="fw-bold text-secondary">Optional</span></label>
+                                    <label for="formFile" class="form-label">Tambahkan File <span class="fw-bold text-secondary">Opsional</span></label>
                                     <input class="form-control" name="kegiatan_url" type="file" id="formFile" onchange="loadFile<?php echo $i; ?>(event)">
                                 </div>
                                 <div class="file-holder">
-                                    <label for="formFile" class="form-label">Attached File</label>
+                                    <label for="formFile" class="form-label">File Terlampir</label>
                                     <img class="img img-fluid" id="img-show-{{$i}}"/>
                                 </div>
                             </div>

@@ -106,19 +106,14 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item">
+        <li class="menu-item<?php if(session()->get('active_nav') == "kasir"){ echo " active"; }?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="fa-solid fa-cash-register me-3"></i>
                 <div data-i18n="Account Settings">Kasir</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Akun</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                    <a href="/kasir/penjualan" class="menu-link">
                         <div data-i18n="Account">Penjualan</div>
                     </a>
                 </li>
