@@ -61,7 +61,39 @@
         height:50px;
         font-size:16.5px;
     }
+    .kegiatan-box .attachment-icon{
+        font-size:12px;
+        color: #808080 !important;
+        position:absolute;
+        bottom:-23px;
+    }
 </style>
+
+<?php 
+    function geturlicon($url){
+        //Iterate type to array
+        for($y = 0; $y < count($url); $y++){
+            $arr[] = $url[$y]['type'];
+        }
+
+        //Make array unique
+        echo"
+        <span class='attachment-icon'>";
+            foreach(array_unique($arr) as $ar => $val){
+                if($val == "image"){
+                    echo"<a><i class='fa-regular fa-image me-2'></i></a>";
+                } else if($val == "video"){
+                    echo"<a><i class='fa-solid fa-video me-2'></i></a>";
+                } else if($val == "audio"){
+                    echo"<a><i class='fa-solid fa-microphone me-2'></i></a>";
+                } else if($val == "link"){
+                    echo"<a><i class='fa-solid fa-link me-2'></i></a>";
+                }
+            }
+        echo"</span>";
+    }
+?>
+
 
 @for($i = 0; $i < 24; $i++)
     <div class="hour-box hour_box_holder rounded  
@@ -77,6 +109,9 @@
                         <a class="title">{{$kg->kegiatan_title}}</a>
                         <a class="time"><i class="fa-regular fa-clock"></i> {{date("H:i", strtotime($kg->waktu_mulai))}}-{{date("H:i", strtotime($kg->waktu_selesai))}}</a>
                         <a class="desc">{{$kg->kegiatan_desc}}</a>
+                        @if($kg->kegiatan_url != null)
+                            {{geturlicon(json_decode($kg->kegiatan_url, true))}}
+                        @endif
                     <div>
                 </button>
                 @if(date("H", strtotime($kg->waktu_selesai)) > $i)
@@ -99,6 +134,9 @@
                         <a class="title">{{$kg->kegiatan_title}}</a>
                         <a class="time"><i class="fa-regular fa-clock"></i> {{date("H:i", strtotime($kg->waktu_mulai))}}-{{date("H:i", strtotime($kg->waktu_selesai))}}</a>
                         <a class="desc">{{$kg->kegiatan_desc}}</a>
+                        @if($kg->kegiatan_url != null)
+                            {{geturlicon(json_decode($kg->kegiatan_url, true))}}
+                        @endif
                     <div>
                 </button>
             @endif

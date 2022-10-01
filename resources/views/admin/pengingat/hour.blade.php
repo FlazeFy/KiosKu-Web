@@ -30,61 +30,76 @@
     </div>
 
     <!--BUG!!!! when pengingat's hours more than 12:00 -->
+    <!--Add kegiatan-->
     <div class="modal fade" id="add_kegiatan_{{$i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form action="/pengingat/tambah_kegiatan" method="POST">
+                <form action="/pengingat/tambah_kegiatan" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Tambah Kegiatan</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-floating mb-2">
-                            <input type="text" class="form-control" name="kegiatan_title" required>
-                            <label for="floatingInput">Nama Kegiatan</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <textarea class="form-control" name="kegiatan_desc" style="height:100px;"></textarea>
-                            <label for="floatingInput">Deskripsi</label>
-                        </div>
-                        <div class="form-floating mb-2">
-                            <select class="form-select" id="floatingSelectGrid" name="kegiatan_type">
-                                <option value="wajib">Wajib</option>
-                                <option value="opsional">Opsional</option>
-                                <option value="pertemuan">Pertemuan</option>
-                            </select>
-                            <label for="floatingInput">Tipe</label>
-                        </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
                                 <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" name="kegiatan_date_mulai" value="<?php 
-                                        if(strtotime(session()->get('filter_day_key')) != null){
-                                            echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
-                                        } else {
-                                            echo date('Y-m-d');
-                                        }?>">
-                                    <label for="floatingInput">Tanggal Mulai</label>
+                                    <input type="text" class="form-control" name="kegiatan_title" required>
+                                    <label for="floatingInput">Nama Kegiatan</label>
                                 </div>
                                 <div class="form-floating mb-2">
-                                    <input type="time" class="form-control" name="kegiatan_hour_mulai" value="{{sprintf('%02d', $i)}}:00">
-                                    <label for="floatingInput">Waktu Mulai</label>
+                                    <textarea class="form-control" name="kegiatan_desc" style="height:100px;"></textarea>
+                                    <label for="floatingInput">Deskripsi</label>
+                                </div>
+                                <div class="form-floating mb-2">
+                                    <select class="form-select" id="floatingSelectGrid" name="kegiatan_type">
+                                        <option value="wajib">Wajib</option>
+                                        <option value="opsional">Opsional</option>
+                                        <option value="pertemuan">Pertemuan</option>
+                                    </select>
+                                    <label for="floatingInput">Tipe</label>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="date" class="form-control" name="kegiatan_date_mulai" value="<?php 
+                                                if(strtotime(session()->get('filter_day_key')) != null){
+                                                    echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
+                                                } else {
+                                                    echo date('Y-m-d');
+                                                }?>">
+                                            <label for="floatingInput">Tanggal Mulai</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input type="time" class="form-control" name="kegiatan_hour_mulai" value="{{sprintf('%02d', $i)}}:00">
+                                            <label for="floatingInput">Waktu Mulai</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating mb-2">
+                                            <input type="date" class="form-control" name="kegiatan_date_selesai" value="<?php 
+                                                if(strtotime(session()->get('filter_day_key')) != null){
+                                                    echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
+                                                } else {
+                                                    echo date('Y-m-d');
+                                                }?>">
+                                            <label for="floatingInput">Tanggal Selesai</label>
+                                        </div>
+                                        <div class="form-floating mb-2">
+                                            <input type="time" class="form-control" name="kegiatan_hour_selesai" value="{{sprintf('%02d', $i)}}:59">
+                                            <label for="floatingInput">Waktu Selesai</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-floating mb-2">
-                                    <input type="date" class="form-control" name="kegiatan_date_selesai" value="<?php 
-                                        if(strtotime(session()->get('filter_day_key')) != null){
-                                            echo date('Y-m-d', strtotime(session()->get('filter_day_key')));
-                                        } else {
-                                            echo date('Y-m-d');
-                                        }?>">
-                                    <label for="floatingInput">Tanggal Selesai</label>
+                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Add File <span class="fw-bold text-secondary">Optional</span></label>
+                                    <input class="form-control" name="kegiatan_url" type="file" id="formFile" onchange="loadFile<?php echo $i; ?>(event)">
                                 </div>
-                                <div class="form-floating mb-2">
-                                    <input type="time" class="form-control" name="kegiatan_hour_selesai" value="{{sprintf('%02d', $i)}}:59">
-                                    <label for="floatingInput">Waktu Selesai</label>
+                                <div class="file-holder">
+                                    <label for="formFile" class="form-label">Attached File</label>
+                                    <img class="img img-fluid" id="img-show-{{$i}}"/>
                                 </div>
                             </div>
                         </div>
@@ -96,6 +111,7 @@
             </div>
         </div>
     </div>
+    <!--Delete kegiatan-->
     <div class="modal fade" id="delete_hour_kegiatan_{{$i}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -116,3 +132,19 @@
         </div>
     </div>
 @endfor
+
+<script>
+    //Image upload preview.
+    <?php
+        for($i = 0; $i < 24; $i++){
+            echo"
+            var loadFile".$i." = function(event) {
+            var output = document.getElementById('img-show-".$i."');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+                }
+            };";
+        }
+    ?>
+</script>

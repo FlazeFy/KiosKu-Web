@@ -10,8 +10,12 @@
 </style>
 
 <div class="card p-3 arsip-content">
-    @php($val = json_decode(session()->get('view_archieve'), true))
-    <h6 class="text-primary">/Arsip/{{$val['nama_arsip']}}</h6>
+    @if(session()->get('view_archieve') != null)
+        @php($val = json_decode(session()->get('view_archieve'), true))
+        <h6 class="text-primary">/Arsip/{{$val['nama_arsip']}}</h6>
+    @else 
+        <h6 class="text-primary">/Arsip</h6>
+    @endif
     <div class="row" id="item_holder">
         
     </div>
@@ -27,7 +31,7 @@
         setTimeout(function() {
             update();
             clear();
-        }, 1500); //Every 1500 milliseconds
+        }, 1000); //Every 1500 milliseconds
     }
     
     function update() {
@@ -73,7 +77,16 @@
                         var tr_str = 
                             "<div class='col-lg-4 col-md-4 col-sm-6 mb-2'> " +
                                 "<div class='kegiatan-box-arsip rounded shadow'> " +
-                                    "<h6 class='text-success float-end'>" + k_type + "</h6> " +
+                                    "<button class='btn btn-transparent p-0 float-end' type='button' id='cardOpt-keuntungan' data-bs-toggle='dropdown' aria-haspopup='true' " +
+                                        "aria-expanded='false'> " +
+                                        "<i class='fa-solid fa-ellipsis-vertical more'></i> " +
+                                    "</button> " +
+                                    "<div class='dropdown-menu dropdown-menu-end' aria-labelledby='cardOpt-keuntungan'> " +
+                                        "<a class='dropdown-item' href=''>Salin</a> " +
+                                        "<a class='dropdown-item' href=''>Edit</a> " +
+                                        "<a class='dropdown-item' href=''>Hapus</a> " +
+                                    "</div> " +
+                                    "<h6 class='text-success float-end me-3'>" + k_type + "</h6> " +
                                     "<h6 class='text-secondary'>" + k_title + "</h6><hr> " +
                                     "<p class='text-secondary'>" + k_desc +  "</p> " +
                                     "<h6 class='text-primary'>Waktu : <span class='text-secondary fw-normal'>" + convertDate(k_waktu_mulai) + " <b>s/d</b> " + convertDate(k_waktu_selesai) + "</span></h6> " +

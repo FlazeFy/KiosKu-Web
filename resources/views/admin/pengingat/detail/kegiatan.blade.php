@@ -79,12 +79,15 @@
 
                     <hr><div class="kegiatan-manage-box">
                         <a class="last-updated">Terakhir diubah : {{date("Y-m-d H:i", strtotime($kg->updated_at))}}</a>
-                        <a class="btn btn-danger border-0 text-white float-end" data-bs-target="#" data-bs-toggle="modal"><i class="fa-solid fa-trash"></i> Hapus</a>
-                        <button type="submit" class="btn btn-primary float-end me-2"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                        <button class="btn btn-warning float-end me-2 text-white" data-bs-target="#edit-kegiatan-{{$kg->id}}" data-bs-toggle="modal"><i class="fa-solid fa-edit"></i> Edit</button>
+                        <button class="btn btn-primary float-end me-2"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
                         <button type="submit" class="btn btn-success-secondary shadow-sm float-end me-2"><i class="fa-solid fa-check"></i> Selesaikan</button>
                     </div>
                 </div>
             </div>
+
+            <!--Modal-->
+            @include('admin.pengingat.form.edit')
         @endforeach
     @else
         <div class="container text-center d-block mx-auto">

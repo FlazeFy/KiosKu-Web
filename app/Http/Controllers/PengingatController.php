@@ -83,13 +83,34 @@ class PengingatController extends Controller
      */
     public function tambah_kegiatan(Request $request)
     {
+        if($request->has('kegiatan_url')){
+            //Validate image.
+            $this->validate($request, [
+                'kegiatan_url'     => 'required|image|mimes:jpeg,png,jpg|max:5000',
+            ]);
+
+            //Upload image.
+            $image = $request->file('kegiatan_url');
+            $image->storeAs('public', $image->hashName());
+            $imageURL = $image->hashName();
+
+            //Convert to json.
+            $object = array([
+                "type"=>"image",
+                "url"=>$imageURL
+            ]);
+            $imageURL = json_encode($object);
+        } else {
+            $imageURL = null;
+        }
+
         Kegiatan::create([
             'id_kios' => session()->get('idKey'),
             'assignee' => null,
             'kegiatan_title' => $request->kegiatan_title,
             'kegiatan_desc' => $request->kegiatan_desc,
             'kegiatan_type' => $request->kegiatan_type,
-            'kegiatan_url' => null,
+            'kegiatan_url' => $imageURL,
             'waktu_mulai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_mulai."".$request->kegiatan_hour_mulai)),
             'waktu_selesai' => date("Y-m-d H:i", strtotime($request->kegiatan_date_selesai."".$request->kegiatan_hour_selesai)),
             'created_at' => date("Y-m-d h:m:i"),
