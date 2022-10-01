@@ -8,7 +8,7 @@
 </style>
 
 @php($status_bg = "")
-@if(($kr->id_context != null)&&($kr->status_karyawan == "aktif")&&($kr->type_context == "karyawan"))
+@if(($kr->id_context != null)&&($kr->status_karyawan == "aktif"))
     @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
 @endif
 <li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}" style="{{$status_bg}}">

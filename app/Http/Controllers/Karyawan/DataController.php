@@ -27,10 +27,12 @@ class DataController extends Controller
             ->orderBy('created_at', 'DESC')->get();
 
         $karyawan = Karyawan::leftJoin("tandai", function ($join) {
-            $join->on("karyawan.id", "=", "tandai.id_context");
+            $join->on("karyawan.id", "=", "tandai.id_context")
+            ->where('tandai.type_context', 'karyawan');
             })
             ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
             ->where('karyawan.id_kios', session()->get('idKey'))
+            ->groupBy('karyawan.id')
             ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
             ->get();
 

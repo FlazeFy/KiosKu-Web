@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Karyawan;
 use App\Models\Kasir;
+use App\Models\Tandai;
 
 class PenjualanController extends Controller
 {
@@ -24,9 +25,19 @@ class PenjualanController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
-        $kasir = DB::table('kasir')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        // $kasir = DB::table('kasir')
+        //     ->where('id_kios', session()->get('idKey'))
+        //     ->orderBy('created_at', 'DESC')->get();
+
+        $kasir = Kasir::leftJoin("tandai", function ($join) {
+            $join->on("kasir.id", "=", "tandai.id_context")
+            ->where('tandai.type_context', 'kasir');
+            })
+            ->select('kasir.id', 'kasir.nama_kasir', 'kasir.deskripsi_kasir', 'kasir.created_at', 'kasir.updated_at', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->where('kasir.id_kios', session()->get('idKey'))
+            ->groupBy('kasir.id')
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+            ->get();
 
         //Set active nav
         session()->put('active_nav', 'kasir');
@@ -41,9 +52,34 @@ class PenjualanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function edit_kasir(Request $request, $id)
     {
-        //
+        Kasir::where('id', $id)->update([
+            'nama_kasir' => $request->nama_kasir,
+            'deskripsi_kasir' => $request->deskripsi_kasir,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Kasir berhasil diperbarui');
+    }
+
+    public function unpin($id)
+    {
+        Tandai::destroy($id);
+        return redirect()->back()->with('success_message', 'Pin dilepaskan');
+    }
+
+    public function pin($id)
+    {
+        Tandai::create([
+            'id_kios' => session()->get('idKey'),
+            'id_context' => $id,
+            'type_context' => 'kasir',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Item ditandai');
     }
 
     /**
