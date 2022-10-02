@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Karyawan;
+use App\Models\Relasi_Kasir;
 use App\Models\Kasir;
 use App\Models\Tandai;
 
@@ -24,6 +25,12 @@ class PenjualanController extends Controller
         $rak = DB::table('rak')
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
+
+        $rel_kasir = DB::table('relasi_kasir')
+            ->select('relasi_kasir.id', 'relasi_kasir.id_kasir', 'karyawan.id as id_karyawan', 'karyawan.nama_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.karyawan_image_url')
+            ->join('karyawan', 'karyawan.id', '=', 'relasi_kasir.id_karyawan')
+            ->where('karyawan.id_kios', session()->get('idKey'))
+            ->orderBy('relasi_kasir.created_at', 'DESC')->get();
         
         $transaksi = DB::table('keranjang')
             ->select('keranjang.id', 'keranjang.created_at', 'kasir.id as id_kasir', 'kasir.nama_kasir')
@@ -52,12 +59,24 @@ class PenjualanController extends Controller
             ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
             ->get();
 
+        $karyawan = Karyawan::leftJoin("tandai", function ($join) {
+            $join->on("karyawan.id", "=", "tandai.id_context")
+            ->where('tandai.type_context', 'karyawan');
+            })
+            ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->where('karyawan.id_kios', session()->get('idKey'))
+            ->groupBy('karyawan.id')
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+            ->get();
+
         //Set active nav
         session()->put('active_nav', 'kasir');
 
         return view ('admin.kasir.penjualan.index')
             ->with('rak', $rak)
             ->with('transaksi', $transaksi)
+            ->with('karyawan', $karyawan)
+            ->with('rel_kasir', $rel_kasir)
             ->with('barang_transaksi', $barang_transaksi)
             ->with('kasir', $kasir);
     }
@@ -156,8 +175,14 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete_kasir($id)
     {
-        //
+        Kasir::destroy($id);
+        return redirect()->back()->with('success_message', 'Kasir berhasil dihapus');
+    }
+
+    public function delete_karyawan_kasir($id){
+        Relasi_Kasir::destroy($id);
+        return redirect()->back()->with('success_message', 'Karyawan berhasil dihapus');
     }
 }

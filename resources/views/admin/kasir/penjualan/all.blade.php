@@ -30,10 +30,8 @@
                             </form>
                         </div>
                         <div class="col-lg-5 col-md-6 col-sm-12">
-                            <form method="POST" action="">
-                                @csrf
-                                <h6 class="text-primary">Karyawan</h6>
-                            </form>
+                            <h6 class="text-primary">Karyawan</h6>
+                            @include('admin.kasir.penjualan.karyawan')
                         </div>
                     </div><hr>
                     <h6 class="text-primary">Riwayat Transaksi</h6>
@@ -61,5 +59,9 @@
                 </div>
             </div>
         </li>
+
+        <!--Modal-->
+        @include('admin.kasir.penjualan.form.add_karyawan')
+        @include('admin.kasir.penjualan.form.delete')
     @endforeach
 </div>
