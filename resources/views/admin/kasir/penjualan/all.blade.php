@@ -37,6 +37,7 @@
                         </div>
                     </div><hr>
                     <h6 class="text-primary">Riwayat Transaksi</h6>
+                    @include('admin.kasir.penjualan.riwayat')
                 </div>
                 <hr class="my-0" style="background:#212121;"/>
                 <div class="card-body p-3">

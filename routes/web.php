@@ -80,6 +80,7 @@ Route::post('/arsip/view/{id}', [ArsipController::class, 'view']);
 
 //Kasir
 Route::get('/kasir/penjualan', [PenjualanController::class, 'index']);
+Route::post('/kasir/penjualan/tambah_kasir', [PenjualanController::class, 'add_kasir']);
 Route::post('/kasir/penjualan/edit_kasir/{id}', [PenjualanController::class, 'edit_kasir']);
 Route::post('/kasir/penjualan/unpin/{id}', [PenjualanController::class, 'unpin']);
 Route::post('/kasir/penjualan/pin/{id}', [PenjualanController::class, 'pin']);

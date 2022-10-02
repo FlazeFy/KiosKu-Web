@@ -48,6 +48,16 @@
         <!-- Bootstrap dataTables Javascript -->
         <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
+        <script type="text/javascript" charset="utf-8">
+            $(document).ready(function () {
+                <?php
+                    foreach($kasir as $ks){
+                        echo"$('#riwayatTable-".$ks->id."').DataTable();";
+                    }
+                ?>
+            });
+        </script>
+
         <style>
             a{
                 text-decoration:none;
@@ -150,6 +160,7 @@
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
+                            @include('admin.kasir.penjualan.form.create')
                             @include('admin.kasir.penjualan.all')
                         </section>
                     </div>

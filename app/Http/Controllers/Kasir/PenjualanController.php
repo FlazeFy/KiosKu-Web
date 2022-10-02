@@ -24,6 +24,19 @@ class PenjualanController extends Controller
         $rak = DB::table('rak')
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
+        
+        $transaksi = DB::table('keranjang')
+            ->select('keranjang.id', 'keranjang.created_at', 'kasir.id as id_kasir', 'kasir.nama_kasir')
+            ->join('kasir', 'kasir.id', '=', 'keranjang.id_kasir')
+            ->where('keranjang.id_kios', session()->get('idKey'))
+            ->orderBy('keranjang.created_at', 'DESC')->get();
+
+        $barang_transaksi = DB::table('barang')
+            //->select('barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'bara')   
+            ->join('transaksi', 'transaksi.id_barang', '=', 'barang.id')
+            ->join('keranjang', 'keranjang.id', '=', 'transaksi.id_keranjang')
+            ->where('keranjang.id_kios', session()->get('idKey'))
+            ->orderBy('transaksi.id', 'DESC')->get();
 
         // $kasir = DB::table('kasir')
         //     ->where('id_kios', session()->get('idKey'))
@@ -44,6 +57,8 @@ class PenjualanController extends Controller
 
         return view ('admin.kasir.penjualan.index')
             ->with('rak', $rak)
+            ->with('transaksi', $transaksi)
+            ->with('barang_transaksi', $barang_transaksi)
             ->with('kasir', $kasir);
     }
 
@@ -88,9 +103,17 @@ class PenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add_kasir(Request $request)
     {
-        //
+        Kasir::create([
+            'id_kios' => session()->get('idKey'),
+            'nama_kasir' => $request->nama_kasir,
+            'deskripsi_kasir' => $request->deskripsi_kasir,
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i")
+        ]);
+
+        return redirect()->back()->with('success_message', 'Kasir berhasil ditambahkan');
     }
 
     /**
