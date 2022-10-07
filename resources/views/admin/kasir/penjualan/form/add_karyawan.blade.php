@@ -19,6 +19,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body karyawan_add_holder">
+                    <!--BUG!!!-->
                     @php($count_add = 0)
                     @foreach($karyawan as $kr)       
                         @if($kr->id_kasir != $ks->id)   

@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Karyawan\DataController;
 use App\Http\Controllers\Karyawan\UpahController;
 use App\Http\Controllers\Kasir\PenjualanController;
+use App\Http\Controllers\Barang\GudangController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
@@ -87,3 +88,6 @@ Route::post('/kasir/penjualan/hapus_karyawan/{id}', [PenjualanController::class,
 Route::post('/kasir/penjualan/edit_kasir/{id}', [PenjualanController::class, 'edit_kasir']);
 Route::post('/kasir/penjualan/unpin/{id}', [PenjualanController::class, 'unpin']);
 Route::post('/kasir/penjualan/pin/{id}', [PenjualanController::class, 'pin']);
+
+//Barang
+Route::get('/barang/gudang', [GudangController::class, 'index']);

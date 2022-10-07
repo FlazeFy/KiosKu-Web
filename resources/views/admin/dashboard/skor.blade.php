@@ -99,9 +99,10 @@
             @elseif($final < 3)
                 @php($final = "C")
             @endif
+            <h2 class="score mt-2">{{$final}}</h2>
         @else
             @php($final = "Data Belum Lengkap")
+            <h6 class="score my-3">{{$final}}</h6>
         @endif
-    <h2 class="score mt-2">{{$final}}</h2>
     <a class="percentage text-muted">Bulan Ini</a>
 </div>

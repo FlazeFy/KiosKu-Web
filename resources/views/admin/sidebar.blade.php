@@ -58,26 +58,25 @@
         </li>
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Manajemen</span></li>
-        <li class="menu-item">
+        <li class="menu-item<?php if(session()->get('active_nav') == "barang"){ echo " active"; }?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Account Settings">Barang</div>
             </a>
             <ul class="menu-sub">
-                <!--General Shelf-->
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Penjualan</div>
+                        <div data-i18n="Account">Etalase</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="/barang/gudang" class="menu-link">
+                        <div data-i18n="Account">Gudang</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
                         <div data-i18n="Account">Distribusi</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Gudang</div>
                     </a>
                 </li>
             </ul>
