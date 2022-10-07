@@ -59,16 +59,31 @@ class PenjualanController extends Controller
             ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
             ->get();
 
+        //Get karyawan data with tandai and relation with kasir.
         $karyawan = Karyawan::leftJoin("tandai", function ($join) {
             $join->on("karyawan.id", "=", "tandai.id_context")
-            ->where('tandai.type_context', 'karyawan');
+                ->where('tandai.type_context', 'karyawan')
+                ->orWhere('tandai.type_context', null);
             })
-            ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->leftJoin("relasi_kasir", function ($join) {
+                $join->on("karyawan.id", "=", "relasi_kasir.id_karyawan");
+            })
+            ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context', 'relasi_kasir.id_kasir', 'relasi_kasir.id_karyawan as tersedia')
             ->where('karyawan.id_kios', session()->get('idKey'))
             ->groupBy('karyawan.id')
             ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
             ->get();
 
+        // $karyawan = Karyawan::leftJoin("tandai", function ($join) {
+        //     $join->on("karyawan.id", "=", "tandai.id_context")
+        //     ->where('tandai.type_context', 'karyawan');
+        //     })
+        //     ->select('karyawan.id', 'karyawan.nama_karyawan', 'karyawan.nama_lengkap_karyawan', 'karyawan.ponsel_karyawan', 'karyawan.email_karyawan', 'karyawan.jabatan_karyawan', 'karyawan.gaji_karyawan', 'karyawan.updated_at', 'karyawan.status_karyawan', 'karyawan.karyawan_image_url', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+        //     ->where('karyawan.id_kios', session()->get('idKey'))
+        //     ->groupBy('karyawan.id')
+        //     ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+        //     ->get();
+            
         //Set active nav
         session()->put('active_nav', 'kasir');
 
@@ -141,9 +156,28 @@ class PenjualanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function add_karyawan_kasir(Request $request, $id)
     {
-        //
+        if($request->has('id_karyawan')){
+            $karyawan_count = count($request->id_karyawan);
+            for($i=0; $i < $karyawan_count; $i++){
+                Relasi_Kasir::create([
+                    'id_kasir' => $id,
+                    'id_karyawan' => $request->id_karyawan[$i],
+                    'calendar_type' => $request->calendar_type,
+                    'created_at' => date("Y-m-d h:m:i"),
+                    'updated_at' => date("Y-m-d h:m:i")
+                ]);
+            }
+
+            if($karyawan_count > 1){
+                return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$karyawan_count.' karyawan ke kasir');
+            } else {
+                return redirect()->back()->with('success_message', 'Successfully added '.$request->nama_lengkap_karyawan.' to calendar!');
+            }
+        } else {
+            return redirect()->back()->with('failed_message', 'Tidak terjadi perubahan. Anda harus memilih setidaknya 1 karyawan');
+        }
     }
 
     /**

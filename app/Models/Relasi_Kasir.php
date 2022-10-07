@@ -11,5 +11,5 @@ class Relasi_Kasir extends Model
 
     protected $table = 'relasi_kasir';
     protected $primaryKey = 'id';
-    protected $fillable = ['id_kasir', 'id_karyawan', 'created_at'];
+    protected $fillable = ['id_kasir', 'id_karyawan', 'created_at', 'updated_at'];
 }

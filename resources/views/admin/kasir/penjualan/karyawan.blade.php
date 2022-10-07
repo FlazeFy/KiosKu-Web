@@ -21,7 +21,7 @@
         data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal-{{$ks->id}}" class="img img-avatar rounded-circle shadow bg-success p-1"/>
     @foreach($rel_kasir as $rk)
         @if($rk->id_kasir == $ks->id)
-            @if($ks->karyawan_image_url == "null")
+            @if($rk->karyawan_image_url == "null")
                 <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" height="100" width="100" title="{{$rk->nama_karyawan}}" 
                     data-bs-toggle="modal" data-bs-target="#hapus-karyawan-Modal-{{$rk->id}}" class="img img-avatar rounded-circle shadow"/>
             @else
