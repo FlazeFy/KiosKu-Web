@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Barang;
 
@@ -85,16 +86,35 @@ class GudangController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function edit_gambar(Request $request, $id)
     {
-        //
+        $barang_id = DB::table('barang')->where('id', $id)->get();
+        //Get old image url.
+        foreach($barang_id as $b){
+            $old_image = $b->image_url_barang;
+        }
+
+        //Validate image.
+        $this->validate($request, [
+            'image_url'     => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
+        ]);
+
+        //Upload image.
+        $new_image = $request->file('image_url');
+        $new_image->storeAs('public', $new_image->hashName());
+        $imageURL = $new_image->hashName();
+
+        //Delete old image if new image is uploaded.
+        if(($request->file('image_url')->isValid())&&($old_image != "null")){
+            Storage::delete('public/'.$old_image);
+        }
+
+        Barang::where('id', $id)->update([
+            'image_url_barang' => $imageURL,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Foto barang berhasil diperbarui');
     }
 
     /**

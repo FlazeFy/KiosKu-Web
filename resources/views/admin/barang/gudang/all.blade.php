@@ -19,7 +19,18 @@
         color: #22A7F0;
     }
     .barang-item{
-        margin-top:10px;
+        margin-top:20px;
+    }
+    #headerBox{
+        background-position: center;
+        background-repeat:no-repeat;
+        position: relative;
+        background-size: cover;
+        background-color: black;
+        height:200px;
+    }
+    .image-upload>input {
+        display: none;
     }
 </style>
 
@@ -31,11 +42,29 @@
 <div class="row barang-container">
     @foreach($barang as $brg)
         <div class="col-lg-4 col-md-6 barang-item filter-{{$brg->kategori_barang}}">
-            <div class="container-fluid p-4 rounded shadow">
-                <h6 class="text-secondary float-end">{{$brg->kategori_barang}}</h6>
-                <h6 class="text-primary">{{$brg->nama_barang}}</h6>
-                <img class="img img-fluid rounded w-100" src="{{$brg->image_url_barang}}">
-                <div class="barang-item">
+            <div class="container-fluid p-0 rounded shadow">
+                <form method="POST" action="/barang/gudang/edit_gambar/{{$brg->id}}"  id="formImage{{$brg->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="card-header w-100 p-4 position-relative" id="headerBox" style=" 
+                        <?php
+                            if($brg->image_url_barang != null){
+                                echo "background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.75)), url('http://127.0.0.1:8000/storage/".$brg->image_url_barang."');";
+                            } else {
+                                echo "background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.75)), url('http://127.0.0.1:8000/storage/default_image.png');";
+                            }
+                        ?>
+                        ">
+                    <div class="image-upload" id="formFileEditAcc{{$brg->id}}" onchange="previewEditAcc<?php echo $brg->id; ?>()">
+                        <label class="btn btn-transparent position-absolute text-white" style="top:5px; right:15px;" title="Change Image" for="file-input{{$brg->id}}">
+                            <i class="fa-solid fa-camera fa-lg"></i></label>
+                        <input id="file-input{{$brg->id}}" type="file" name="image_url"/>
+                    </div>
+                </form>
+                    <h6 class="text-white position-absolute" style="bottom:0px; right:15px;">{{$brg->kategori_barang}}</h6>
+                    <h5 class="text-white position-absolute" style="bottom:0px;">{{$brg->nama_barang}}</h5>
+                </div>
+                <!-- <img class="img img-fluid rounded w-100" src="{{$brg->image_url_barang}}"> -->
+                <div class="card-body barang-item">
                     <form action="/barang/gudang/edit_barang/{{$brg->id}}" method="POST">
                         @csrf
                         <div class="row">
@@ -75,6 +104,7 @@
                     <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
                     <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#hapus-barang-Modal-{{$brg->id}}"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </div>
+               
             </div>
         </div>
 
