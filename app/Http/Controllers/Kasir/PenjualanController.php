@@ -173,7 +173,7 @@ class PenjualanController extends Controller
             if($karyawan_count > 1){
                 return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$karyawan_count.' karyawan ke kasir');
             } else {
-                return redirect()->back()->with('success_message', 'Successfully added '.$request->nama_lengkap_karyawan.' to calendar!');
+                return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$request->nama_lengkap_karyawan.' ke kasir');
             }
         } else {
             return redirect()->back()->with('failed_message', 'Tidak terjadi perubahan. Anda harus memilih setidaknya 1 karyawan');

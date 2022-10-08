@@ -28,6 +28,7 @@
         background-size: cover;
         background-color: black;
         height:200px;
+        border-radius: 20px 20px 0px 0px;
     }
     .image-upload>input {
         display: none;
@@ -40,6 +41,11 @@
 </ul>
 
 <div class="row barang-container">
+    <form method='POST' action='/barang/gudang/tambah_barang' enctype='multipart/form-data' id="form-add-barang"> 
+        @csrf
+        @include('admin.barang.gudang.form.tambah_barang')
+        <div class="row" id="barang_holder"></div>
+    </form>  
     @foreach($barang as $brg)
         <div class="col-lg-4 col-md-6 barang-item filter-{{$brg->kategori_barang}}">
             <div class="container-fluid p-0 rounded shadow">

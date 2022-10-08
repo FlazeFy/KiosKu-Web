@@ -28,12 +28,19 @@ class GudangController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
+        $k_barang = DB::table('barang')
+            ->select('kategori_barang')
+            ->where('id_kios', session()->get('idKey'))
+            ->groupBy('kategori_barang')
+            ->orderBy('created_at', 'DESC')->get();
+
         //Set active nav
         session()->put('active_nav', 'barang');
 
         return view ('admin.barang.gudang.index')
             ->with('rak', $rak)
-            ->with('barang', $barang);
+            ->with('barang', $barang)
+            ->with('k_barang', $k_barang);
     }
 
     /**
@@ -59,9 +66,30 @@ class GudangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add_barang(Request $request)
     {
-        //
+        $total_barang = count($request->nama_barang);
+        for($i=0; $i < $total_barang; $i++){
+            Barang::create([
+                'id_kios' => session()->get('idKey'),
+                'nama_barang' => $request->nama_barang[$i],
+                'kategori_barang' => $request->kategori_barang[$i],
+                'harga_stok' => $request->harga_stok[$i],
+                'harga_jual' => $request->harga_jual[$i],
+                'deskripsi_barang' => $request->deskripsi_barang[$i],
+                'stok_barang' => $request->stok_barang[$i],
+                'image_url_barang' => null,
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+                'expired_at' => $request->expired_at[$i]
+            ]);
+        }
+
+        if($total_barang > 1){
+            return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$total_barang.' barang ke gudang');
+        } else {
+            return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$request->nama_barang[0].' ke gudang');
+        }
     }
 
     /**

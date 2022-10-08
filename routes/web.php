@@ -91,6 +91,7 @@ Route::post('/kasir/penjualan/pin/{id}', [PenjualanController::class, 'pin']);
 
 //Barang
 Route::get('/barang/gudang', [GudangController::class, 'index']);
+Route::post('/barang/gudang/tambah_barang', [GudangController::class, 'add_barang']);
 Route::post('/barang/gudang/edit_barang/{id}', [GudangController::class, 'edit_barang']);
 Route::post('/barang/gudang/edit_gambar/{id}', [GudangController::class, 'edit_gambar']);
 Route::post('/barang/gudang/delete_barang/{id}', [GudangController::class, 'delete_barang']);
