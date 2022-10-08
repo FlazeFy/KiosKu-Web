@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Barang;
+
 class GudangController extends Controller
 {
     /**
@@ -38,9 +40,16 @@ class GudangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function edit_barang(Request $request, $id)
     {
-        //
+        Barang::where('id', $id)->update([
+            'deskripsi_barang' => $request->deskripsi_barang,
+            'stok_barang' => $request->stok_barang,
+            'expired_at' => $request->expired_at,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Berhasil mengubah data barang');
     }
 
     /**
@@ -94,8 +103,10 @@ class GudangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete_barang($id)
     {
-        //
+        Barang::destroy($id);
+
+        return redirect()->back()->with('success_message', 'Barang berhasil dihapus');
     }
 }

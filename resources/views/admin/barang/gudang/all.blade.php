@@ -19,7 +19,6 @@
         color: #22A7F0;
     }
     .barang-item{
-        margin-bottom:10px;
         margin-top:10px;
     }
 </style>
@@ -37,40 +36,49 @@
                 <h6 class="text-primary">{{$brg->nama_barang}}</h6>
                 <img class="img img-fluid rounded w-100" src="{{$brg->image_url_barang}}">
                 <div class="barang-item">
-                    <div class="row">
-                        <div class="col-4">
-                            <h6 class="text-primary">Harga Stok</h6>
-                            <h5>Rp. {{$brg->harga_stok}}</h5>
-                            <h6 class="text-primary">Harga Jual</h6>
-                            <h5>Rp. {{$brg->harga_jual}}</h5>
-                        </div>  
-                        <div class="col-8">
-                            <h6 class="text-primary">Deskripsi</h6>
-                            <textarea class="form-control desc-edit" name="deskripsi_barang" value="{{$brg->deskripsi_barang}}" onblur="">{{$brg->deskripsi_barang}}</textarea>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-4">
-                            <div class="form-floating mb-2">
-                                <input class="form-control num-edit" type="number" value="{{$brg->stok_barang}}" min="0">
-                                <label for="floatingInput">Stok</label>
-                            </div>
-                        </div>  
-                        <div class="col-8">
-                            <div class="form-floating mb-2">
-                                <input class="form-control" type="date" name="expired_at" value="<?php 
-                                    if($brg->expired_at != null){
-                                        echo date('Y-m-d', strtotime($brg->expired_at));
-                                    } else {
-                                        echo "";
-                                    }
-                                ?>">
-                                <label for="floatingInput">Tanggal Expired</label>
+                    <form action="/barang/gudang/edit_barang/{{$brg->id}}" method="POST">
+                        @csrf
+                        <div class="row">
+                            <div class="col-4">
+                                <h6 class="text-primary">Harga Stok</h6>
+                                <h6>Rp. {{$brg->harga_stok}}</h6>
+                                <h6 class="text-primary">Harga Jual</h6>
+                                <h6>Rp. {{$brg->harga_jual}}</h6>
+                            </div>  
+                            <div class="col-8">
+                                <h6 class="text-primary">Deskripsi</h6>
+                                <textarea class="form-control desc-edit" name="deskripsi_barang" value="{{$brg->deskripsi_barang}}" onblur="this.form.submit()">{{$brg->deskripsi_barang}}</textarea>
                             </div>
                         </div>
-                    </div>
+                        <div class="row my-2">
+                            <div class="col-4">
+                                <div class="form-floating mb-2">
+                                    <input class="form-control num-edit" type="number" name="stok_barang" value="{{$brg->stok_barang}}" min="0" onblur="this.form.submit()">
+                                    <label for="floatingInput">Stok</label>
+                                </div>
+                            </div>  
+                            <div class="col-8">
+                                <div class="form-floating mb-2">
+                                    <input class="form-control" onblur="this.form.submit()" type="date" name="expired_at" value="<?php 
+                                        if($brg->expired_at != null){
+                                            echo date('Y-m-d', strtotime($brg->expired_at));
+                                        } else {
+                                            echo "";
+                                        }
+                                    ?>">
+                                    <label for="floatingInput">Tanggal Expired</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                    <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#hapus-barang-Modal-{{$brg->id}}"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </div>
             </div>
         </div>
+
+        <!--Modal-->
+        @include('admin.barang.gudang.form.hapus_barang')
     @endforeach
 </div>
