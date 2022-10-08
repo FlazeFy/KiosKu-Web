@@ -137,6 +137,9 @@
                                         <li class="nav-item filter-active" data-filter="*">
                                             <button class="btn btn-outlined h-100 me-2"> Semua</button>
                                         </li>
+                                        <li class="nav-item filter-active" data-filter=".filter-tandai">
+                                            <button class="btn btn-outlined h-100 me-2"> Di Tandai</button>
+                                        </li>
                                         <!--Iterate category to array-->
                                         @php($arr = [])
                                         @foreach($karyawan as $kr)

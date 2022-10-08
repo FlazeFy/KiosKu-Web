@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Barang;
+use App\Models\Tandai;
 
 class GudangController extends Controller
 {
@@ -24,9 +25,15 @@ class GudangController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
-        $barang = DB::table('barang')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        $barang = Barang::leftJoin("tandai", function ($join) {
+            $join->on("barang.id", "=", "tandai.id_context")
+            ->where('tandai.type_context', 'barang');
+            })
+            ->select('barang.id', 'barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'barang.harga_jual', 'barang.deskripsi_barang', 'barang.stok_barang', 'barang.image_url_barang', 'barang.created_at', 'barang.updated_at', 'barang.expired_at', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+            ->where('barang.id_kios', session()->get('idKey'))
+            ->groupBy('barang.id')
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+            ->get();
 
         $k_barang = DB::table('barang')
             ->select('kategori_barang')
@@ -92,26 +99,23 @@ class GudangController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function unpin($id)
     {
-        //
+        Tandai::destroy($id);
+        return redirect()->back()->with('success_message', 'Pin dilepaskan');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function pin($id)
     {
-        //
+        Tandai::create([
+            'id_kios' => session()->get('idKey'),
+            'id_context' => $id,
+            'type_context' => 'barang',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Item ditandai');
     }
 
     public function edit_gambar(Request $request, $id)

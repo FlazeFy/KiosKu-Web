@@ -15,7 +15,7 @@
             $("#barang_holder").append(
             "<div class='col-lg-4 col-md-6 barang-item'> " +
                 "<div class='container-fluid p-0 rounded shadow'> " +
-                    "<div class='card-header w-100 p-4 position-relative' id='headerBox' style='background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.75)), url('http://127.0.0.1:8000/storage/default_image.png');'> " +
+                    "<div class='card-header w-100 p-4 position-relative headerBox' id='headerImage" + i + "' style='background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.75)), url(http://127.0.0.1:8000/storage/default_image.png);'> " +
                         "<div class='image-upload' id='formFileEditAcc' onchange='previewEditAcc()'> " +
                             "<label class='btn btn-transparent position-absolute text-white' style='top:5px; right:15px;' title='Change Image' for='file-input'> " +
                                 "<i class='fa-solid fa-camera fa-lg'></i></label> " +

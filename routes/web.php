@@ -95,3 +95,5 @@ Route::post('/barang/gudang/tambah_barang', [GudangController::class, 'add_baran
 Route::post('/barang/gudang/edit_barang/{id}', [GudangController::class, 'edit_barang']);
 Route::post('/barang/gudang/edit_gambar/{id}', [GudangController::class, 'edit_gambar']);
 Route::post('/barang/gudang/delete_barang/{id}', [GudangController::class, 'delete_barang']);
+Route::post('/barang/gudang/unpin/{id}', [GudangController::class, 'unpin']);
+Route::post('/barang/gudang/pin/{id}', [GudangController::class, 'pin']);

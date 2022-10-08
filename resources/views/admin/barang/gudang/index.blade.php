@@ -159,7 +159,7 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section class="container-xxl flex-grow-1 container-p-y">
+                        <section class="container-xxl flex-grow-1 container-p-y barang">
                             @include('admin.barang.gudang.all')
                         </section>
                     </div>
@@ -175,6 +175,59 @@
         <!--Modal-->
         @include('popup.success')
         @include('popup.failed')
+
+        <script>
+            (function() {
+                "use strict";
+
+                /**
+                 * Easy selector helper function
+                 */
+                const select = (el, all = false) => {
+                    el = el.trim()
+                    if (all) {
+                    return [...document.querySelectorAll(el)]
+                    } else {
+                    return document.querySelector(el)
+                    }
+                }
+                const on = (type, el, listener, all = false) => {
+                    let selectEl = select(el, all)
+                    if (selectEl) {
+                    if (all) {
+                        selectEl.forEach(e => e.addEventListener(type, listener))
+                    } else {
+                        selectEl.addEventListener(type, listener)
+                    }
+                    }
+                }
+                     window.addEventListener('load', () => {
+                    let portfolioContainer = select('.barang-container');
+                    if (portfolioContainer) {
+                    let portfolioIsotope = new Isotope(portfolioContainer, {
+                        itemSelector: '.barang-item'
+                    });
+
+                    let portfolioFilters = select('#barang-flters li', true);
+
+                    on('click', '#barang-flters li', function(e) {
+                        e.preventDefault();
+                        portfolioFilters.forEach(function(el) {
+                        el.classList.remove('filter-active');
+                        });
+                        this.classList.add('filter-active');
+
+                        portfolioIsotope.arrange({
+                        filter: this.getAttribute('data-filter')
+                        });
+
+                    }, true);
+                    }
+
+                });
+                
+            })()
+        </script>
 
         <script>
             //Image upload preview.
@@ -198,6 +251,8 @@
         <script src="../assets/vendor/libs/popper/popper.js"></script>
         <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
         <script src="../assets/vendor/js/menu.js"></script>
 

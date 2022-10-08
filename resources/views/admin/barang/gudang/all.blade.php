@@ -6,22 +6,24 @@
     .barang #barang-flters li {
         cursor: pointer;
         display: inline-block;
-        margin: 0 10px 10px 10px;
-        font-size: 15px;
+        margin: 0 10px 10px 0;
+        font-size: 18px;
         font-weight: 600;
         line-height: 1;
-        padding: 7px 10px;
-        text-transform: uppercase;
+        padding: 10px;
         text-align: center;
         transition: all 0.3s ease-in-out;
+        border: 2px solid #676AFB;
+        border-radius:6px;
     }
     .barang #barang-flters li:hover, .barang #barang-flters li.filter-active {
-        color: #22A7F0;
+        color: white;
+        background: #676AFB;
     }
     .barang-item{
         margin-top:20px;
     }
-    #headerBox{
+    .headerBox{
         background-position: center;
         background-repeat:no-repeat;
         position: relative;
@@ -35,23 +37,33 @@
     }
 </style>
 
-<ul id="barang-flters" class="d-flex justify-content-center">
-    <li data-filter="*" class="filter-active">Semua</li>
-    <li data-filter=".filter-web">....</li>
+<ul id="barang-flters" class="d-flex">
+    <li data-filter="*" class="filter-active shadow">Semua</li>
+    <li data-filter=".filter-tandai" class="shadow">Di Tandai</li>
+    @foreach($k_barang as $kb)
+        <li data-filter=".filter-{{str_replace(' ', '', $kb->kategori_barang)}}" class="shadow">{{$kb->kategori_barang}}</li>
+    @endforeach
 </ul>
 
+<form method='POST' action='/barang/gudang/tambah_barang' enctype='multipart/form-data'> 
+    @csrf
+    @include('admin.barang.gudang.form.tambah_barang')
+    <div class="row" id="barang_holder"></div>
+</form>  
+
 <div class="row barang-container">
-    <form method='POST' action='/barang/gudang/tambah_barang' enctype='multipart/form-data' id="form-add-barang"> 
-        @csrf
-        @include('admin.barang.gudang.form.tambah_barang')
-        <div class="row" id="barang_holder"></div>
-    </form>  
     @foreach($barang as $brg)
-        <div class="col-lg-4 col-md-6 barang-item filter-{{$brg->kategori_barang}}">
-            <div class="container-fluid p-0 rounded shadow">
+        @php($status_bg = "")
+        @php($status_filter = "")
+        @if($brg->id_context != null)
+            @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
+            @php($status_filter = "filter-tandai")
+        @endif
+        <div class="col-lg-4 col-md-6 barang-item filter-{{str_replace(' ', '', $brg->kategori_barang)}} {{$status_filter}}">
+            <div class="container-fluid p-0 rounded shadow" style="{{$status_bg}}">
                 <form method="POST" action="/barang/gudang/edit_gambar/{{$brg->id}}"  id="formImage{{$brg->id}}" enctype="multipart/form-data">
                     @csrf
-                    <div class="card-header w-100 p-4 position-relative" id="headerBox" style=" 
+                    <div class="card-header w-100 p-4 position-relative headerBox" style=" 
                         <?php
                             if($brg->image_url_barang != null){
                                 echo "background-image: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.75)), url('http://127.0.0.1:8000/storage/".$brg->image_url_barang."');";
@@ -70,7 +82,7 @@
                     <h5 class="text-white position-absolute" style="bottom:0px;">{{$brg->nama_barang}}</h5>
                 </div>
                 <!-- <img class="img img-fluid rounded w-100" src="{{$brg->image_url_barang}}"> -->
-                <div class="card-body barang-item">
+                <div class="card-body">
                     <form action="/barang/gudang/edit_barang/{{$brg->id}}" method="POST">
                         @csrf
                         <div class="row">
@@ -107,10 +119,21 @@
                         </div>
                     </form>
                     <button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                    <div class="btn">
+                        @if($brg->id_context != null)
+                            <form action="/barang/gudang/unpin/{{$brg->id_tandai}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary py-1 bg-white" style="color:#676AFA; border:2px solid #676AFA;"><i class="fa-solid fa-thumbtack"></i> Lepaskan</button>
+                            </form>
+                        @else
+                            <form action="/barang/gudang/pin/{{$brg->id}}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                            </form>
+                        @endif
+                    </div>
                     <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#hapus-barang-Modal-{{$brg->id}}"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </div>
-               
             </div>
         </div>
 

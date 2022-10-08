@@ -8,10 +8,12 @@
 </style>
 
 @php($status_bg = "")
+@php($status_filter = "")
 @if(($kr->id_context != null)&&($kr->status_karyawan == "aktif"))
     @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
+    @php($status_filter = "filter-tandai")
 @endif
-<li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}}" style="{{$status_bg}}">
+<li class="card shadow mb-4 data-item filter-{{str_replace(' ', '', $kr->jabatan_karyawan)}} {{$status_filter}}" style="{{$status_bg}}">
     <h6 class="card-header text-white" style="background:#676AFB;">ID : {{$kr->id}} <span class="float-end"> Nama Lengkap: {{$kr->nama_lengkap_karyawan}}</span></h6>
     <!-- Account -->
     <div class="card-body p-4">
