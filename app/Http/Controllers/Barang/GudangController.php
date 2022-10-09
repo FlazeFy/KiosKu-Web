@@ -67,6 +67,17 @@ class GudangController extends Controller
         return redirect()->back()->with('success_message', 'Berhasil mengubah data barang');
     }
 
+    public function edit_harga(Request $request, $id)
+    {
+        Barang::where('id', $id)->update([
+            'harga_stok' => $request->harga_stok,
+            'harga_jual' => $request->harga_jual,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Berhasil mengubah harga barang');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

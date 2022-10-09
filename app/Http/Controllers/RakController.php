@@ -184,8 +184,7 @@ class RakController extends Controller
             $exp = $request->expired_at;
         }
         Barang::where('id', $id)->update([
-            'harga_jual' => $request-> harga_jual,
-            'harga_stok' => $request-> harga_stok,
+            'deskripsi_barang' => $request-> deskripsi_barang,
             'stok_barang' => $request-> stok_barang,
             'updated_at' => date("Y-m-d h:m:i"),
             'expired_at' => $exp,

@@ -118,7 +118,7 @@
                             </div>
                         </div>
                     </form>
-                    <button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit-harga-Modal-{{$brg->id}}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
                     <div class="btn">
                         @if($brg->id_context != null)
                             <form action="/barang/gudang/unpin/{{$brg->id_tandai}}" method="POST">
@@ -139,5 +139,23 @@
 
         <!--Modal-->
         @include('admin.barang.gudang.form.hapus_barang')
+        @include('admin.barang.gudang.form.edit_harga')
     @endforeach
 </div>
+
+<script>
+    <?php 
+        foreach ($barang as $brg){
+            echo"
+                function totalKeuntungan_".$brg->id."(){
+                    var stok = document.getElementById('harga_stok_".$brg->id."').value;
+                    var jual = document.getElementById('harga_jual_".$brg->id."').value;
+
+                    var total = jual - stok;
+
+                    document.getElementById('keuntungan_".$brg->id."').innerHTML = 'Rp. ' + total;
+                }
+            ";
+        }
+    ?>
+</script>

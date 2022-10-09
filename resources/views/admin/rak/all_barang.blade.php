@@ -166,22 +166,16 @@
                                                 "<button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button> " +
                                             "</div> " +
                                             "<div class='modal-body'> " +
+                                                "<h6 class='text-primary'>Deskripsi</h6> " +
+                                                "<textarea class='form-control desc-edit mb-2' name='deskripsi_barang' value='" + deskripsi_barang + "'>" + deskripsi_barang + "</textarea> " +
                                                 "<div class='row'> " +
                                                     "<div class='col-md'> " +
-                                                        "<div class='form-floating mb-2'> " +
-                                                            "<input type='number' class='form-control' name='harga_jual' value='" + harga_jual + "' required> " +
-                                                            "<label for='floatingInput'>Harga Jual (Rp.)</label> " +
-                                                        "</div> " +
                                                         "<div class='form-floating mb-2'> " +
                                                             "<input type='number' class='form-control' name='stok_barang' value='" + stok_barang + "' required> " +
                                                             "<label for='floatingInput'>Stok</label> " +
                                                         "</div> " +
                                                     "</div> " +
                                                     "<div class='col-md'> " +
-                                                        "<div class='form-floating mb-2'> " +
-                                                            "<input type='number' class='form-control' name='harga_stok' value='" + harga_stok + "' required> " +
-                                                            "<label for='floatingInput'>Harga Stok (Rp.)</label> " +
-                                                        "</div> " +
                                                         "<div class='form-floating mb-2'> " +
                                                             "<input type='date' class='form-control' name='expired_at' value='" + convertDate(expired_at) + "'> " +
                                                             "<label for='floatingInput'>Tanggal Expired</label> " +
