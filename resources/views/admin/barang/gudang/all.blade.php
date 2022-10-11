@@ -8,7 +8,6 @@
         display: inline-block;
         margin: 0 10px 10px 0;
         font-size: 18px;
-        font-weight: 600;
         line-height: 1;
         padding: 10px;
         text-align: center;
@@ -40,8 +39,9 @@
 <ul id="barang-flters" class="d-flex">
     <li data-filter="*" class="filter-active shadow">Semua</li>
     <li data-filter=".filter-tandai" class="shadow">Di Tandai</li>
-    @foreach($k_barang as $kb)
-        <li data-filter=".filter-{{str_replace(' ', '', $kb->kategori_barang)}}" class="shadow">{{$kb->kategori_barang}}</li>
+    <li data-filter=".filter-kosong" class="shadow">Stok Habis</li>
+    @foreach($kategori as $kb)
+        <li data-filter=".filter-{{str_replace(' ', '', $kb->nama_kategori)}}" class="shadow">{{$kb->nama_kategori}}</li>
     @endforeach
 </ul>
 
@@ -53,14 +53,24 @@
 
 <div class="row barang-container">
     @foreach($barang as $brg)
+        <!--Initial variable-->
         @php($status_bg = "")
         @php($status_filter = "")
+        @php($status_filter_2 = "")
+
+        <!--Check if item is pinned.-->
         @if($brg->id_context != null)
             @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
             @php($status_filter = "filter-tandai")
         @endif
-        <div class="col-lg-4 col-md-6 barang-item filter-{{str_replace(' ', '', $brg->kategori_barang)}} {{$status_filter}}">
-            <div class="container-fluid p-0 rounded shadow" style="{{$status_bg}}">
+
+        <!--Check if item is pinned.-->
+        @if($brg->stok_barang == 0)
+            @php($status_bg = "background:rgba(217, 83, 79, 0.25);")
+            @php($status_filter_2 = "filter-kosong")
+        @endif
+        <div class="col-lg-4 col-md-6 barang-item filter-{{str_replace(' ', '', $brg->kategori_barang)}} {{$status_filter}} {{$status_filter_2}}">
+            <div class="container-fluid p-0 shadow" style="{{$status_bg}} border-radius: 20px;">
                 <form method="POST" action="/barang/gudang/edit_gambar/{{$brg->id}}"  id="formImage{{$brg->id}}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header w-100 p-4 position-relative headerBox" style=" 

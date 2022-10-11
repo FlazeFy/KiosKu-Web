@@ -175,6 +175,7 @@
         <!--Modal-->
         @include('popup.success')
         @include('popup.failed')
+        @include('admin.barang.gudang.form.add_kategori')
 
         <script>
             (function() {

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Barang;
 use App\Models\Tandai;
+use App\Models\Kategori;
 
 class GudangController extends Controller
 {
@@ -25,6 +26,10 @@ class GudangController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
+        $kategori = DB::table('kategori')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
+
         $barang = Barang::leftJoin("tandai", function ($join) {
             $join->on("barang.id", "=", "tandai.id_context")
             ->where('tandai.type_context', 'barang');
@@ -35,26 +40,15 @@ class GudangController extends Controller
             ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
             ->get();
 
-        $k_barang = DB::table('barang')
-            ->select('kategori_barang')
-            ->where('id_kios', session()->get('idKey'))
-            ->groupBy('kategori_barang')
-            ->orderBy('created_at', 'DESC')->get();
-
         //Set active nav
         session()->put('active_nav', 'barang');
 
         return view ('admin.barang.gudang.index')
             ->with('rak', $rak)
             ->with('barang', $barang)
-            ->with('k_barang', $k_barang);
+            ->with('kategori', $kategori);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit_barang(Request $request, $id)
     {
         Barang::where('id', $id)->update([
@@ -78,12 +72,6 @@ class GudangController extends Controller
         return redirect()->back()->with('success_message', 'Berhasil mengubah harga barang');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function add_barang(Request $request)
     {
         $total_barang = count($request->nama_barang);
@@ -108,6 +96,29 @@ class GudangController extends Controller
         } else {
             return redirect()->back()->with('success_message', 'Berhasil menambahkan '.$request->nama_barang[0].' ke gudang');
         }
+    }
+
+    public function add_kategori(Request $request)
+    {
+        //Check name availability.
+        $check = DB::table('kategori')
+            ->select()
+            ->where('id_kios', session()->get('idKey'))
+            ->where('nama_kategori', $request->nama_kategori)
+            ->get();
+
+        if(count($check) == 0){
+            Kategori::create([
+                'id_kios' => session()->get('idKey'),
+                'nama_kategori' => $request->nama_kategori,
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('success_message', 'Kategori berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('failed_message', 'Tambah kategori gagal. Gunakan nama kategori yang unik');
+        }   
     }
 
     public function unpin($id)
@@ -160,12 +171,6 @@ class GudangController extends Controller
         return redirect()->back()->with('success_message', 'Foto barang berhasil diperbarui');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function delete_barang($id)
     {
         Barang::destroy($id);
