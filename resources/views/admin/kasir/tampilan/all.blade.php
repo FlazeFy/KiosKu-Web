@@ -18,9 +18,11 @@
             <h6 class="text-white">Kreasikan tampilan menu kasir Anda</h6>
         </button>
     </div>
-    <div class="col-lg-4 col-md-6 col-sm-6">
-        <button class="container-fluid layout-template shadow" onclick="location.href='/tampilan/custom'">
-            <h6 class="text-primary">Template Default</h6>
-        </button>
-    </div>
+    @foreach($tampilan as $tp)
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <button class="container-fluid layout-template shadow" onclick="location.href='/kasir/tampilan/custom/{{$tp->id}}'">
+                <h6 class="text-primary">{{$tp->nama_tampilan}}</h6>
+            </button>
+        </div>
+    @endforeach
 </div>

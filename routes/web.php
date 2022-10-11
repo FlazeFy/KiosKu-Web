@@ -92,6 +92,13 @@ Route::post('/kasir/penjualan/edit_kasir/{id}', [PenjualanController::class, 'ed
 Route::post('/kasir/penjualan/unpin/{id}', [PenjualanController::class, 'unpin']);
 Route::post('/kasir/penjualan/pin/{id}', [PenjualanController::class, 'pin']);
 
+//Tampilan
+Route::get('/kasir/tampilan', [TampilanController::class, 'index']);
+
+//Custom
+Route::get('/kasir/tampilan/custom/{id}', [CustomController::class, 'index']);
+Route::get('/kasir/tampilan/getTampilan/{id}', [CustomController::class, 'getTampilan']);
+
 //Barang
 Route::get('/barang/gudang', [GudangController::class, 'index']);
 Route::post('/barang/gudang/tambah_barang', [GudangController::class, 'add_barang']);
@@ -102,9 +109,3 @@ Route::post('/barang/gudang/edit_gambar/{id}', [GudangController::class, 'edit_g
 Route::post('/barang/gudang/delete_barang/{id}', [GudangController::class, 'delete_barang']);
 Route::post('/barang/gudang/unpin/{id}', [GudangController::class, 'unpin']);
 Route::post('/barang/gudang/pin/{id}', [GudangController::class, 'pin']);
-
-//Tampilan
-Route::get('/tampilan', [TampilanController::class, 'index']);
-
-//Custom
-Route::get('/tampilan/custom', [CustomController::class, 'index']);

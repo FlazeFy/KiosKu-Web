@@ -14,18 +14,25 @@ class CustomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
         //All rak.
         $rak = DB::table('rak')
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get(); 
 
+        $tampilan = DB::table('tampilan')
+            ->where('id', $id)
+            ->where('id_kios', session()->get('idKey'))
+            ->orWhere('id_kios', 0)
+            ->orderBy('created_at', 'DESC')->get(); 
+
         //Set active nav
         session()->put('active_nav', 'kasir');
 
         return view ('admin.kasir.custom.index')
-            ->with('rak', $rak);
+            ->with('rak', $rak)
+            ->with('tampilan', $tampilan);
     }
 
     /**
@@ -33,9 +40,15 @@ class CustomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getTampilan($id)
     {
-        //
+        $tampilan = DB::table('tampilan')
+            ->where('id_kios', session()->get('idKey'))
+            ->orWhere('id_kios', 0)
+            ->orderBy('created_at', 'DESC')->get(); 
+
+        echo json_encode($tampilan);
+        exit;
     }
 
     /**

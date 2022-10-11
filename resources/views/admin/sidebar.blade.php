@@ -122,7 +122,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="/tampilan" class="menu-link">
+                    <a href="/kasir/tampilan" class="menu-link">
                         <div data-i18n="Account">Tampilan</div>
                     </a>
                 </li>

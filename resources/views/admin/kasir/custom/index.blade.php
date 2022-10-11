@@ -148,7 +148,41 @@
         @include('popup.failed')
 
         <script>
-            
+            (function() {
+                "use strict";
+
+                /**
+                 * Easy selector helper function
+                 */
+                const select = (el, all = false) => {
+                    el = el.trim()
+                    if (all) {
+                    return [...document.querySelectorAll(el)]
+                    } else {
+                    return document.querySelector(el)
+                    }
+                }
+                const on = (type, el, listener, all = false) => {
+                    let selectEl = select(el, all)
+                    if (selectEl) {
+                    if (all) {
+                        selectEl.forEach(e => e.addEventListener(type, listener))
+                    } else {
+                        selectEl.addEventListener(type, listener)
+                    }
+                    }
+                }
+                     window.addEventListener('load', () => {
+                    let portfolioContainer = select('.layout-box');
+                    if (portfolioContainer) {
+                    let portfolioIsotope = new Isotope(portfolioContainer, {
+                        itemSelector: '.box'
+                    });
+                    }
+
+                });
+                
+            })()
         </script>
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
@@ -158,6 +192,8 @@
         <script src="../assets/vendor/libs/popper/popper.js"></script>
         <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
         <script src="../assets/vendor/js/menu.js"></script>
 

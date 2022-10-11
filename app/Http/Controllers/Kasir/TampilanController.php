@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Tampilan;
+
 class TampilanController extends Controller
 {
     /**
@@ -21,11 +23,17 @@ class TampilanController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get(); 
 
+        $tampilan = DB::table('tampilan')
+            ->where('id_kios', session()->get('idKey'))
+            ->orWhere('id_kios', 0)
+            ->orderBy('created_at', 'DESC')->get(); 
+
         //Set active nav
         session()->put('active_nav', 'kasir');
 
         return view ('admin.kasir.tampilan.index')
-            ->with('rak', $rak);
+            ->with('rak', $rak)
+            ->with('tampilan', $tampilan);
     }
 
     /**
