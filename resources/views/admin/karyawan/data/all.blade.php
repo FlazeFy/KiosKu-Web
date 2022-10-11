@@ -66,9 +66,13 @@
                 </div>
             </div>
             <div class="mb-3 col-md-6">
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" name="jabatan_karyawan" value="{{$kr->jabatan_karyawan}}" required>
-                    <label for="floatingInput">Jabatan</label>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelectGrid" name="jabatan_karyawan" required>
+                        @foreach($jabatan as $jb)
+                            <option <?php if($jb->nama_jabatan == $kr->jabatan_karyawan){ echo " selected "; } ?> value="{{$jb->nama_jabatan}}">{{$jb->nama_jabatan}}</option>
+                        @endforeach
+                    </select>
+                    <label for="floatingSelect">Jabatan</label>
                 </div>
             </div>
             <div class="mb-3 col-md-6">

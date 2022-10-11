@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Karyawan;
 use App\Models\Tandai;
+use App\Models\Jabatan;
 
 class DataController extends Controller
 {
@@ -23,6 +24,10 @@ class DataController extends Controller
     {
         //All rak.
         $rak = DB::table('rak')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
+
+        $jabatan = DB::table('jabatan')
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get();
 
@@ -41,7 +46,8 @@ class DataController extends Controller
 
         return view ('admin.karyawan.data.index')
             ->with('rak', $rak)
-            ->with('karyawan', $karyawan);
+            ->with('karyawan', $karyawan)
+            ->with('jabatan', $jabatan);
     }
 
     /**
@@ -191,9 +197,28 @@ class DataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function tambah_jabatan(Request $request)
     {
-        //
+        //Check name availability.
+        $check = DB::table('jabatan')
+            ->select()
+            ->where('id_kios', session()->get('idKey'))
+            ->where('nama_jabatan', $request->nama_jabatan)
+            ->get();
+
+        if(count($check) == 0){
+            Jabatan::create([
+                'id_kios' => session()->get('idKey'),
+                'nama_jabatan' => $request->nama_jabatan,
+                'deskripsi_jabatan' => $request->deskripsi_jabatan,
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i")
+            ]);
+
+            return redirect()->back()->with('success_message', 'Jabatan berhasil ditambahkan');
+        } else {
+            return redirect()->back()->with('failed_message', 'Tambah jabatan gagal. Gunakan nama jabatan yang unik');
+        }   
     }
 
     /**

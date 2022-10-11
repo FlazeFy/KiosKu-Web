@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Karyawan\DataController;
 use App\Http\Controllers\Karyawan\UpahController;
 use App\Http\Controllers\Kasir\PenjualanController;
+use App\Http\Controllers\Kasir\TampilanController;
+use App\Http\Controllers\Kasir\CustomController;
 use App\Http\Controllers\Barang\GudangController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
@@ -53,6 +55,7 @@ Route::post('/karyawan/data/delete_karyawan/{id}', [DataController::class, 'dele
 Route::post('/karyawan/data/edit_karyawan/{id}', [DataController::class, 'edit_karyawan']);
 Route::post('/karyawan/data/edit_foto/{id}', [DataController::class, 'edit_foto']);
 Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);
+Route::post('/karyawan/data/tambah_jabatan', [DataController::class, 'tambah_jabatan']);
 Route::post('/karyawan/data/unpin/{id}', [DataController::class, 'unpin']);
 Route::post('/karyawan/data/pin/{id}', [DataController::class, 'pin']);
 
@@ -99,3 +102,9 @@ Route::post('/barang/gudang/edit_gambar/{id}', [GudangController::class, 'edit_g
 Route::post('/barang/gudang/delete_barang/{id}', [GudangController::class, 'delete_barang']);
 Route::post('/barang/gudang/unpin/{id}', [GudangController::class, 'unpin']);
 Route::post('/barang/gudang/pin/{id}', [GudangController::class, 'pin']);
+
+//Tampilan
+Route::get('/tampilan', [TampilanController::class, 'index']);
+
+//Custom
+Route::get('/tampilan/custom', [CustomController::class, 'index']);

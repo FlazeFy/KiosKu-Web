@@ -47,12 +47,17 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <div class="form-floating mb-2">
-                                <input type="text" class="form-control" name="jabatan_karyawan" required>
-                                <label for="floatingInput">Jabatan</label>
+                                <select class="form-select" id="floatingSelectGrid" name="jabatan_karyawan" required>
+                                    <option selected>...</option>
+                                    @foreach($jabatan as $jb)
+                                        <option value="{{$jb->nama_jabatan}}">{{$jb->nama_jabatan}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingSelect">Jabatan</label>
                             </div>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <div class="form-floating mb-2">
+                            <div class="form-floating">
                                 <input type="number" class="form-control" name="gaji_karyawan" required>
                                 <label for="floatingInput">Gaji (Rp.)</label>
                             </div>

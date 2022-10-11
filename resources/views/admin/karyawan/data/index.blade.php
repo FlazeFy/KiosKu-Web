@@ -97,6 +97,10 @@
                 color: #676AFA;
                 border: 2px solid #676AFA;
             }
+
+            .text-primary{
+                color: #676AFB !important;
+            }
         </style>
     </head>
 
@@ -128,7 +132,11 @@
                                     <ul id="data-flters" class="nav nav-pills flex-column flex-md-row mb-3">
                                         <li class="nav-item">
                                             <button class="btn btn-success h-100 me-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
-                                                <i class="fa-solid fa-plus"></i> Tambah</button>
+                                                <i class="fa-solid fa-plus"></i> Tambah Karyawan</button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="btn btn-success h-100 me-2" data-bs-toggle="modal" data-bs-target="#tambah-jabatan-Modal">
+                                                <i class="fa-solid fa-plus"></i> Tambah Jabatan</button>
                                         </li>
                                         <li class="nav-item">
                                             <button class="btn btn-primary h-100 me-2" data-bs-toggle="modal" data-bs-target="#tambah-karyawan-Modal">
@@ -140,17 +148,9 @@
                                         <li class="nav-item filter-active" data-filter=".filter-tandai">
                                             <button class="btn btn-outlined h-100 me-2"> Di Tandai</button>
                                         </li>
-                                        <!--Iterate category to array-->
-                                        @php($arr = [])
-                                        @foreach($karyawan as $kr)
-                                            @php($arr[] = $kr->jabatan_karyawan)
-                                        @endforeach
-
-                                        <!--Make array unique-->
-                                        <!-- @php($arr = array_unique($arr)) -->
-                                        @foreach(array_unique($arr) as $ar => $val)
-                                            <li class="nav-item"  data-filter=".filter-{{str_replace(' ', '', $val)}}">
-                                                <button class="btn btn-outlined h-100 me-2">{{$val}}</button>
+                                        @foreach($jabatan as $jb)
+                                            <li class="nav-item"  data-filter=".filter-{{str_replace(' ', '', $jb->nama_jabatan)}}">
+                                                <button class="btn btn-outlined h-100 me-2">{{$jb->nama_jabatan}}</button>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -179,6 +179,7 @@
         @include('popup.success')
         @include('popup.failed')
         @include('admin.karyawan.data.form.tambah_karyawan')
+        @include('admin.karyawan.data.form.tambah_jabatan')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
