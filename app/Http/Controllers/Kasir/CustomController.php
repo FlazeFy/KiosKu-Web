@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Tampilan;
+
 class CustomController extends Controller
 {
     /**
@@ -57,9 +59,35 @@ class CustomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function edit_tampilan(Request $request, $id)
     {
-        //
+        $id_container = $request->id_container - 1;
+        $height = $request->height."vh";
+        $width = $request->width;
+        $visibility = $request->visibility;
+        $background = $request->background;
+        $title = $request->container_title;
+        $info = $request->info;
+        $old = $request->old; //Old json format
+
+        $old = json_decode($old, true);
+
+        //Change json by id
+        $old[$id_container]['height'] = $height; 
+        $old[$id_container]['width'] = $width; 
+        $old[$id_container]['visibility'] = $visibility; 
+        $old[$id_container]['background'] = $background; 
+        $old[$id_container]['container_title'] = $title; 
+        $old[$id_container]['info'] = $info; 
+
+        $new = json_encode($old); //New json format
+
+        Tampilan::where('id', $id)->update([
+            'format_tampilan' => $new,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Container berhasil diperbarui');
     }
 
     /**

@@ -19,10 +19,10 @@
         @php($config = json_decode($tp->format_tampilan))
         @foreach($config as $ct)
             @php($text_color = "text-primary")
-            @if($ct->background != "#FFFFFF")
+            @if(strtolower($ct->background) != "#ffffff")
                 @php($text_color = "text-white")
             @endif
-            <div class='col-lg-6 col-md-6 box'>
+            <div class='col-lg-{{$ct->width}} col-md-{{$ct->width}} box'>
                 <div class='container-fluid mb-4 p-3 rounded shadow box-1' style='height:{{$ct->height}}; background:{{$ct->background}};'>
                     <button class='btn btn-transparent p-0 float-end' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$ct->id}}'>
                         <i class='fa-solid fa-gear mt-1 float-end more {{$text_color}}'></i>
@@ -36,6 +36,23 @@
 </div>
 
 <script type="text/javascript">
+    //Set hex code from color picker.
+    <?php
+        foreach($tampilan as $tp){
+            $config = json_decode($tp->format_tampilan);
+            foreach($config as $ct){
+                echo "
+                    function getHexCode_".$ct->id."(){
+                        var hex = document.getElementById('colorPicker_".$ct->id."').value;
+
+                        document.getElementById('colorHex_".$ct->id."').value = hex;
+                    }
+                ";
+            }
+        }
+    ?>
+
+
     //Get data.
     // $(document).ready(function() {
     //     clear();

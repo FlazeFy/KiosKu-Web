@@ -83,6 +83,7 @@ Route::get('/getRelasiArsip', [ArsipController::class, 'getRelasiArsip']);
 Route::post('/arsip/view/{id}', [ArsipController::class, 'view']);
 
 //Kasir
+//Penjualan
 Route::get('/kasir/penjualan', [PenjualanController::class, 'index']);
 Route::post('/kasir/penjualan/tambah_kasir', [PenjualanController::class, 'add_kasir']);
 Route::post('/kasir/penjualan/tambah_karyawan/{id}', [PenjualanController::class, 'add_karyawan_kasir']);
@@ -98,6 +99,7 @@ Route::get('/kasir/tampilan', [TampilanController::class, 'index']);
 //Custom
 Route::get('/kasir/tampilan/custom/{id}', [CustomController::class, 'index']);
 Route::get('/kasir/tampilan/getTampilan/{id}', [CustomController::class, 'getTampilan']);
+Route::post('/kasir/tampilan/edit_tampilan/{id}', [CustomController::class, 'edit_tampilan']);
 
 //Barang
 Route::get('/barang/gudang', [GudangController::class, 'index']);
