@@ -13,13 +13,13 @@
                     <div class='row'>
                         <div class='col-6'>
                             <div class='form-floating mb-2'> 
-                                <input type='number' class='form-control' name='height' value='{{(int) filter_var($ct->height, FILTER_SANITIZE_NUMBER_INT)}}' max='100' min='0' required> 
+                                <input type='number' class='form-control' name='height' value='{{(int) filter_var($ct->height, FILTER_SANITIZE_NUMBER_INT)}}' max='100' min='10' required> 
                                 <label for='floatingInput'>Tinggi Container <span style='font-size:14.5px; font-weight:500;'>Max : 100<span></label> 
                             </div>
                         </div>
                         <div class='col-6'>
                             <div class='form-floating mb-2'> 
-                                <input type='number' class='form-control' name='width' value='{{$ct->width}}' max='12' min='0' required> 
+                                <input type='number' class='form-control' name='width' value='{{$ct->width}}' max='12' min='1' required> 
                                 <label for='floatingInput'>Lebar Container <span style='font-size:14.5px; font-weight:500;'>Max : 12<span></label> 
                             </div>
                         </div>

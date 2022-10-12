@@ -96,9 +96,36 @@ class CustomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function tambah_container(Request $request, $id)
     {
-        //
+        $height = $request->height."vh";
+        $width = $request->width;
+        $visibility = $request->visibility;
+        $background = $request->background;
+        $title = $request->container_title;
+        $info = $request->info;
+        $old = $request->old; //Old json format
+
+        $old = json_decode($old);
+        $next = count($old) + 1; //new json id
+
+        //Change json by id
+        $old[$next]['id'] = $next; 
+        $old[$next]['height'] = $height; 
+        $old[$next]['width'] = $width; 
+        $old[$next]['visibility'] = $visibility; 
+        $old[$next]['background'] = $background; 
+        $old[$next]['container_title'] = $title; 
+        $old[$next]['info'] = $info; 
+
+        $new = json_encode(array_values($old)); //New json format
+
+        Tampilan::where('id', $id)->update([
+            'format_tampilan' => $new,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Container berhasil ditambahkan');
     }
 
     /**

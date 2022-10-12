@@ -30,7 +30,7 @@
                     <h6 class='{{$text_color}}'>{{$ct->container_title}}</h6>
                 </div>
             </div>
-            @include('admin.kasir.custom.setting')
+            @include('admin.kasir.custom.form.setting')
         @endforeach
     @endforeach
 </div>

@@ -136,6 +136,10 @@
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container p-3">
                 @include('admin.kasir.custom.board')
+                @include('admin.kasir.custom.control')
+                @foreach($tampilan as $tp)
+                    @include('admin.kasir.custom.form.tambah_container')
+                @endforeach
             </div>
 
             <!-- Overlay -->
