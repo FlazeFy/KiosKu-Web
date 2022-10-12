@@ -43,7 +43,7 @@
 <div class="control-box shadow">
     <button class="btn btn-transparent exit mx-1" title="Kembali ke Menu" onclick="location.href='/kasir/tampilan'"><i class="fa-solid fa-arrow-left fa-lg"></i></button>
     @foreach($tampilan as $tp)
-        <form method="POST" action="" class="d-inline position-relative">
+        <form method="POST" action="/kasir/tampilan/edit_tampilan_title/{{$tp->id}}" class="d-inline position-relative">
             @csrf
             <i class="fa-solid fa-pencil position-absolute" style="top:3px; left:10px;"></i>
             <input class="title_input py-2" type="text" value="{{$tp->nama_tampilan}}" name="nama_tampilan" onblur="this.form.submit()" required>

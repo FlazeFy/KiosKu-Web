@@ -62,3 +62,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    function getHexCode(){
+        var hex = document.getElementById('colorPicker').value;
+
+        document.getElementById('colorHex').value = hex;
+    }
+</script>

@@ -17,6 +17,7 @@
     ?>
     @foreach($tampilan as $tp)
         @php($config = json_decode($tp->format_tampilan))
+        @php($i = 0)
         @foreach($config as $ct)
             @php($text_color = "text-primary")
             @if(strtolower($ct->background) != "#ffffff")
@@ -24,13 +25,14 @@
             @endif
             <div class='col-lg-{{$ct->width}} col-md-{{$ct->width}} box'>
                 <div class='container-fluid mb-4 p-3 rounded shadow box-1' style='height:{{$ct->height}}; background:{{$ct->background}};'>
-                    <button class='btn btn-transparent p-0 float-end' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$ct->id}}'>
+                    <button class='btn btn-transparent p-0 float-end' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$i}}'>
                         <i class='fa-solid fa-gear mt-1 float-end more {{$text_color}}'></i>
                     </button>
                     <h6 class='{{$text_color}}'>{{$ct->container_title}}</h6>
                 </div>
             </div>
             @include('admin.kasir.custom.form.setting')
+            @php($i++)
         @endforeach
     @endforeach
 </div>
@@ -40,14 +42,16 @@
     <?php
         foreach($tampilan as $tp){
             $config = json_decode($tp->format_tampilan);
+            $i = 0;
             foreach($config as $ct){
                 echo "
-                    function getHexCode_".$ct->id."(){
-                        var hex = document.getElementById('colorPicker_".$ct->id."').value;
+                    function getHexCode_".$i."(){
+                        var hex = document.getElementById('colorPicker_".$i."').value;
 
-                        document.getElementById('colorHex_".$ct->id."').value = hex;
+                        document.getElementById('colorHex_".$i."').value = hex;
                     }
                 ";
+                $i++;
             }
         }
     ?>

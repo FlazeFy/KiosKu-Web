@@ -1,9 +1,10 @@
-<div class='modal fade' id='edit-container-{{$ct->id}}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+<div class='modal fade' id='edit-container-{{$i}}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
     <div class='modal-dialog'>
         <div class='modal-content'>
+            <!--Edit container-->
             <form action='/kasir/tampilan/edit_tampilan/{{$tp->id}}' method='POST'>
                 @csrf
-                <input type='number' name='id_container' value='{{$ct->id}}' hidden>
+                <input type='number' name='key' value='{{$i}}' hidden>
                 <input type='text' name='old' value='{{$tp->format_tampilan}}' hidden>
                 <div class='modal-header'>
                     <h5 class='modal-title' id='exampleModalLabel'>Edit Container</h5>
@@ -29,10 +30,10 @@
                             <label for="exampleColorInput" class="form-label">Warna Latar</label>
                             <div class='row'>
                                 <div class='col-4'>
-                                    <input type="color" class="form-control form-control-color mb-2" id="colorPicker_{{$ct->id}}" onblur="getHexCode_<?php echo $ct->id; ?>()" name='background' value="{{$ct->background}}" title="Choose your color">
+                                    <input type="color" class="form-control form-control-color mb-2" id="colorPicker_{{$i}}" onblur="getHexCode_<?php echo $i; ?>()" name='background' value="{{$ct->background}}" title="Choose your color">
                                 </div>
                                 <div class='col-8'>
-                                    <input type='text' class='form-control' id='colorHex_{{$ct->id}}' value='{{$ct->background}}' required disabled> 
+                                    <input type='text' class='form-control' id='colorHex_{{$i}}' value='{{$ct->background}}' required disabled> 
                                 </div>
                             </div>
                         </div>
@@ -59,8 +60,12 @@
                 <div class='modal-footer'>
                     <button type='submit' class='btn btn-success'><i class='fa-solid fa-floppy-disk'></i> Simpan</button>
                     </form>
-                    <form action='' method='POST' class='d-inline'>
-                        <button type='button' class='btn btn-danger'><i class='fa-solid fa-trash'></i> Hapus</button>
+                    <!--Delete container-->
+                    <form action='/kasir/tampilan/hapus_container/{{$tp->id}}' method='POST' class='d-inline'>
+                        @csrf
+                        <input type='number' name='key' value='{{$i}}' hidden>
+                        <input type='text' name='old' value='{{$tp->format_tampilan}}' hidden>
+                        <button type='submit' class='btn btn-danger'><i class='fa-solid fa-trash'></i> Hapus</button>
                     </form>
                 </div>
            

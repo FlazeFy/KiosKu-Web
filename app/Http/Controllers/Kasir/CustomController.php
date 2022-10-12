@@ -61,7 +61,7 @@ class CustomController extends Controller
      */
     public function edit_tampilan(Request $request, $id)
     {
-        $id_container = $request->id_container - 1;
+        $key = $request->key;
         $height = $request->height."vh";
         $width = $request->width;
         $visibility = $request->visibility;
@@ -73,12 +73,12 @@ class CustomController extends Controller
         $old = json_decode($old, true);
 
         //Change json by id
-        $old[$id_container]['height'] = $height; 
-        $old[$id_container]['width'] = $width; 
-        $old[$id_container]['visibility'] = $visibility; 
-        $old[$id_container]['background'] = $background; 
-        $old[$id_container]['container_title'] = $title; 
-        $old[$id_container]['info'] = $info; 
+        $old[$key]['height'] = $height; 
+        $old[$key]['width'] = $width; 
+        $old[$key]['visibility'] = $visibility; 
+        $old[$key]['background'] = $background; 
+        $old[$key]['container_title'] = $title; 
+        $old[$key]['info'] = $info; 
 
         $new = json_encode($old); //New json format
 
@@ -110,7 +110,6 @@ class CustomController extends Controller
         $next = count($old) + 1; //new json id
 
         //Change json by id
-        $old[$next]['id'] = $next; 
         $old[$next]['height'] = $height; 
         $old[$next]['width'] = $width; 
         $old[$next]['visibility'] = $visibility; 
@@ -134,9 +133,24 @@ class CustomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function hapus_container(Request $request, $id)
     {
-        //
+        $key = $request->key;
+        $old = $request->old; //Old json format
+
+        $old = json_decode($old);
+
+        array_splice($old, $key, 1);
+        var_dump($old);
+
+        $new = json_encode(array_values($old)); //New json format
+
+        Tampilan::where('id', $id)->update([
+            'format_tampilan' => $new,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Container berhasil dihapus');
     }
 
     /**
@@ -146,9 +160,25 @@ class CustomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function edit_tampilan_title(Request $request, $id)
     {
-        //
+        //Check name availability.
+        $check = DB::table('tampilan')
+            ->select()
+            ->where('id_kios', session()->get('idKey'))
+            ->where('nama_tampilan', $request->nama_tampilan)
+            ->get();
+
+        if(count($check) == 0){
+            Tampilan::where('id', $id)->update([
+                'nama_tampilan' => $request->nama_tampilan,
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('success_message', 'Template tampilan berhasil diperbarui');
+        } else {
+            return redirect()->back()->with('failed_message', 'Edit nama template gagal. Gunakan nama template yang unik');
+        }  
     }
 
     /**
