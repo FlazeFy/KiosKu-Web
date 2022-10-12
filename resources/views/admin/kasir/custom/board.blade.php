@@ -24,9 +24,9 @@
                 @php($text_color = "text-white")
             @endif
             <div class='col-lg-{{$ct->width}} col-md-{{$ct->width}} box'>
-                <div class='container-fluid mb-4 p-3 rounded shadow box-1' style='height:{{$ct->height}}; background:{{$ct->background}};'>
-                    <button class='btn btn-transparent p-0 float-end' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$i}}'>
-                        <i class='fa-solid fa-gear mt-1 float-end more {{$text_color}}'></i>
+                <div class='container-fluid mb-4 p-3 rounded shadow box-1 position-relative' style='height:{{$ct->height}}; background:{{$ct->background}};'>
+                    <button class='btn btn-transparent p-0 position-absolute' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$i}}'
+                        style='right:0px; top:0px;'><i class='fa-solid fa-gear mt-1 more {{$text_color}}'></i>
                     </button>
                     <h6 class='{{$text_color}}'>{{$ct->container_title}}</h6>
                 </div>

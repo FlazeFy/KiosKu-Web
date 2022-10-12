@@ -169,6 +169,7 @@
         <!--Modal-->
         @include('popup.success')
         @include('popup.failed')
+        @include('admin.kasir.tampilan.form.tambah_tampilan')
 
         <script>
             

@@ -95,6 +95,8 @@ Route::post('/kasir/penjualan/pin/{id}', [PenjualanController::class, 'pin']);
 
 //Tampilan
 Route::get('/kasir/tampilan', [TampilanController::class, 'index']);
+Route::post('/kasir/tampilan/tambah_tampilan', [TampilanController::class, 'tambah_tampilan']);
+Route::post('/kasir/tampilan/hapus_tampilan/{id}', [TampilanController::class, 'hapus_tampilan']);
 
 //Custom
 Route::get('/kasir/tampilan/custom/{id}', [CustomController::class, 'index']);
