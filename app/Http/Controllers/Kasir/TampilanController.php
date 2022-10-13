@@ -55,6 +55,7 @@ class TampilanController extends Controller
                 $old[0]['background'] = "#ffffff"; 
                 $old[0]['container_title'] = "Container_1"; 
                 $old[0]['info'] = null; 
+                $old[0]['fitur'] = null; 
             }
 
             $new = json_encode($old); 

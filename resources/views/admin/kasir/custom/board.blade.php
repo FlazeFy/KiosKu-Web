@@ -1,3 +1,11 @@
+<style>
+    .container-body{
+        width:100%;
+        height:100%;
+        border:2px solid grey;
+    }
+</style>
+
 <div class="row layout-box w-100" id="layout-box">
     <?php
         //This will be adapted to karyawan role or admin kasir view mode..
@@ -26,12 +34,23 @@
             <div class='col-lg-{{$ct->width}} col-md-{{$ct->width}} box'>
                 <div class='container-fluid mb-4 p-3 rounded shadow box-1 position-relative' style='height:{{$ct->height}}; background:{{$ct->background}};'>
                     <button class='btn btn-transparent p-0 position-absolute' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$i}}'
-                        style='right:0px; top:0px;'><i class='fa-solid fa-gear mt-1 more {{$text_color}}'></i>
+                        style='right:0px; top:0px;' title='Edit'><i class='fa-solid fa-gear mt-1 more {{$text_color}}'></i>
                     </button>
-                    <h6 class='{{$text_color}}'>{{$ct->container_title}}</h6>
+                    <button class='btn btn-transparent p-0 position-absolute' type='button' data-bs-toggle='modal' data-bs-target='#pilih-fitur-{{$i}}'
+                        style='right:40px; top:0px;' title='Pilih Fitur'><i class="fa-solid fa-screwdriver-wrench mt-1 more {{$text_color}}"></i>
+                    </button>
+                    <h6 class='{{$text_color}}'>
+                        @if($ct->container_title != null)
+                            {{$ct->container_title}}
+                        @else 
+                            -
+                        @endif
+                    </h6>
+                    <h5 class="text-center {{$text_color}}">Container Kosong</h5>
                 </div>
             </div>
             @include('admin.kasir.custom.form.setting')
+            @include('admin.kasir.custom.form.fitur')
             @php($i++)
         @endforeach
     @endforeach

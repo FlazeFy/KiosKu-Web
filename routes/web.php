@@ -105,6 +105,7 @@ Route::post('/kasir/tampilan/edit_tampilan/{id}', [CustomController::class, 'edi
 Route::post('/kasir/tampilan/tambah_container/{id}', [CustomController::class, 'tambah_container']);
 Route::post('/kasir/tampilan/hapus_container/{id}', [CustomController::class, 'hapus_container']);
 Route::post('/kasir/tampilan/edit_tampilan_title/{id}', [CustomController::class, 'edit_tampilan_title']);
+Route::post('/kasir/tampilan/pilih_fitur/{id}', [CustomController::class, 'pilih_fitur']);
 
 //Barang
 Route::get('/barang/gudang', [GudangController::class, 'index']);

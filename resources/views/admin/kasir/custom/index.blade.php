@@ -129,6 +129,39 @@
             .bg-primary{
                 background: #696cFF !important; 
             }
+
+            .fitur-box{
+                width: 100%;
+                height: 250px;
+                margin-bottom: 20px;
+                padding: 20px;
+                text-align: center;
+                border-radius: 20px;
+                background: white;
+                border: none;
+                color: grey;
+            }
+            .fitur-box:hover, .fitur-box:hover h5{
+                background: #E7E7FF;
+            }
+            .fitur-box p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+                -webkit-box-orient: vertical;
+                white-space: normal;
+            }
+            .fitur-box h5{
+                color: #696cFF; 
+            }
+            .fitur-holder{
+                display: flex;
+                flex-direction: column;
+                height: 450px;
+                overflow-y: scroll;
+            }
         </style>
     </head>
 

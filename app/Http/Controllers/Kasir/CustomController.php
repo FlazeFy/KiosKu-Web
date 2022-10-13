@@ -23,6 +23,9 @@ class CustomController extends Controller
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('created_at', 'DESC')->get(); 
 
+        $fitur = DB::table('fitur_kasir')
+            ->orderBy('created_at', 'DESC')->get(); 
+
         $tampilan = DB::table('tampilan')
             ->where('id', $id)
             ->where('id_kios', session()->get('idKey'))
@@ -34,6 +37,7 @@ class CustomController extends Controller
 
         return view ('admin.kasir.custom.index')
             ->with('rak', $rak)
+            ->with('fitur', $fitur)
             ->with('tampilan', $tampilan);
     }
 
@@ -116,6 +120,7 @@ class CustomController extends Controller
         $old[$next]['background'] = $background; 
         $old[$next]['container_title'] = $title; 
         $old[$next]['info'] = $info; 
+        $old[$next]['fitur'] = null; 
 
         $new = json_encode(array_values($old)); //New json format
 
@@ -181,14 +186,24 @@ class CustomController extends Controller
         }  
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function pilih_fitur(Request $request, $id)
     {
-        //
+        $key = $request->key;
+        $fitur = $request->fitur;
+        $old = $request->old; //Old json format
+
+        $old = json_decode($old, true);
+
+        //Change json by id
+        $old[$key]['fitur'] = $fitur; 
+
+        $new = json_encode($old); //New json format
+
+        Tampilan::where('id', $id)->update([
+            'format_tampilan' => $new,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Fitur berhasil dipilih');
     }
 }
