@@ -259,6 +259,8 @@
         <script src="../assets/vendor/libs/popper/popper.js"></script>
         <script src="../assets/vendor/js/bootstrap.js"></script>
         <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.js"></script>
+        <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
 
         <script src="../assets/vendor/js/menu.js"></script>
 
@@ -271,6 +273,43 @@
         <!-- Page JS -->
         <script src="../assets/js/dashboards-analytics.js"></script>
         <script type="text/javascript">
+            //Isotope
+            (function() {
+                "use strict";
+
+                /**
+                 * Easy selector helper function
+                 */
+                const select = (el, all = false) => {
+                    el = el.trim()
+                    if (all) {
+                    return [...document.querySelectorAll(el)]
+                    } else {
+                    return document.querySelector(el)
+                    }
+                }
+                const on = (type, el, listener, all = false) => {
+                    let selectEl = select(el, all)
+                    if (selectEl) {
+                    if (all) {
+                        selectEl.forEach(e => e.addEventListener(type, listener))
+                    } else {
+                        selectEl.addEventListener(type, listener)
+                    }
+                    }
+                }
+                     window.addEventListener('load', () => {
+                    let portfolioContainer = select('.dash-content-container');
+                    if (portfolioContainer) {
+                    let portfolioIsotope = new Isotope(portfolioContainer, {
+                        itemSelector: '.dash-content-item'
+                    });
+                    }
+
+                });
+                
+            })()
+
             //Terjual.
             'use strict';
             (function () {

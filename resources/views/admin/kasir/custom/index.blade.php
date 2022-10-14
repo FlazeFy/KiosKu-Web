@@ -26,27 +26,14 @@
         <link href='https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css' rel='stylesheet'>
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>  
         <!-- <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script> -->
-        <script href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></script>
 
         <!-- Vendors CSS & JS -->
         <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-        <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
         <script src="../assets/vendor/js/helpers.js"></script>
         <script src="../assets/js/config.js"></script>
 
-        <!--Full calendar.-->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.11.2/main.min.css,npm/fullcalendar@5.11.2/main.min.css" />
-        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/main.min.js'></script>
-        <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.2/locales-all.min.js'></script>
-        <script type='text/javascript' src='https://cdn.jsdelivr.net/combine/npm/fullcalendar@5.11.2,npm/fullcalendar@5.11.2/locales-all.min.js,npm/fullcalendar@5.11.2/locales-all.min.js,npm/fullcalendar@5.11.2/main.min.js'></script>
-
         <!-- Jquery -->
         <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <!-- Jquery DataTables -->
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <!-- Bootstrap dataTables Javascript -->
-        <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 
         <style>
             a{
@@ -185,41 +172,43 @@
         @include('popup.failed')
 
         <script>
-            (function() {
-                "use strict";
+            //ISotope bug!!! automatically creates a new row even though there are still empty columns left
 
-                /**
-                 * Easy selector helper function
-                 */
-                const select = (el, all = false) => {
-                    el = el.trim()
-                    if (all) {
-                    return [...document.querySelectorAll(el)]
-                    } else {
-                    return document.querySelector(el)
-                    }
-                }
-                const on = (type, el, listener, all = false) => {
-                    let selectEl = select(el, all)
-                    if (selectEl) {
-                    if (all) {
-                        selectEl.forEach(e => e.addEventListener(type, listener))
-                    } else {
-                        selectEl.addEventListener(type, listener)
-                    }
-                    }
-                }
-                     window.addEventListener('load', () => {
-                    let portfolioContainer = select('.layout-box');
-                    if (portfolioContainer) {
-                    let portfolioIsotope = new Isotope(portfolioContainer, {
-                        itemSelector: '.box'
-                    });
-                    }
+            // (function() {
+            //     "use strict";
 
-                });
+            //     /**
+            //      * Easy selector helper function
+            //      */
+            //     const select = (el, all = false) => {
+            //         el = el.trim()
+            //         if (all) {
+            //         return [...document.querySelectorAll(el)]
+            //         } else {
+            //         return document.querySelector(el)
+            //         }
+            //     }
+            //     const on = (type, el, listener, all = false) => {
+            //         let selectEl = select(el, all)
+            //         if (selectEl) {
+            //         if (all) {
+            //             selectEl.forEach(e => e.addEventListener(type, listener))
+            //         } else {
+            //             selectEl.addEventListener(type, listener)
+            //         }
+            //         }
+            //     }
+            //          window.addEventListener('load', () => {
+            //         let portfolioContainer = select('.layout-box');
+            //         if (portfolioContainer) {
+            //         let portfolioIsotope = new Isotope(portfolioContainer, {
+            //             itemSelector: '.box'
+            //         });
+            //         }
+
+            //     });
                 
-            })()
+            // })()
         </script>
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
@@ -234,17 +223,8 @@
 
         <script src="../assets/vendor/js/menu.js"></script>
 
-        <!-- Vendors JS -->
-        <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
         <!-- Main JS -->
         <script src="../assets/js/main.js"></script>
-
-        <!-- Page JS -->
-        <script src="../assets/js/dashboards-analytics.js"></script>
-        <script type="text/javascript">
-            
-        </script>
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>

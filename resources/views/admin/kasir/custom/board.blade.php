@@ -4,6 +4,12 @@
         height:100%;
         border:2px solid grey;
     }
+    .fitur-view{
+        width:100%;
+        height:100%;
+        background: #E7E7FF;
+        border-radius:12px;
+    }
 </style>
 
 <div class="row layout-box w-100" id="layout-box">
@@ -27,12 +33,14 @@
         @php($config = json_decode($tp->format_tampilan))
         @php($i = 0)
         @foreach($config as $ct)
+            <!--Get box style-->
             @php($text_color = "text-primary")
             @if(strtolower($ct->background) != "#ffffff")
                 @php($text_color = "text-white")
             @endif
+
             <div class='col-lg-{{$ct->width}} col-md-{{$ct->width}} box'>
-                <div class='container-fluid mb-4 p-3 rounded shadow box-1 position-relative' style='height:{{$ct->height}}; background:{{$ct->background}};'>
+                <div class='container-fluid mb-4 p-3 pb-5 rounded shadow box-1 position-relative' style='height:{{$ct->height}}; background:{{$ct->background}};'>
                     <button class='btn btn-transparent p-0 position-absolute' type='button' data-bs-toggle='modal' data-bs-target='#edit-container-{{$i}}'
                         style='right:0px; top:0px;' title='Edit'><i class='fa-solid fa-gear mt-1 more {{$text_color}}'></i>
                     </button>
@@ -46,7 +54,30 @@
                             -
                         @endif
                     </h6>
-                    <h5 class="text-center {{$text_color}}">Container Kosong</h5>
+
+                    <!--Get preview button-->
+                    @php($check = false)
+                    @foreach($fitur as $ft)
+                        @if($ft->id == $ct->fitur)
+                            <div class="fitur-view">
+                                @if($ft->nama_fitur == "Keranjang")
+                                    @include('admin.kasir.custom.preview.keranjang')
+                                @elseif($ft->nama_fitur == "Checkout")
+                                    @include('admin.kasir.custom.preview.checkout')
+                                @elseif($ft->nama_fitur == "Total Harga dan Qty")
+                                    @include('admin.kasir.custom.preview.totalharga')
+                                @elseif($ft->nama_fitur == "Waktu dan Info")
+                                    @include('admin.kasir.custom.preview.waktu')
+                                @elseif($ft->nama_fitur == "Pengingat")
+                                    @include('admin.kasir.custom.preview.pengingat')
+                                @endif
+                            </div>
+                            @php($check = true)
+                        @endif
+                    @endforeach
+                    @if($check == false)
+                        <h5 class="text-center {{$text_color}}">Container Kosong</h5>
+                    @endif
                 </div>
             </div>
             @include('admin.kasir.custom.form.setting')
