@@ -15,6 +15,7 @@ use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PengingatController;
 use App\Http\Controllers\ArsipController;
+use App\Http\Controllers\AkunController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,9 @@ use App\Http\Controllers\ArsipController;
 //Landing.
 Route::get('/', [LandingController::class, 'index']);
 Route::post('/login/{role}', [LandingController::class, 'login']);
+
+//Akun.
+Route::get('/akun', [AkunController::class, 'index'])->name('akun');
 
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

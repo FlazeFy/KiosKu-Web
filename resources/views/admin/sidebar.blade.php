@@ -11,6 +11,12 @@
 
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
+        <li class="menu-item<?php if(session()->get('active_nav') == "akun"){ echo " active"; }?>">
+            <a href="/akun" class="menu-link fw-bold">
+                <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded me-2" height="30" width="30" id="uploadedAvatar"/>
+                <div data-i18n="Analytics">{{session()->get('usernameKey')}}</div>
+            </a>
+        </li>
         <li class="menu-item<?php if(session()->get('active_nav') == "dashboard"){ echo " active"; }?>">
             <a href="/dashboard" class="menu-link">
                 <i class="fa-solid fa-house mx-2"></i>

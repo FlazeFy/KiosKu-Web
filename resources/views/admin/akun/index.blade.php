@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
         <meta name="description" content="" />
 
-        <title>Admin | Pengingat</title>
+        <title>Admin | Akun</title>
         
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -99,20 +99,56 @@
             .text-primary{
                 color:#676AFB !important;
             }
-
-            /* .hour-item-holder{
-                display: flex;
-                flex-direction: column;
-                height: 575px;
-                overflow-y: scroll;
-            } */
-
-            .btn-success-secondary{
-                background:white;
-                color: #198754 !important;
-                border:2px solid #198754;
-                border-radius:6px;
-                height:36px;
+            #uploadedAvatar{
+                border-radius:100px !important;
+            }
+            .image-upload>input {
+                display: none;
+            }
+            .btn-link{
+                color: #566A7f;
+                text-decoration:none;
+            }
+            .btn-link:hover{
+                color: whitesmoke;
+                background: #676AFB;
+            }
+            .btn-link-danger{
+                color: #df4759;
+                text-decoration:none;
+            }
+            .btn-link-danger:hover{
+                color: whitesmoke;
+                background: #df4759;
+            }
+            .sub-menu{
+                font-weight:500;
+            }
+            .card{
+                border-radius:15px !important;
+            }
+            .card-header{
+                border-radius:15px 15px 0px 0px !important;
+            }
+            .warning-box{
+                background:#FFF2d6;
+                border-radius:15px;
+                padding:16px;
+                margin: 10px 0px;
+            }
+            .warning-box .warning-text{
+                font-weight:400;
+                color:#566A7F;
+            }
+            .danger-box{
+                background:#ffd6d6;
+                border-radius:15px;
+                padding:16px;
+                margin: 10px 0px;
+            }
+            .danger-box .danger-text{
+                font-weight:400;
+                color:#566A7F;
             }
         </style>
     </head>
@@ -133,37 +169,22 @@
                             <i class="bx bx-menu bx-sm"></i>
                             </a>
                         </div>          
-                        <a class="fw-bold float-start">/Pengingat</a>   
+                        <a class="fw-bold float-start">/Akun/Profil</a>   
                     </nav>
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
-                            <div class="row">
-                                <div class="col-lg-9 col-md-9 col-sm-8">
-                                    @include('admin.pengingat.day')
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-4 pt-4">
-                                    @include('admin.pengingat.control')
-                                </div>
-                            </div>
-                            <div class="row mt-1 hour-item-holder">
-                                @if(session()->get('view_pengingat') == "Detail")
-                                    <div class="col-lg-2 col-md-2 col-sm-4">
-                                        @include('admin.pengingat.hour')
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-8">
-                                        @include('admin.pengingat.kegiatan')
-                                    </div>
-                                @else
-                                    <div class="col-lg-9 col-md-9 col-sm-7">
-                                        @include('admin.pengingat.detail.kegiatan')
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-5">
-
-                                    </div>
-                                @endif
-                            </div>
+                            <button class="btn btn-primary me-2 px-3 py-2 sub-menu"><i class="fa-regular fa-user"></i> Profil</button>
+                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-regular fa-bell"></i> Notifikasi</button>
+                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</button>
+                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-solid fa-gear"></i> Pengaturan</button>
+                            <button class="btn btn-link-danger me-2 px-3 py-2 float-end sub-menu"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign-Out</button>
+                            @foreach($akun as $ak)
+                                @include('admin.akun.form.edit_profile')
+                                @include('admin.akun.form.non_aktif')
+                                @include('admin.akun.form.hapus')
+                            @endforeach
                         </section>
                     </div>
                 </div>
@@ -177,7 +198,6 @@
 
         <!--Modal-->
         @include('popup.success')
-        @include('admin.pengingat.form.edit')
 
         <script>
             
