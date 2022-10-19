@@ -101,11 +101,15 @@
                                         <button class="dropdown-item" type="submit"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
                                     </form>
                                 @endif
-                                <a class="dropdown-item"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#edit-upah-Modal-{{$kr->id_karyawan}}"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                             </div>
                         </div>
                     </td>
                 </tr>
+
+                <!--Modal-->
+                @include('admin.karyawan.upah.form.edit')
+
             @endforeach
         </tbody>
     </table>

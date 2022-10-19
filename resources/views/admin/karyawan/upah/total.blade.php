@@ -13,7 +13,7 @@
 <h5 class="position-absolute" style="right:15%; top:60%;">
     Rp. 
     @php($total = 0)
-    @foreach($jabatan as $jbt)
+    @foreach($total_jabatan as $jbt)
         @php($total += $jbt->total)
     @endforeach
     {{$total}}

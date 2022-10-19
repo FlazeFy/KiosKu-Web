@@ -114,6 +114,9 @@
                 color: #676AFA;
                 border: 2px solid #676AFA;
             }
+            .text-primary{
+                color: #676AFA !important;
+            }
         </style>
     </head>
 
@@ -172,6 +175,7 @@
         <!--Modal-->
         @include('popup.success')
         @include('popup.failed')
+        @include('admin.karyawan.data.form.tambah_jabatan')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
@@ -199,12 +203,12 @@
                     type: 'donut'
                 },
                 labels: [<?php 
-                    foreach($jabatan as $jbt){
-                        echo "'".$jbt->jabatan_karyawan."', ";
+                    foreach($total_jabatan as $jbt){
+                        echo "'".$jbt->nama_jabatan."', ";
                     }
                     ?>],
                 series: [<?php 
-                    foreach($jabatan as $jbt){
+                    foreach($total_jabatan as $jbt){
                         echo $jbt->total.", ";
                     }
                     ?>],
@@ -247,7 +251,7 @@
                                     val = val / 
                                         <?php
                                             $total = 0;
-                                            foreach($jabatan as $jbt){
+                                            foreach($total_jabatan as $jbt){
                                                 $total += $jbt->total;
                                             }
                                             echo $total;

@@ -62,6 +62,7 @@ Route::post('/karyawan/data/pin/{id}', [DataController::class, 'pin']);
 Route::get('/karyawan/upah', [UpahController::class, 'index']);
 Route::post('/karyawan/upah/unpin/{id}', [UpahController::class, 'unpin']);
 Route::post('/karyawan/upah/pin/{id}', [UpahController::class, 'pin']);
+Route::post('/karyawan/upah/edit_upah/{id}', [UpahController::class, 'edit_upah']);
 
 //Kalender
 Route::get('/kalender', [KalenderController::class, 'index']);
