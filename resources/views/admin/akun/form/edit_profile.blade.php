@@ -23,48 +23,49 @@
     </div>
     <hr class="my-0" style="background:#212121;"/>
     <div class="card-body p-4">
-        <form method="POST" action="">
+        <form method="POST" action="/edit/{{$ak->id}}">
             @csrf
+            <input name="username_old" value="{{$ak->username}}" hidden>
             <div class="row">
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="username" class="form-control" name="" value="{{$ak->username}}" required>
+                        <input type="username" class="form-control" name="username" value="{{$ak->username}}" required>
                         <label for="floatingInput">Username</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="password" class="form-control" name="" value="{{$ak->password}}" required>
+                        <input type="password" class="form-control" name="password" value="{{$ak->password}}" required>
                         <label for="floatingInput">Password</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" name="" value="{{$ak->nama_kios}}" required>
+                        <input type="text" class="form-control" name="nama_kios" value="{{$ak->nama_kios}}" required>
                         <label for="floatingInput">Nama Kios</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="address" class="form-control" name="" value="{{$ak->alamat_kios}}">
+                        <input type="address" class="form-control" name="alamat_kios" value="{{$ak->alamat_kios}}">
                         <label for="floatingInput">Alamat</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="phone" class="form-control" name="" value="{{$ak->kontak_kios}}">
+                        <input type="phone" class="form-control" name="kontak_kios" value="{{$ak->kontak_kios}}">
                         <label for="floatingInput">Kontak</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-6">
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control" name="" value="{{$ak->email_kios}}" required>
+                        <input type="email" class="form-control" name="email_kios" value="{{$ak->email_kios}}" required>
                         <label for="floatingInput">Email</label>
                     </div>
                 </div>
                 <div class="mb-3 col-md-12">
                     <div class="form-floating mb-2">
-                        <textarea class="form-control" value="{{$ak->deskripsi_kios}}" id="floatingTextarea2" style="height: 100px">{{$ak->deskripsi_kios}}</textarea>
+                        <textarea class="form-control" value="{{$ak->deskripsi_kios}}" name="deskripsi_kios" id="floatingTextarea2" style="height: 100px">{{$ak->deskripsi_kios}}</textarea>
                         <label for="floatingTextarea2">Deskripsi</label>
                     </div>
                 </div>

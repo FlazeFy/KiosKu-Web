@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Kios;
+
 class AkunController extends Controller
 {
     /**
@@ -35,9 +37,37 @@ class AkunController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function edit_akun(Request $request, $id)
     {
-        //
+        $count = 0;
+        $username = $request->username;
+
+        if($request->username != $request->username_old){
+            $check = DB::table('kios')
+                ->select()
+                ->where('username', $request->username)
+                ->get();
+            
+            $count = count($check);
+            $username = $request->username_old;
+        }
+        
+        if($count == 0){
+            Kios::where('id', $id)->update([
+                'username' => $request->username,
+                'password' => $request->password,
+                'nama_kios' => $request->nama_kios,
+                'alamat_kios' => $request->alamat_kios,
+                'kontak_kios' => $request->kontak_kios,
+                'email_kios' => $request->email_kios,
+                'deskripsi_kios' => $request->deskripsi_kios,
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('success_message', 'Berhasil mengubah data akun');
+        } else {
+            return redirect()->back()->with('failed_message', 'Gagal mengubah data, pastikan data telah diisi dengan benar');
+        }
     }
 
     /**
