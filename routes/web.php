@@ -40,6 +40,7 @@ Route::post('/profil/status/{status}', [ProfilController::class, 'edit_status'])
 
 //Aktivitas.
 Route::get('/aktivitas', [AktivitasController::class, 'index'])->name('aktivitas');
+Route::post('/aktivitas/delete/{id}', [AktivitasController::class, 'delete_aktivitas']);
 
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

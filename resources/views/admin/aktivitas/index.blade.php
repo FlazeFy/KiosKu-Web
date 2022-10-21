@@ -178,6 +178,9 @@
                             <!--Tabbar-->
                             @include('admin.akun_tabbar')
 
+                            <div class="container-fluid">
+                                @include('admin.aktivitas.all')
+                            </div>
                         </section>
                     </div>
                 </div>

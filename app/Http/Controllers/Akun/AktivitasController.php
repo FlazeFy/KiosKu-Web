@@ -19,14 +19,19 @@ class AktivitasController extends Controller
     public function index()
     {
         $rak = DB::table('rak')
-        ->where('id_kios', session()->get('idKey'))
-        ->orderBy('created_at', 'DESC')->get();
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
+
+        $riwayat = DB::table('riwayat_kios')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('created_at', 'DESC')->get();
 
         //Set active nav
         session()->put('active_nav', 'aktivitas');
 
         return view ('admin.aktivitas.index')
-            ->with('rak', $rak);
+            ->with('rak', $rak)
+            ->with('riwayat', $riwayat);
     }
 
     /**
@@ -34,9 +39,11 @@ class AktivitasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function delete_aktivitas($id)
     {
-        //
+        Riwayat_Kios::destroy($id);
+
+        return redirect()->back()->with('success_message', 'Riwayat aktivitas berhasil dihapus');
     }
 
     /**
