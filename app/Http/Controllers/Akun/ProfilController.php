@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Akun;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 use App\Models\Kios;
 use App\Models\Riwayat_Kios;
 
-class AkunController extends Controller
+class ProfilController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +27,9 @@ class AkunController extends Controller
             ->where('id', session()->get('idKey'))->get();
 
         //Set active nav
-        session()->put('active_nav', 'akun');
+        session()->put('active_nav', 'profil');
 
-        return view ('admin.akun.index')
+        return view ('admin.profil.index')
             ->with('rak', $rak)
             ->with('akun', $akun);
     }
@@ -78,11 +79,15 @@ class AkunController extends Controller
     {
         if($status == "non-aktif"){
             //Status json config.
-            // $old = "";
+            if($request->date_start == null ){
+                $date_start = date("Y-m-d");
+            } else {
+                $date_start = $request->date_start;
+            }
             
             $old['status'] = $status; 
-            $old['date_start'] = null; 
-            $old['date_end'] = null; 
+            $old['date_start'] = $date_start; 
+            $old['date_end'] = $request->date_end;
         
             $new = json_encode($old); 
 
@@ -103,16 +108,9 @@ class AkunController extends Controller
             return redirect()->back()->with('deactivate_message', 'Akun berhasil dinon-aktifkan. Selamat beristirahat dan sampai jumpa');
         } else {
             //Status json config.
-            // $old = "";
-            if($request->date_start == null ){
-                $date_start = date("Y/m/d");
-            } else {
-                $date_start = $request->date_start;
-            }
-            
             $old['status'] = $status; 
-            $old['date_start'] = $date_start; 
-            $old['date_end'] = $request->date_end;
+            $old['date_start'] = null; 
+            $old['date_end'] = null; 
         
             $new = json_encode($old); 
 

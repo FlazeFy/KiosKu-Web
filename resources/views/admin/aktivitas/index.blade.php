@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
         <meta name="description" content="" />
 
-        <title>Admin | Akun</title>
+        <title>Admin | Aktivitas</title>
         
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -169,22 +169,15 @@
                             <i class="bx bx-menu bx-sm"></i>
                             </a>
                         </div>          
-                        <a class="fw-bold float-start">/Akun/Profil</a>   
+                        <a class="fw-bold float-start">/Akun/Aktivitas</a>   
                     </nav>
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
                         <section class="container-xxl flex-grow-1 container-p-y">
-                            <button class="btn btn-primary me-2 px-3 py-2 sub-menu"><i class="fa-regular fa-user"></i> Profil</button>
-                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-regular fa-bell"></i> Notifikasi</button>
-                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-solid fa-clock-rotate-left"></i> Riwayat</button>
-                            <button class="btn btn-link me-2 px-3 py-2 sub-menu"><i class="fa-solid fa-gear"></i> Pengaturan</button>
-                            <button class="btn btn-link-danger me-2 px-3 py-2 float-end sub-menu"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign-Out</button>
-                            @foreach($akun as $ak)
-                                @include('admin.akun.form.edit_profile')
-                                @include('admin.akun.form.non_aktif')
-                                @include('admin.akun.form.hapus')
-                            @endforeach
+                            <!--Tabbar-->
+                            @include('admin.akun_tabbar')
+
                         </section>
                     </div>
                 </div>
@@ -198,9 +191,6 @@
 
         <!--Modal-->
         @include('popup.success')
-        @include('popup.failed')
-        @include('popup.activate')
-        @include('popup.deactivate')
 
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 

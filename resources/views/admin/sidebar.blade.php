@@ -11,8 +11,8 @@
 
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
-        <li class="menu-item<?php if(session()->get('active_nav') == "akun"){ echo " active"; }?>">
-            <a href="/akun" class="menu-link fw-bold">
+        <li class="menu-item<?php if((session()->get('active_nav') == "profil")||(session()->get('active_nav') == "aktivitas")){ echo " active"; }?>">
+            <a href="/profil" class="menu-link fw-bold">
                 <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded me-2" height="30" width="30" id="uploadedAvatar"/>
                 <div data-i18n="Analytics">{{session()->get('usernameKey')}}</div>
             </a>

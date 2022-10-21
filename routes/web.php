@@ -9,13 +9,14 @@ use App\Http\Controllers\Kasir\PenjualanController;
 use App\Http\Controllers\Kasir\TampilanController;
 use App\Http\Controllers\Kasir\CustomController;
 use App\Http\Controllers\Barang\GudangController;
+use App\Http\Controllers\Akun\ProfilController;
+use App\Http\Controllers\Akun\AktivitasController;
 use App\Http\Controllers\RakController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\KalenderController;
 use App\Http\Controllers\PengingatController;
 use App\Http\Controllers\ArsipController;
-use App\Http\Controllers\AkunController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,13 @@ use App\Http\Controllers\AkunController;
 Route::get('/', [LandingController::class, 'index']);
 Route::post('/login/{role}', [LandingController::class, 'login']);
 
-//Akun.
-Route::get('/akun', [AkunController::class, 'index'])->name('akun');
-Route::post('/akun/edit', [AkunController::class, 'edit_akun']);
-Route::post('/akun/status/{status}', [AkunController::class, 'edit_status']);
+//Profil.
+Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
+Route::post('/profil/edit', [ProfilController::class, 'edit_akun']);
+Route::post('/profil/status/{status}', [ProfilController::class, 'edit_status']);
+
+//Aktivitas.
+Route::get('/aktivitas', [AktivitasController::class, 'index'])->name('aktivitas');
 
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

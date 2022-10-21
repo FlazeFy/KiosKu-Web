@@ -2,7 +2,7 @@
     <div class="card-body p-4">
         @php($config = json_decode($ak->status_akun_kios))
         @if($config->status == "aktif")
-            <form action="/akun/status/non-aktif" method="POST">
+            <form action="/profil/status/non-aktif" method="POST">
                 @csrf
                 <h5>Non-Aktifkan Kios</h5>
                 <div class="warning-box">
@@ -37,7 +37,7 @@
                 <button class="btn btn-warning text-white" type="submit"><i class="fa-solid fa-power-off"></i> Non-Aktifkan</button>
             </form>
         @else
-            <form action="/akun/status/aktif" method="POST">
+            <form action="/profil/status/aktif" method="POST">
                 @csrf
                 <h5>Aktifkan Kios</h5>
                 <div class="warning-box">
