@@ -34,7 +34,8 @@ Route::post('/login/{role}', [LandingController::class, 'login']);
 
 //Akun.
 Route::get('/akun', [AkunController::class, 'index'])->name('akun');
-Route::post('/edit/{id}', [AkunController::class, 'edit_akun']);
+Route::post('/akun/edit', [AkunController::class, 'edit_akun']);
+Route::post('/akun/status/{status}', [AkunController::class, 'edit_status']);
 
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

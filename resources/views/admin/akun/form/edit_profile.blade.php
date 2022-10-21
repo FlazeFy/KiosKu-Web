@@ -23,7 +23,7 @@
     </div>
     <hr class="my-0" style="background:#212121;"/>
     <div class="card-body p-4">
-        <form method="POST" action="/edit/{{$ak->id}}">
+        <form method="POST" action="akun/edit">
             @csrf
             <input name="username_old" value="{{$ak->username}}" hidden>
             <div class="row">

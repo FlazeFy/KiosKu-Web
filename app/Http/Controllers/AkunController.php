@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Kios;
+use App\Models\Riwayat_Kios;
 
 class AkunController extends Controller
 {
@@ -32,12 +33,7 @@ class AkunController extends Controller
             ->with('akun', $akun);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit_akun(Request $request, $id)
+    public function edit_akun(Request $request)
     {
         $count = 0;
         $username = $request->username;
@@ -53,7 +49,7 @@ class AkunController extends Controller
         }
         
         if($count == 0){
-            Kios::where('id', $id)->update([
+            Kios::where('id', session()->get('idKey'))->update([
                 'username' => $request->username,
                 'password' => $request->password,
                 'nama_kios' => $request->nama_kios,
@@ -64,21 +60,78 @@ class AkunController extends Controller
                 'updated_at' => date("Y-m-d h:m:i"),
             ]);
 
+            Riwayat_Kios::create([
+                'id_kios' => session()->get('idKey'),
+                'konteks_riwayat' => 'Akun Kios',
+                'deskripsi_riwayat' => 'mengubah data akun',
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
             return redirect()->back()->with('success_message', 'Berhasil mengubah data akun');
         } else {
             return redirect()->back()->with('failed_message', 'Gagal mengubah data, pastikan data telah diisi dengan benar');
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit_status(Request $request, $status)
     {
-        //
+        if($status == "non-aktif"){
+            //Status json config.
+            // $old = "";
+            
+            $old['status'] = $status; 
+            $old['date_start'] = null; 
+            $old['date_end'] = null; 
+        
+            $new = json_encode($old); 
+
+            Kios::where('id', session()->get('idKey'))->update([
+                'status_akun_kios' => $new,
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+            
+            //History.
+            Riwayat_Kios::create([
+                'id_kios' => session()->get('idKey'),
+                'konteks_riwayat' => 'Akun Kios',
+                'deskripsi_riwayat' => 'menon-aktifkan akun',
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('deactivate_message', 'Akun berhasil dinon-aktifkan. Selamat beristirahat dan sampai jumpa');
+        } else {
+            //Status json config.
+            // $old = "";
+            if($request->date_start == null ){
+                $date_start = date("Y/m/d");
+            } else {
+                $date_start = $request->date_start;
+            }
+            
+            $old['status'] = $status; 
+            $old['date_start'] = $date_start; 
+            $old['date_end'] = $request->date_end;
+        
+            $new = json_encode($old); 
+
+            Kios::where('id', session()->get('idKey'))->update([
+                'status_akun_kios' => $new,
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            //History.
+            Riwayat_Kios::create([
+                'id_kios' => session()->get('idKey'),
+                'konteks_riwayat' => 'Akun Kios',
+                'deskripsi_riwayat' => 'mengaktifkan akun',
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
+            return redirect()->back()->with('activate_message', 'Akun berhasil diaktifkan kembali. Selamat datang');
+        }
     }
 
     /**
