@@ -9,7 +9,7 @@
     }
 </style>
 
-<div class="card p-3 arsip-content">
+<div class="card p-3 arsip-content" style="height:88vh;">
     @if(session()->get('view_archieve') != null)
         @php($val = json_decode(session()->get('view_archieve'), true))
         <h6 class="text-primary">/Arsip/{{$val['nama_arsip']}}</h6>

@@ -112,7 +112,7 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <ul class="container-xxl flex-grow-1 container-p-y" id="myUL">
+                        <ul class="px-0" id="myUL">
                             @php($date_before = "")
                             @php($date_now = "")
                             @php($clps = 0)

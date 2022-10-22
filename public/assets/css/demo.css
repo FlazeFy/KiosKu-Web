@@ -18,6 +18,10 @@
   letter-spacing: -0.5px;
   text-transform: lowercase;
 }
+.layout-container .layout-page{
+  overflow:auto; 
+  height:100vh;
+}
 
 /* ! For .layout-navbar-fixed added fix padding top tpo .layout-page */
 /* Detached navbar */
@@ -28,6 +32,7 @@
 .layout-navbar-fixed .layout-wrapper:not(.layout-without-menu) .layout-page {
   padding-top: 64px !important;
 }
+
 
 /* Navbar page z-index issue solution */
 .content-wrapper .navbar {

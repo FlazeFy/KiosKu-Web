@@ -76,35 +76,53 @@
                 color:#676AFB !important; 
                 font-weight:500; 
                 cursor:pointer;
+                padding:6px 10px;
+                margin-top:-5px;
+                border-radius:6px;
+            }
+            .btn-link:hover{
+                background:#676AFB;
+                color:whitesmoke !important;
+            }
+
+            @media screen and (max-width: 1000px) {
+                .landing-image{
+                    display:none;
+                }
             }
         </style>
     </head>
 
     <body>
         <div class="layout-wrapper layout-content-navbar">
-            <div class="layout-container">
-                <div class="container login-box d-block mx-auto rounded shadow p-4 text-center my-5 mx-1 position-relative" style="max-width:450px;">
-                    <h2 class="app-brand-text demo menu-text fw-bolder ms-2 mt-2" style="color:#676AFB;">Selamat datang, di KiosKu</h2>
-                    <p class="text-secondary mb-5" style="font-weight:500;">Silahkan masuk menggunakan email dan password untuk menggunakan aplikasi ini</p>
-                    <form method="POST" action="login/1" >
-                        @csrf
-                        <div class="form-floating mb-4">
-                            <input type="username" class="form-control" id="floatingInput" placeholder="kiosku" name="username" required>
-                            <label for="floatingInput">Username</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingInput" placeholder="test123" name="password" required>
-                            <label for="floatingInput">Password</label>
-                        </div>
-                        <a class="btn-link float-end">Lupa Password?</a>
-                        <div class="form-check float-start ms-1">
-                            <input class="form-check-input" type="checkbox" value="1" style="font-size:18px;" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault" style="font-size:16px; font-weight:400;">Ingat Saya</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-5 mb-4 shadow w-100 fs-5 border-0"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk</button>
-                        <a class="text-muted mt-5" style="font-weight:500;">Pengguna baru? <a class="btn-link">Buat Akun</a></a>
-                    </form>
-                    <a class="btn-link float-start position-absolute" style="bottom:30px; left:30px;"><i class="fa-solid fa-angles-left"></i> Ganti peran masuk</a>
+            <div class="row p-0 m-0 w-100">
+                <div class="col-lg-6 landing-image">
+                    <img class="img img-fluid d-block mx-auto mt-5" src="{{asset('assets/img/storyset/Landing-1.png')}}" alt="Landing-1.png" style="height:80vh; width:85vh;">
+                </div>
+                <div class="col-lg-6">
+                    <div class="layout-container login-box d-block mx-auto p-4 text-center mx-1 position-relative">
+                        <h2 class="app-brand-text demo menu-text fw-bolder mt-4" style="color:#676AFB;">Selamat datang, di KiosKu</h2>
+                        <p class="text-secondary mb-5" style="font-weight:500;">Silahkan masuk menggunakan email dan password untuk menggunakan aplikasi ini</p>
+                        <form method="POST" action="login/1" class="d-block mx-auto" style="max-width:360px;">
+                            @csrf
+                            <div class="form-floating mb-4">
+                                <input type="username" class="form-control" id="floatingInput" name="username" required>
+                                <label for="floatingInput">Username</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="floatingInput" name="password" required>
+                                <label for="floatingInput">Password</label>
+                            </div>
+                            <a class="btn-link float-end">Lupa Password?</a>
+                            <div class="form-check float-start ms-1">
+                                <input class="form-check-input" type="checkbox" value="1" style="font-size:18px;" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault" style="font-size:16px; font-weight:400;">Ingat Saya</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-5 mb-4 shadow w-100 fs-5 border-0"><i class="fa-solid fa-arrow-right-to-bracket"></i> Masuk</button>
+                            <a class="text-muted mt-5" style="font-weight:500;">Pengguna baru? <a class="btn-link">Buat Akun</a></a>
+                        </form>
+                        <a class="btn-link float-start position-absolute" style="bottom:30px; left:30px;" title="Kembali ke pilih role"><i class="fa-solid fa-angles-left"></i> Ganti peran masuk</a>
+                    </div>
                 </div>
             </div>
 

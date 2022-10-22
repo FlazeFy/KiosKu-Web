@@ -137,12 +137,12 @@
 
                         <!-- Content wrapper -->
                         <div class="content-wrapper p-3">
-                            <section class="container-xxl flex-grow-1 container-p-y">
+                            <section class="px-0">
                                 <div class="card rounded shadow p-0">
                                     <!--Semua barang di rak-->
                                     @include('admin.rak.all_barang')
                                 </div>
-                                <div class="container rounded shadow p-3 mt-4">
+                                <div class="container-fluid rounded shadow py-3 mt-4">
                                     <!--Semua barang di rak-->
                                     @include('admin.rak.all_gudang')
                                 </div>

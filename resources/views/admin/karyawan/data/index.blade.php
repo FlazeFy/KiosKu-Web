@@ -126,7 +126,7 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="px-0">
                             <div class="row">
                                 <div class="col-md-12">
                                     <ul id="data-flters" class="nav nav-pills flex-column flex-md-row mb-3">

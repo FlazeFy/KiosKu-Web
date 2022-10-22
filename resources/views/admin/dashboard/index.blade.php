@@ -198,8 +198,8 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section id="dash-content" class="dash-content">
-                            <div class="container">
+                        <section id="dash-content" class="dash-content px-0">
+                            <div class="container-fluid">
                                 <div class="row dash-content-container">
                                     <div class="col-lg-2 col-md-3 dash-content-item">
                                         @include('admin.dashboard.penjualan')

@@ -29,7 +29,7 @@
     }
 </style>
 
-<div class="archieve-holder">
+<div class="archieve-holder" style="height:88vh;">
     @foreach($archieve as $ar)
         <form class="d-inline mx-auto" action="/arsip/view/{{$ar->id}}" method="POST">
             @csrf

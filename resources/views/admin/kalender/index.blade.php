@@ -134,10 +134,10 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section class="container-xxl flex-grow-1 container-p-y">
+                        <section class="px-0">
                             <div class="card rounded shadow p-3">
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 col-sm-12 pt-5">
+                                    <div class="col-lg-3 col-md-4 col-sm-12 p-4">
                                         <div class="mb-2">
                                             @include('admin.kalender.control')
                                         </div>

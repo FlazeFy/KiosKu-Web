@@ -174,7 +174,7 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section class="container-xxl flex-grow-1 container-p-y">
+                        <section class="dash-content px-0">
                             <!--Tabbar-->
                             @include('admin.akun_tabbar')
 

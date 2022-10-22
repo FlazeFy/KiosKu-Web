@@ -149,7 +149,7 @@
 
                     <!-- Content wrapper -->
                     <div class="content-wrapper p-3">
-                        <section class="container-xxl flex-grow-1 container-p-y">
+                        <section class="px-0">
                             <table class="w-100">
                                 <tr>
                                     <th style="width:13%; min-width:80px;"></th>
