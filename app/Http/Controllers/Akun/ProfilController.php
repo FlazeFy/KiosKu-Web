@@ -161,6 +161,9 @@ class ProfilController extends Controller
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
 
+        //Change session key for profile pic
+        $request->session()->put('profile_pic_kios', $imageURL);
+
         //History.
         Riwayat_Kios::create([
             'id_kios' => session()->get('idKey'),
@@ -191,6 +194,9 @@ class ProfilController extends Controller
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
 
+        //Change session key for profile pic
+        $request->session()->put('profile_pic_kios', null);
+
         //History.
         Riwayat_Kios::create([
             'id_kios' => session()->get('idKey'),
@@ -203,16 +209,10 @@ class ProfilController extends Controller
         return redirect()->back()->with('success_message', 'Foto profil berhasil direset');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function sign_out(Request $request)
     {
-        //
+        $request->session()->flush();
+        return redirect()->route('welcome');
     }
 
     /**

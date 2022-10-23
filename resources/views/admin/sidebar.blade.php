@@ -21,7 +21,11 @@
     <ul class="menu-inner py-1">
         <li class="menu-item<?php if((session()->get('active_nav') == "profil")||(session()->get('active_nav') == "aktivitas")){ echo " active"; }?>">
             <a href="/profil" class="menu-link fw-bold">
-                <img src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded me-2" height="30" width="30" id="uploadedAvatar"/>
+                @if(session()->get('profile_pic_kios') == null)
+                    <img id="frame" src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" class="d-block rounded-circle me-2" height="30" width="30" id="uploadedAvatar"/>
+                @else
+                    <img id="frame" src="{{url('storage/'.session()->get('profile_pic_kios'))}}" alt="{{session()->get('profile_pic_kios')}}.png" class="d-block rounded-circle me-2" height="30" width="30" id="uploadedAvatar"/>
+                @endif
                 <div data-i18n="Analytics">{{session()->get('usernameKey')}}</div>
             </a>
         </li>

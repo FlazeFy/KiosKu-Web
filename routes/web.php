@@ -30,7 +30,7 @@ use App\Http\Controllers\ArsipController;
 */
 
 //Landing.
-Route::get('/', [LandingController::class, 'index']);
+Route::get('/', [LandingController::class, 'index'])->name('welcome');
 Route::post('/login/{role}', [LandingController::class, 'login']);
 
 //Profil.
@@ -39,10 +39,12 @@ Route::post('/profil/edit', [ProfilController::class, 'edit_akun']);
 Route::post('/profil/status/{status}', [ProfilController::class, 'edit_status']);
 Route::post('/profil/edit_foto', [ProfilController::class, 'edit_foto']);
 Route::post('/profil/reset_foto', [ProfilController::class, 'reset_foto']);
+Route::post('/profil/sign_out', [ProfilController::class, 'sign_out']);
 
 //Aktivitas.
 Route::get('/aktivitas', [AktivitasController::class, 'index'])->name('aktivitas');
 Route::post('/aktivitas/delete/{id}', [AktivitasController::class, 'delete_aktivitas']);
+Route::post('/aktivitas/delete_all_aktivitas', [AktivitasController::class, 'delete_all_aktivitas']);
 
 //Dashboard.
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

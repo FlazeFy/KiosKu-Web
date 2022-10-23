@@ -26,8 +26,21 @@
         line-clamp: 2;
         -webkit-box-orient: vertical;
     }
+    .btn-reset-history{
+        font-weight:500;
+        border:2px solid transparent;
+        color: #df4759 !important;
+        background:none;
+        margin:6px;
+    }
+    .btn-reset-history:hover{
+        border:2px solid #df4759;
+    }
 </style>
 
+@if(count($riwayat) != 0)
+    <button class="btn btn-reset-history d-block mx-auto" data-bs-toggle="modal" data-bs-target="#delete-all-activity"><i class="fa-solid fa-arrows-rotate"></i> Hapus Semua</button>
+@endif
 <div class="row">
     @foreach($riwayat as $rw)
         <div class="col-lg-3 col-md-6 col-sm-12 p-2">
@@ -52,4 +65,10 @@
             </div>
         </div>
     @endforeach
+    @if(count($riwayat) == 0)
+        <div class="container p-4 text-center">
+            <img src="{{asset('assets/img/storyset/deactivate.png')}}" alt='deactivate.png' style="width:45vh;"><br>
+            <h5>Tidak ada aktivitas baru-baru ini</h5>
+        </div>
+    @endif
 </div>

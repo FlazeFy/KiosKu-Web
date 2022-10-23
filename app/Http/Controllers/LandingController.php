@@ -40,11 +40,13 @@ class LandingController extends Controller
                 //Get id
                 foreach($check as $c){
                     $id = $c->id;
+                    $profilepic = $c->kios_image_url;
                 }
 
                 $request->session()->put('idKey', $id);
-                $request->session()->put('usernameKey', $request-> username);
-                $request->session()->put('passwordKey', $request-> password);
+                $request->session()->put('usernameKey', $request->username);
+                $request->session()->put('passwordKey', $request->password);
+                $request->session()->put('profile_pic_kios', $profilepic);
                 return redirect()->route('dashboard');
             } else {
                 return redirect()->back()->with('failed_message', 'Username atau password Anda salah');

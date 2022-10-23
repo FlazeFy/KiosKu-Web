@@ -34,11 +34,6 @@ class AktivitasController extends Controller
             ->with('riwayat', $riwayat);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function delete_aktivitas($id)
     {
         Riwayat_Kios::destroy($id);
@@ -46,15 +41,11 @@ class AktivitasController extends Controller
         return redirect()->back()->with('success_message', 'Riwayat aktivitas berhasil dihapus');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function delete_all_aktivitas()
     {
-        //
+        DB::table('riwayat_kios')->where('id_kios', '=', session()->get('idKey'))->delete();
+
+        return redirect()->back()->with('success_message', 'Riwayat aktivitas berhasil dihapus');
     }
 
     /**
