@@ -11,6 +11,7 @@
             <div class="modal-footer">
                 <form action="/karyawan/data/delete_karyawan/{{$kr->id}}" method="POST">
                     @csrf
+                    <input name="nama_lengkap_karyawan" value="{{$kr->nama_lengkap_karyawan}}" hidden>
                     <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Hapus</button>
                 </form>
             </div>

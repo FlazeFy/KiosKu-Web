@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Karyawan;
 use App\Models\Tandai;
 use App\Models\Jabatan;
+use App\Models\Riwayat_Kios;
 
 class DataController extends Controller
 {
@@ -66,25 +67,28 @@ class DataController extends Controller
             'jabatan_karyawan' => 'required',
             'status_karyawan' => 'required',
             'gaji_karyawan' => 'required',
-            'image_url' => 'required',
         ]);
+
+        //Check username avaiability
+        $check = DB::table('karyawan')
+            ->select()
+            ->where('nama_karyawan', $request->nama_karyawan)
+            ->get();
         
         if (!$validator->fails()) {
-            //Check username avaiability
-            $check = DB::table('karyawan')
-                ->select()
-                ->where('nama_karyawan', $request->nama_karyawan)
-                ->get();
+            if($request->hasFile('image_url')){
+                //Validate image
+                $this->validate($request, [
+                    'image_url'     => 'required|image|mimes:jpeg,png,jpg|max:5000',
+                ]);
 
-            //Validate image
-            $this->validate($request, [
-                'image_url'     => 'required|image|mimes:jpeg,png,jpg|max:5000',
-            ]);
-
-            //Upload image
-            $image = $request->file('image_url');
-            $image->storeAs('public', $image->hashName());
-            $imageURL = $image->hashName();
+                //Upload image
+                $image = $request->file('image_url');
+                $image->storeAs('public', $image->hashName());
+                $imageURL = $image->hashName();
+            } else {
+                $imageURL = null;
+            }
 
             if(count($check) == 0){
                 //Karyawan data.
@@ -98,6 +102,15 @@ class DataController extends Controller
                     'status_karyawan' => $request->status_karyawan,
                     'gaji_karyawan' => $request->gaji_karyawan,
                     'karyawan_image_url' => $imageURL,
+                    'created_at' => date("Y-m-d h:m:i"),
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
+
+                //History.
+                Riwayat_Kios::create([
+                    'id_kios' => session()->get('idKey'),
+                    'konteks_riwayat' => 'Akun Karyawan',
+                    'deskripsi_riwayat' => 'menambahkan karyawan '.$request->nama_lengkap_karyawan.'',
                     'created_at' => date("Y-m-d h:m:i"),
                     'updated_at' => date("Y-m-d h:m:i"),
                 ]);
@@ -164,7 +177,46 @@ class DataController extends Controller
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
 
+        //History.
+        Riwayat_Kios::create([
+            'id_kios' => session()->get('idKey'),
+            'konteks_riwayat' => 'Akun Karyawan',
+            'deskripsi_riwayat' => 'mengganti foto profil '.$request->nama_lengkap_karyawan.'',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
         return redirect()->back()->with('success_message', 'Foto profil berhasil diperbarui');
+    }
+
+    public function reset_foto(Request $request, $id)
+    {
+        $karyawan_id = DB::table('karyawan')->where('id', $id)->get();
+        //Get old image url.
+        foreach($karyawan_id as $kr){
+            $old_image = $kr->karyawan_image_url;
+        }
+
+        //Delete old image.
+        if($old_image != null){
+            Storage::delete('public/'.$old_image);
+        }
+
+        Karyawan::where('id', $id)->update([
+            'karyawan_image_url' => null,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        //History.
+        Riwayat_Kios::create([
+            'id_kios' => session()->get('idKey'),
+            'konteks_riwayat' => 'Akun Karyawan',
+            'deskripsi_riwayat' => 'mengganti foto profil '.$request->nama_lengkap_karyawan.'',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Foto profil berhasil direset');
     }
 
 
@@ -184,6 +236,15 @@ class DataController extends Controller
             'gaji_karyawan' => $request->gaji_karyawan,
             'jabatan_karyawan' => $request->jabatan_karyawan,
             'status_karyawan' => $request->status_karyawan,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        //History.
+        Riwayat_Kios::create([
+            'id_kios' => session()->get('idKey'),
+            'konteks_riwayat' => 'Akun Karyawan',
+            'deskripsi_riwayat' => 'mengedit profil '.$request->nama_lengkap_karyawan.'',
+            'created_at' => date("Y-m-d h:m:i"),
             'updated_at' => date("Y-m-d h:m:i"),
         ]);
 
@@ -215,6 +276,15 @@ class DataController extends Controller
                 'updated_at' => date("Y-m-d h:m:i")
             ]);
 
+            //History.
+            Riwayat_Kios::create([
+                'id_kios' => session()->get('idKey'),
+                'konteks_riwayat' => 'Akun Karyawan',
+                'deskripsi_riwayat' => 'menambah jabatan '.$request->nama_jabatan.'',
+                'created_at' => date("Y-m-d h:m:i"),
+                'updated_at' => date("Y-m-d h:m:i"),
+            ]);
+
             return redirect()->back()->with('success_message', 'Jabatan berhasil ditambahkan');
         } else {
             return redirect()->back()->with('failed_message', 'Tambah jabatan gagal. Gunakan nama jabatan yang unik');
@@ -227,13 +297,22 @@ class DataController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_karyawan($id)
+    public function delete_karyawan(Request $request, $id)
     {
         Karyawan::destroy($id);
 
         //Delete others karyawan relation
         DB::table('absensi')->where('id_karyawan', '=', $id)->delete();
         DB::table('relasi_kasir')->where('id_karyawan', '=', $id)->delete();
+
+        //History.
+        Riwayat_Kios::create([
+            'id_kios' => session()->get('idKey'),
+            'konteks_riwayat' => 'Akun Karyawan',
+            'deskripsi_riwayat' => 'menghapus karyawan '.$request->nama_lengkap_karyawan.'',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
 
         return redirect()->back()->with('success_message', 'Karyawan berhasil dihapus');
     }

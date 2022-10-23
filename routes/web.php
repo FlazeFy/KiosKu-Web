@@ -67,6 +67,7 @@ Route::get('/karyawan/data', [DataController::class, 'index']);
 Route::post('/karyawan/data/delete_karyawan/{id}', [DataController::class, 'delete_karyawan']);
 Route::post('/karyawan/data/edit_karyawan/{id}', [DataController::class, 'edit_karyawan']);
 Route::post('/karyawan/data/edit_foto/{id}', [DataController::class, 'edit_foto']);
+Route::post('/karyawan/data/reset_foto/{id}', [DataController::class, 'reset_foto']);
 Route::post('/karyawan/data/tambah_karyawan', [DataController::class, 'tambah_karyawan']);
 Route::post('/karyawan/data/tambah_jabatan', [DataController::class, 'tambah_jabatan']);
 Route::post('/karyawan/data/unpin/{id}', [DataController::class, 'unpin']);

@@ -20,7 +20,7 @@
         <form method="POST" action="/karyawan/data/edit_foto/{{$kr->id}}"  id="formImage{{$kr->id}}" enctype="multipart/form-data">
         @csrf
             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                @if($kr->karyawan_image_url == "null")
+                @if($kr->karyawan_image_url == null)
                     <img id="frame{{$kr->id}}" src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
                 @else
                     <img id="frame{{$kr->id}}" src="{{url('storage/'.$kr->karyawan_image_url)}}" alt="{{$kr->karyawan_image_url}}.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
@@ -32,7 +32,13 @@
                     <input id="file-input{{$kr->id}}" type="file" name="image_url"/>
                 </div>
             </form>
-            <button class="btn btn-danger"><i class="bx bx-reset d-block d-sm-none"></i> Reset</button>
+            @if($kr->karyawan_image_url != null)
+                <form method="POST" action="/karyawan/data/reset_foto/{{$kr->id}}">
+                    @csrf
+                    <input name="nama_lengkap_karyawan" value="{{$kr->nama_lengkap_karyawan}}" hidden>
+                    <button class="btn btn-danger" type="submit"><i class="bx bx-reset d-block d-sm-none"></i> Reset</button>
+                </form>
+            @endif
             <p class="text-muted mb-0">Format gambar <b>JPG, GIF</b> or <b>PNG</b>. Ukuran maksimal <b>5 mb</b></p>
         </div>
     </div>
