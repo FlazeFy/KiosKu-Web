@@ -155,7 +155,7 @@ class DataController extends Controller
         $imageURL = $new_image->hashName();
 
         //Delete old image if new image is uploaded.
-        if(($request->file('image_url')->isValid())&&($old_image != "null")){
+        if(($request->file('image_url')->isValid())&&($old_image != null)){
             Storage::delete('public/'.$old_image);
         }
 

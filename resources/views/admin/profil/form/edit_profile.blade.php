@@ -2,22 +2,27 @@
     <h6 class="card-header text-white" style="background:#676AFB;">ID : {{$ak->id}}</h6>
     <!-- Account -->
     <div class="card-body p-4">
-        <form method="POST" action=""  id="formImage" enctype="multipart/form-data">
+        <form method="POST" action="/profil/edit_foto"  id="formImage" enctype="multipart/form-data">
         @csrf
             <div class="d-flex align-items-start align-items-sm-center gap-4">
                 @if($ak->kios_image_url == null)
                     <img id="frame" src="{{asset('assets/img/icons/default_avatar.png')}}" alt="default_avatar.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
                 @else
-                    <img id="frame" src="{{url('storage/'.$ak->kios_image_url)}}" alt="{{$ak->karyawan_image_url}}.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
+                    <img id="frame" src="{{url('storage/'.$ak->kios_image_url)}}" alt="{{$ak->kios_image_url}}.png" height="100" width="100" class="img img-avatar rounded-circle shadow"/>
                 @endif
-                <div class="image-upload" id="formFileEditAcc{{$ak->id}}" onchange="previewEditAcc<?php echo $ak->id; ?>()">
-                    <label for="file-input{{$ak->id}}">
+                <div class="image-upload" id="formFileEditAcc" onchange="previewEditAcc()">
+                    <label for="file-input">
                         <a class="btn btn-primary text-white">Ganti Foto</a>
                     </label>
-                    <input id="file-input{{$ak->id}}" type="file" name="image_url"/>
+                    <input id="file-input" type="file" name="image_url"/>
                 </div>
             </form>
-            <button class="btn btn-danger"><i class="bx bx-reset d-block d-sm-none"></i> Reset</button>
+            @if($ak->kios_image_url != null)
+                <form method="POST" action="/profil/reset_foto">
+                    @csrf
+                    <button class="btn btn-danger" type="submit"><i class="bx bx-reset d-block d-sm-none"></i> Reset</button>
+                </form>
+            @endif
             <p class="text-muted mb-0">Format gambar <b>JPG, GIF</b> or <b>PNG</b>. Ukuran maksimal <b>5 mb</b></p>
         </div>
     </div>

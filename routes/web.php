@@ -37,6 +37,8 @@ Route::post('/login/{role}', [LandingController::class, 'login']);
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil');
 Route::post('/profil/edit', [ProfilController::class, 'edit_akun']);
 Route::post('/profil/status/{status}', [ProfilController::class, 'edit_status']);
+Route::post('/profil/edit_foto', [ProfilController::class, 'edit_foto']);
+Route::post('/profil/reset_foto', [ProfilController::class, 'reset_foto']);
 
 //Aktivitas.
 Route::get('/aktivitas', [AktivitasController::class, 'index'])->name('aktivitas');

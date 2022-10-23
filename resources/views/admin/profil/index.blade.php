@@ -200,6 +200,15 @@
         @include('popup.activate')
         @include('popup.deactivate')
 
+        <script type="text/javascript">
+            function previewEditAcc() {
+                frame.src = URL.createObjectURL(event.target.files[0]);
+            }
+            document.getElementById('formFileEditAcc').onchange = function() {
+                document.getElementById('formImage').submit();
+            };
+        </script>
+
         <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js'></script>   
 
         <!-- Core JS -->
@@ -218,9 +227,6 @@
 
         <!-- Page JS -->
         <script src="../assets/js/dashboards-analytics.js"></script>
-        <script type="text/javascript">
-            
-        </script>
 
         <!-- Place this tag in your head or just before your close body tag. -->
         <script async defer src="https://buttons.github.io/buttons.js"></script>
