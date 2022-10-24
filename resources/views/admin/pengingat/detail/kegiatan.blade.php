@@ -59,6 +59,10 @@
     @if(count($kegiatan) != 0)
         @php($date_before = "")
         @foreach($kegiatan as $kg)
+            @php($status_bg = "")
+            @if($kg->id_context != null)
+                @php($status_bg = "background:rgba(105, 122, 255, 0.15);")
+            @endif
             <!--Date diff-->
             @php($date_now = date('H', strtotime($kg->waktu_mulai)))
             @if(($date_before == "") || ($date_before != $date_now))
@@ -68,7 +72,7 @@
                 </div>
             @endif
             <div class="pengingat-item">
-                <div class="kegiatan-detail-box shadow">
+                <div class="kegiatan-detail-box shadow" style="{{$status_bg}}">
                     <h6 class="text-success float-end">{{$kg->kegiatan_type}}</h6>
                     <h5>{{$kg->kegiatan_title}}</h5><hr>
                     <p class="text-secondary"><?php echo nl2br($kg->kegiatan_desc); ?></p>
@@ -92,7 +96,18 @@
                     <hr><div class="kegiatan-manage-box">
                         <a class="last-updated">Terakhir diubah : {{date("Y-m-d H:i", strtotime($kg->updated_at))}}</a>
                         <button class="btn btn-warning float-end me-2 text-white" data-bs-target="#edit-kegiatan-{{$kg->id}}" data-bs-toggle="modal"><i class="fa-solid fa-edit"></i> Edit</button>
-                        <button class="btn btn-primary float-end me-2"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                        <!-- <button class="btn btn-primary float-end me-2"><i class="fa-solid fa-thumbtack"></i> Tandai</button> -->
+                        @if($kg->id_context != null)
+                            <form action="/pengingat/unpin/{{$kg->id_tandai}}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-primary bg-white float-end me-2" style="color:#676AFA; border:2px solid #676AFA;"><i class="fa-solid fa-thumbtack"></i> Lepaskan</button>
+                            </form>
+                        @else
+                            <form action="/pengingat/pin/{{$kg->id}}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-primary float-end me-2"><i class="fa-solid fa-thumbtack"></i> Tandai</button>
+                            </form>
+                        @endif
                         <button type="submit" class="btn btn-success-secondary shadow-sm float-end me-2"><i class="fa-solid fa-check"></i> Selesaikan</button>
                     </div>
                 </div>

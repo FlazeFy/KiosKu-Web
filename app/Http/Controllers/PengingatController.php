@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Kegiatan;
+use App\Models\Tandai;
 
 class PengingatController extends Controller
 {
@@ -29,10 +30,23 @@ class PengingatController extends Controller
             $date = date("Y-m-d", strtotime(session()->get('filter_day_key')));
         }
 
-        $kegiatan = DB::table('kegiatan')
-            ->where('id_kios', session()->get('idKey'))
+        // $kegiatan = DB::table('kegiatan')
+        //     ->where('id_kios', session()->get('idKey'))
+        //     ->whereRaw("DATE(waktu_mulai) = '".$date."'")
+        //     ->orderBy('waktu_mulai', 'ASC')->get();   
+
+        //Check this again!!!
+        $kegiatan = Kegiatan::leftJoin("tandai", function ($join) {
+            $join->on("kegiatan.id", "=", "tandai.id_context")
+            ->where('tandai.type_context', 'kegiatan');
+            })
+            ->select('kegiatan.id', 'kegiatan_title', 'kegiatan_desc', 'kegiatan_type', 'kegiatan_url', 'waktu_mulai', 'waktu_selesai', 'kegiatan.created_at', 'kegiatan.updated_at', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')            ->where('kegiatan.id_kios', session()->get('idKey'))
+            ->groupBy('kegiatan.id')
+            ->where('kegiatan.id_kios', session()->get('idKey'))
             ->whereRaw("DATE(waktu_mulai) = '".$date."'")
-            ->orderBy('waktu_mulai', 'ASC')->get();   
+            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+            ->orderBy('waktu_mulai', 'ASC')
+            ->get();
     
         //Set active nav
         session()->put('active_nav', 'pengingat');
@@ -179,5 +193,24 @@ class PengingatController extends Controller
         Kegiatan::destroy($id);
 
         return redirect()->back()->with('success_message', 'Pengingat berhasil dihapus');
+    }
+
+    public function unpin($id)
+    {
+        Tandai::destroy($id);
+        return redirect()->back()->with('success_message', 'Pin dilepaskan');
+    }
+
+    public function pin($id)
+    {
+        Tandai::create([
+            'id_kios' => session()->get('idKey'),
+            'id_context' => $id,
+            'type_context' => 'kegiatan',
+            'created_at' => date("Y-m-d h:m:i"),
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Kegiatan ditandai');
     }
 }
