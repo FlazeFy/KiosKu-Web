@@ -58,6 +58,11 @@ class UpahController extends Controller
         //     ->where('id_kios', session()->get('idKey'))
         //     ->orderBy('created_at', 'DESC')->get();
 
+        $upah_karyawan = DB::table('karyawan')
+            ->select('nama_lengkap_karyawan','gaji_karyawan')
+            ->where('id_kios', session()->get('idKey'))
+            ->orderBy('gaji_karyawan', 'DESC')->get();
+
         $absen = DB::table('absensi')
             ->join('karyawan', 'karyawan.id', '=', 'absensi.id_karyawan')
             ->join('shift', 'shift.id', '=', 'absensi.id_shift')
@@ -70,6 +75,7 @@ class UpahController extends Controller
         return view ('admin.karyawan.upah.index')
             ->with('rak', $rak)
             ->with('karyawan', $karyawan)
+            ->with('upah_karyawan', $upah_karyawan)
             ->with('absen', $absen)
             //->with('jabatan', $jabatan)
             ->with('total_jabatan', $total_jabatan);

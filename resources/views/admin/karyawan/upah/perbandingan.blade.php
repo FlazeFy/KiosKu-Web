@@ -1,3 +1,10 @@
+<style>
+    .chart-holder{
+        overflow:auto;
+        max-height:100vh;
+    }
+</style>
+
 <button class="btn btn-transparent p-0 float-end" type="button" id="cardOpt-more" data-bs-toggle="dropdown" aria-haspopup="true"
     aria-expanded="false">
     <i class="fa-solid fa-ellipsis-vertical more"></i>
@@ -8,3 +15,6 @@
     <a class="dropdown-item" href="">Cetak</a>
 </div>
 <a class="title">Perbandingan Upah</a><br>
+<div class="chart-holder">
+    <div id="perbandinganUpah"></div>
+</div>

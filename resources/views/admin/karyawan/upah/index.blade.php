@@ -156,7 +156,7 @@
                                     <!--Jabatan-->
                                     @include('admin.karyawan.upah.jabatan')
                                 </div>
-                                <div class="container-fluid p-3 mt-3 position-relative rounded shadow" style="height:200px;">
+                                <div class="container-fluid p-3 mt-3 position-relative rounded shadow" style="height:400px;">
                                     <!--Perbandingan Upah-->
                                     @include('admin.karyawan.upah.perbandingan')
                                 </div>
@@ -283,6 +283,44 @@
                 statisticsChart.render();
             }
             })();
+
+            //Perbandingan upah.
+            var options = {
+                series: [{
+                data: [
+                    <?php 
+                        foreach($upah_karyawan as $uk){
+                            echo $uk->gaji_karyawan.",";
+                        }
+                    ?>
+                ]
+            }],
+                chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: [
+                    <?php 
+                        foreach($upah_karyawan as $uk){
+                            echo " '".$uk->nama_lengkap_karyawan."',";
+                        }
+                    ?>
+                ],
+            }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#perbandinganUpah"), options);
+            chart.render();
 
         </script>
 
