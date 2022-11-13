@@ -134,8 +134,12 @@
                         echo "
                             {
                                 groupId: '".$i."',
+                                id: '".$cp->id."',
                                 title: '".$cp->kegiatan_title."',
-                                start: '".$cp->date_c."'
+                                start: '".$cp->date_c."',
+                                extendedProps: {
+                                    datetime: '".$cp->time_c."'
+                                }
                             },
                         ";
                         $i++;
@@ -148,6 +152,27 @@
         eventClick:  function(info, jsEvent, view) {
             //
             $('#recipeDetailModal').modal('show');
+        },
+
+        eventDrop: function(info) {
+            var newDate= info.event.start
+            var fulldate = newDate.getFullYear() + "-" + ("0" + (newDate.getMonth()+1)).slice(-2) + "-" + ("0" + newDate.getDate()).slice(-2) + " " + info.event.extendedProps.datetime;
+            
+            //Post ajax
+            $.ajax({
+                url: 'kalender/edit_tanggal/'+info.event.id,
+                type: 'post',
+                data: {_token: '{{csrf_token()}}', waktu_mulai: fulldate},
+                dataType: 'json',
+                success: function( _response ){
+                    //...
+                },
+                error: function( _response ){
+                    // Handle error
+                }
+            });
+            location.reload();
+            
         },
 
         //Add event

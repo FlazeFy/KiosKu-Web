@@ -83,6 +83,7 @@ Route::post('/karyawan/upah/edit_upah/{id}', [UpahController::class, 'edit_upah'
 //Kalender
 Route::get('/kalender', [KalenderController::class, 'index']);
 Route::post('/kalender/filter', [KalenderController::class, 'filter']);
+Route::post('/kalender/edit_tanggal/{id}', [KalenderController::class, 'edit_tanggal']);
 
 //Pengingat
 Route::get('/pengingat', [PengingatController::class, 'index']);

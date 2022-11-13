@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
+use App\Models\Kegiatan;
+
 class KalenderController extends Controller
 {
     /**
@@ -65,7 +67,7 @@ class KalenderController extends Controller
         //Calendar absensi
         $calender_pengingat = DB::table('kegiatan')
             ->selectRaw(
-                "DATE(waktu_mulai) AS date_c, assignee, kegiatan_title, kegiatan_desc, kegiatan_type, kegiatan_url, waktu_selesai")
+                "id, DATE(waktu_mulai) AS date_c, DATE_FORMAT(waktu_mulai, '%H:%i') AS time_c, assignee, kegiatan_title, kegiatan_desc, kegiatan_type, kegiatan_url, waktu_selesai")
             ->where('id_kios', session()->get('idKey'))
             ->orderBy('date_c', 'DESC')->get();
 
@@ -98,9 +100,14 @@ class KalenderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function edit_tanggal(Request $request, $id)
     {
-        //
+        Kegiatan::where('id', $id)->update([
+            'waktu_mulai' => $request->waktu_mulai,
+            'updated_at' => date("Y-m-d h:m:i"),
+        ]);
+
+        return redirect()->back()->with('success_message', 'Pengingat berhasil diedit');
     }
 
     /**

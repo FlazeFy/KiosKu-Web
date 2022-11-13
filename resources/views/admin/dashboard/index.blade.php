@@ -676,7 +676,10 @@
                                 }
                             }
                         }
-                        echo ($count_after / $count_before * 100) - 100;
+
+                        if($count_before != 0){
+                            echo ($count_after / $count_before * 100) - 100;
+                        }
                     ?>
                 ],
                 chart: {
