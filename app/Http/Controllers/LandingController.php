@@ -62,11 +62,13 @@ class LandingController extends Controller
             if(count($check) != 0){
                 //Get id
                 foreach($check as $c){
-                    $id = $c->id;
+                    $id = $c->id_kios;
+                    $id_karyawan = $c->id;
                     $profilepic = $c->karyawan_image_url;
                 }
 
                 $request->session()->put('idKey', $id);
+                $request->session()->put('idKaryawan', $id_karyawan);
                 $request->session()->put('usernameKey', $request->username);
                 $request->session()->put('passwordKey', $request->password);
                 $request->session()->put('profile_pic_kios', $profilepic);

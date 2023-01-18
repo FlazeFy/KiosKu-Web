@@ -180,8 +180,12 @@
 
                             @foreach($akun as $ak)
                                 @include('admin.profil.form.edit_profile')
-                                @include('admin.profil.form.non_aktif')
-                                @include('admin.profil.form.hapus')
+
+                                <!--For "kios" role only-->
+                                @if(session()->get('role') == "kios")
+                                    @include('admin.profil.form.non_aktif')
+                                    @include('admin.profil.form.hapus')
+                                @endif
                             @endforeach
                         </section>
                     </div>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Kios;
+use App\Models\Karyawan;
 use App\Models\Riwayat_Kios;
 
 class ProfilController extends Controller
@@ -30,9 +31,19 @@ class ProfilController extends Controller
         //Set active nav
         session()->put('active_nav', 'profil');
 
-        return view ('admin.profil.index')
-            ->with('rak', $rak)
-            ->with('akun', $akun);
+        if(session()->get('role') == "kios"){
+            return view ('admin.profil.index')
+                ->with('rak', $rak)
+                ->with('akun', $akun);
+        } else if(session()->get('role') == "karyawan"){
+            $akun_karyawan = DB::table('karyawan')
+                ->where('id', session()->get('idKaryawan'))->get();
+
+            return view ('admin.profil.index')
+                ->with('rak', $rak)
+                ->with('akun', $akun)
+                ->with('akun_karyawan', $akun_karyawan);
+        }
     }
 
     public function edit_akun(Request $request)
@@ -40,39 +51,80 @@ class ProfilController extends Controller
         $count = 0;
         $username = $request->username;
 
-        if($request->username != $request->username_old){
-            $check = DB::table('kios')
-                ->select()
-                ->where('username', $request->username)
-                ->get();
+        if(session()->get('role') == "kios"){
+            //Change kios username
+            if($request->username != $request->username_old){
+                $check = DB::table('kios')
+                    ->select()
+                    ->where('username', $request->username)
+                    ->get();
+                
+                if(count($check) > 0){
+                    $username = $request->username_old;
+                }
+            }
             
-            $count = count($check);
-            $username = $request->username_old;
-        }
-        
-        if($count == 0){
-            Kios::where('id', session()->get('idKey'))->update([
-                'username' => $request->username,
-                'password' => $request->password,
-                'nama_kios' => $request->nama_kios,
-                'alamat_kios' => $request->alamat_kios,
-                'kontak_kios' => $request->kontak_kios,
-                'email_kios' => $request->email_kios,
-                'deskripsi_kios' => $request->deskripsi_kios,
-                'updated_at' => date("Y-m-d h:m:i"),
-            ]);
+            if($count == 0){
+                Kios::where('id', session()->get('idKey'))->update([
+                    'username' => $username,
+                    'password' => $request->password,
+                    'nama_kios' => $request->nama_kios,
+                    'alamat_kios' => $request->alamat_kios,
+                    'kontak_kios' => $request->kontak_kios,
+                    'email_kios' => $request->email_kios,
+                    'deskripsi_kios' => $request->deskripsi_kios,
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
 
-            Riwayat_Kios::create([
-                'id_kios' => session()->get('idKey'),
-                'konteks_riwayat' => 'Akun Kios',
-                'deskripsi_riwayat' => 'mengubah data akun',
-                'created_at' => date("Y-m-d h:m:i"),
-                'updated_at' => date("Y-m-d h:m:i"),
-            ]);
+                Riwayat_Kios::create([
+                    'id_kios' => session()->get('idKey'),
+                    'konteks_riwayat' => 'Akun Kios',
+                    'deskripsi_riwayat' => 'mengubah data akun',
+                    'created_at' => date("Y-m-d h:m:i"),
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
 
-            return redirect()->back()->with('success_message', 'Berhasil mengubah data akun');
-        } else {
-            return redirect()->back()->with('failed_message', 'Gagal mengubah data, pastikan data telah diisi dengan benar');
+                return redirect()->back()->with('success_message', 'Berhasil mengubah data akun');
+            } else {
+                return redirect()->back()->with('failed_message', 'Gagal mengubah data, pastikan data telah diisi dengan benar');
+            }
+
+        } else if(session()->get('role') == "karyawan"){
+            //Change karyawan username
+            if($request->username != $request->username_old){
+                $check = DB::table('karyawan')
+                    ->select()
+                    ->where('username_karyawan', $request->username)
+                    ->get();
+
+                if(count($check) > 0){
+                    $username = $request->username_old;
+                }
+            }
+            
+            if($count == 0){
+                Karyawan::where('id', session()->get('idKaryawan'))->update([
+                    'nama_karyawan' => $request->nama_karyawan,
+                    'nama_lengkap_karyawan' => $request->nama_lengkap_karyawan,
+                    'username_karyawan' => $username,
+                    'password_karyawan' => $request->password,
+                    'ponsel_karyawan' => $request->ponsel_karyawan,
+                    'email_karyawan' => $request->email_karyawan,
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
+
+                Riwayat_Kios::create([
+                    'id_kios' => session()->get('idKey'),
+                    'konteks_riwayat' => 'Akun Karyawan',
+                    'deskripsi_riwayat' => $username.' mengubah data akun',
+                    'created_at' => date("Y-m-d h:m:i"),
+                    'updated_at' => date("Y-m-d h:m:i"),
+                ]);
+
+                return redirect()->back()->with('success_message', 'Berhasil mengubah data akun');
+            } else {
+                return redirect()->back()->with('failed_message', 'Gagal mengubah data, pastikan data telah diisi dengan benar');
+            }
         }
     }
 
