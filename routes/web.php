@@ -31,7 +31,7 @@ use App\Http\Controllers\ArsipController;
 
 //Landing.
 Route::get('/', [LandingController::class, 'index'])->name('welcome');
-Route::post('/login/{role}', [LandingController::class, 'login']);
+Route::post('/login', [LandingController::class, 'login']);
 
 //Profil.
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil');

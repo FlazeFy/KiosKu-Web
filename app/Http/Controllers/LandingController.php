@@ -28,9 +28,9 @@ class LandingController extends Controller
         //
     }
 
-    public function login(Request $request, $role)
+    public function login(Request $request)
     {
-        if($role == 1){
+        if($request->role == 1){
             $check = DB::table('kios')
                 ->select()
                 ->where('username', $request->username)
@@ -47,6 +47,31 @@ class LandingController extends Controller
                 $request->session()->put('usernameKey', $request->username);
                 $request->session()->put('passwordKey', $request->password);
                 $request->session()->put('profile_pic_kios', $profilepic);
+                $request->session()->put('role', 'kios');
+
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->back()->with('failed_message', 'Username atau password Anda salah');
+            }   
+        } else if($request->role == 2){
+            $check = DB::table('karyawan')
+                ->select()
+                ->where('username_karyawan', $request->username)
+                ->where('password_karyawan', $request->password)
+                ->get();
+            if(count($check) != 0){
+                //Get id
+                foreach($check as $c){
+                    $id = $c->id;
+                    $profilepic = $c->karyawan_image_url;
+                }
+
+                $request->session()->put('idKey', $id);
+                $request->session()->put('usernameKey', $request->username);
+                $request->session()->put('passwordKey', $request->password);
+                $request->session()->put('profile_pic_kios', $profilepic);
+                $request->session()->put('role', 'karyawan');
+
                 return redirect()->route('dashboard');
             } else {
                 return redirect()->back()->with('failed_message', 'Username atau password Anda salah');

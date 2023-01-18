@@ -75,6 +75,7 @@
             </a>
         </li>
 
+        @if(session()->get('role') == 'kios')
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Manajemen</span></li>
         <li class="menu-item<?php if(session()->get('active_nav') == "barang"){ echo " active"; }?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -197,6 +198,7 @@
                 </li>
             </ul>
         </li>
+        @endif
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Kegiatan</span></li>
         <li class="menu-item<?php if(session()->get('active_nav') == "kalender"){ echo " active"; }?>">

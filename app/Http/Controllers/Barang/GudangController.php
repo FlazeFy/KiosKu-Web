@@ -21,32 +21,41 @@ class GudangController extends Controller
      */
     public function index()
     {
-        //All rak.
-        $rak = DB::table('rak')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        $role = "kios";
 
-        $kategori = DB::table('kategori')
-            ->where('id_kios', session()->get('idKey'))
-            ->orderBy('created_at', 'DESC')->get();
+        if(session()->get('role') == $role){
+            //All rak.
+            $rak = DB::table('rak')
+                ->where('id_kios', session()->get('idKey'))
+                ->orderBy('created_at', 'DESC')->get();
 
-        $barang = Barang::leftJoin("tandai", function ($join) {
-            $join->on("barang.id", "=", "tandai.id_context")
-            ->where('tandai.type_context', 'barang');
-            })
-            ->select('barang.id', 'barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'barang.harga_jual', 'barang.deskripsi_barang', 'barang.stok_barang', 'barang.image_url_barang', 'barang.created_at', 'barang.updated_at', 'barang.expired_at', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
-            ->where('barang.id_kios', session()->get('idKey'))
-            ->groupBy('barang.id')
-            ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
-            ->get();
+            $kategori = DB::table('kategori')
+                ->where('id_kios', session()->get('idKey'))
+                ->orderBy('created_at', 'DESC')->get();
 
-        //Set active nav
-        session()->put('active_nav', 'barang');
+            $barang = Barang::leftJoin("tandai", function ($join) {
+                $join->on("barang.id", "=", "tandai.id_context")
+                ->where('tandai.type_context', 'barang');
+                })
+                ->select('barang.id', 'barang.nama_barang', 'barang.kategori_barang', 'barang.harga_stok', 'barang.harga_jual', 'barang.deskripsi_barang', 'barang.stok_barang', 'barang.image_url_barang', 'barang.created_at', 'barang.updated_at', 'barang.expired_at', 'tandai.id_tandai', 'tandai.id_context', 'tandai.type_context')
+                ->where('barang.id_kios', session()->get('idKey'))
+                ->groupBy('barang.id')
+                ->orderByRaw('CASE WHEN id_tandai IS NULL then 1 else 0 end, id_tandai')
+                ->get();
 
-        return view ('admin.barang.gudang.index')
-            ->with('rak', $rak)
-            ->with('barang', $barang)
-            ->with('kategori', $kategori);
+            //Set active nav
+            session()->put('active_nav', 'barang');
+
+            return view ('admin.barang.gudang.index')
+                ->with('rak', $rak)
+                ->with('barang', $barang)
+                ->with('kategori', $kategori);
+        } else {
+            $myrole = session()->get('role');
+
+            return view ('errors.forbidden.index')
+                ->with('msg', 'Maaf, '.$myrole.' (Anda) tidak dapat mengakses halaman ini, halaman ini hanya dapat diakses oleh pengguna dengan role '. $role);
+        }
     }
 
     public function edit_barang(Request $request, $id)
